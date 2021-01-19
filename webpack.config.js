@@ -1,5 +1,4 @@
 const path = require('path');
-const path = require('path');
 
 module.exports = {
     context: __dirname,
@@ -15,7 +14,7 @@ module.exports = {
                 exclude: /(node_modules)/,
                 use: {
                     loader: 'babel-loader',
-                    query: {
+                    options: {
                         presets: ['@babel/env', '@babel/react']
                     }
                 },
