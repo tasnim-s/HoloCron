@@ -21,4 +21,5 @@ class Api::SessionsController < ApplicationController
         else
             render json: ["These aren't the droids you're looking for."], status: 403
         end
+    end
 end
