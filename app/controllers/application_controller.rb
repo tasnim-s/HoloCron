@@ -23,6 +23,6 @@ class ApplicationController < ActionController::Base
     end
 
     def ensure_logged_in
-        
+        render json: ["What it takes, you do not have young padawan"], status 403 unless logged_in?
     end
 end
