@@ -3,7 +3,14 @@ import React from 'react';
 export default class SessionForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {email: '', password: ''};
+        this.state = {
+            email: '',
+            password: '',
+            first_name: 'Test',
+            last_name: 'er',
+            birthday: '1/1/2021',
+            gender: 'M'
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 

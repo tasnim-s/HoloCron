@@ -1,7 +1,15 @@
 import React from 'react';
 
+import Modal from './modal';
+import Greeting from './header';
+
 export default () => (
     <div>
-        <h1>Holocron™</h1>
+        <header>
+            <Modal />
+            <h1>Holocron™</h1>
+            <Greeting />
+        </header>
+        
     </div>
 );
