@@ -7,6 +7,9 @@ const Greeting = ({ currentUser, logout, openModal}) => {
     const sessionLinks = () => (
         <nav>
             <button onClick={() => openModal('login')} >Login</button>
+            <br/>
+            or
+            <br/>
             <button onClick={() => openModal('signup')} >Sign Up</button>
         </nav>
     );

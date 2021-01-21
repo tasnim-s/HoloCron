@@ -41,20 +41,22 @@ export default class SessionForm extends React.Component {
                 <form onSubmit={this.handleSubmit} >
                     Welcome to Holocron™!
                     <br/>
-                    {this.props.formType} or {this.props.otherForm}
+                    {this.props.formType === "Log In" ? null : this.props.formType}
                     <div onClick={this.props.closeModal}>X</div>
                     {this.renderErrors()}
                     <div>
                         <br/>
-                        <label>Email:
-                            <input type="text" onChange={this.update('email')} value={this.state.email}/>
-                        </label>
+                        
+                            <input type="text" onChange={this.update('email')} value={this.state.email} placeholder="Email"/>
+                        
                         <br/>
-                        <label>Password:
-                            <input type="password" onChange={this.update('password')} value={this.state.password} />
-                        </label>
+                        
+                            <input type="password" onChange={this.update('password')} value={this.state.password} placeholder="Password"/>
+                        
                         <br/>
                         <button>{this.props.formType}</button>
+                        <br/>
+                        {this.props.otherForm}
                     </div>
                 </form>
             </div>

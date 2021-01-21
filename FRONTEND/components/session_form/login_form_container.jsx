@@ -6,12 +6,12 @@ import SessionForm from './session_form';
 
 const mstp = ({errors}) => ({
     errors: errors.sessionErrors,
-    formType: 'login'
+    formType: 'Log In'
 });
 
 const mdtp = dispatch => ({
     processForm: user => dispatch(login(user)),
-    otherForm: (<button onClick={() => dispatch(openModal('signup'))}>Sign Up</button>),
+    otherForm: (<button onClick={() => dispatch(openModal('signup'))}>Create New Account</button>),
     closeModal: () => dispatch(closeModal())
 });
 
