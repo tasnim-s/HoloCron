@@ -8,11 +8,7 @@ class SessionFormLogin extends React.Component {
         super(props);
         this.state = {
             email: '',
-            password: '',
-            first_name: 'Test',
-            last_name: 'er',
-            birthday: '1/1/2021',
-            gender: 'M'
+            password: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }

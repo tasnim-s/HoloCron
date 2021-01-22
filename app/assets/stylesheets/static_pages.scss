@@ -79,10 +79,13 @@ form {
     background: #42b72a;
     font-size: 17px;
     width: 200px;
+    height: 48px;
     margin-bottom: 5px;
   }
 }
-
+button:hover {
+  filter: brightness(.9);
+}
 .form-container {
   display: flex;
   height: 345px;
@@ -120,7 +123,7 @@ form {
     color: #1877F2;
     font-size: 64px;
     font-weight: bold;
-    margin-bottom: 28px;
+    margin-bottom: 16px;
     font-family: "Helvetica Neue"
   }
 }
@@ -129,4 +132,5 @@ form {
   align-content: center;
   text-align: center;
   color: red;
+  font-size: 13px;
 }
