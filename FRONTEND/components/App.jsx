@@ -14,7 +14,7 @@ export default () => (
         </nav>
         <Switch>
             <AuthRoute exact path="/login" component={LoginFormContainer} />
-            <ProtectedRoute exact path="/profile" component={ProfilePageContainer}/>
+            <ProtectedRoute exact path="/" component={ProfilePageContainer}/>
         </Switch>
     </div>
 );

@@ -221,7 +221,7 @@ __webpack_require__.r(__webpack_exports__);
     component: _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_4__.default
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
     exact: true,
-    path: "/profile",
+    path: "/",
     component: _profilepage_profilepage_container__WEBPACK_IMPORTED_MODULE_5__.default
   })));
 });
