@@ -90,16 +90,25 @@ form {
     height: 48px;
     margin-bottom: 5px;
   }
-  button:nth-of-type(3) {
-    background: #E1306C;
-    font-size: 17px;
+  .demo {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: #1877f2;
     width: 200px;
-    height: 48px;
-    margin-bottom: 5px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 button:hover {
   filter: brightness(.9);
+  cursor: pointer;
+}
+
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 .form-container {
   display: flex;

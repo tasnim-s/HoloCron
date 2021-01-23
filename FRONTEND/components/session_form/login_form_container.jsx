@@ -59,10 +59,10 @@ class SessionFormLogin extends React.Component {
                             <input type="text" onChange={this.update('email')} value={this.state.email} placeholder="Email" />
                             <input type="password" onChange={this.update('password')} value={this.state.password} placeholder="Password" />
                             <button>{formType}</button>
-                            <div className="form-errors">{this.renderErrors()}</div>
+                            {this.props.errors.length === 0 ? null : <div className="form-errors">{this.renderErrors()}</div>}
+                            <div className="demo">{demo}</div>
                             <div className="border"></div>
                             {otherForm}
-                            {demo}
                         </div>
                     </form>
                 </div>
@@ -81,9 +81,9 @@ const mdtp = dispatch => ({
     processForm: user => dispatch(login(user)),
     otherForm: (<button onClick={() => dispatch(openModal('signup'))}>Create New Account</button>),
     clearErrors: () => dispatch(clearErrors()),
-    demo: (<button onClick={() => dispatch(login({
+    demo: (<a onClick={() => dispatch(login({
         email: 'demo@user', password: 'demouser'
-    }))}>Demo Login</button>)
+    }))}>Demo Login?</a>)
 });
 
 export default connect(mstp,mdtp)(SessionFormLogin);

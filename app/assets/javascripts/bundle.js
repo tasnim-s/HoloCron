@@ -565,11 +565,13 @@ var SessionFormLogin = /*#__PURE__*/function (_React$Component) {
         onChange: this.update('password'),
         value: this.state.password,
         placeholder: "Password"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, formType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, formType), this.props.errors.length === 0 ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "form-errors"
       }, this.renderErrors()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "demo"
+      }, demo), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "border"
-      }), otherForm, demo))));
+      }), otherForm))));
     }
   }]);
 
@@ -597,14 +599,14 @@ var mdtp = function mdtp(dispatch) {
     clearErrors: function clearErrors() {
       return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__.clearErrors)());
     },
-    demo: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    demo: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
       onClick: function onClick() {
         return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__.login)({
           email: 'demo@user',
           password: 'demouser'
         }));
       }
-    }, "Demo Login")
+    }, "Demo Login?")
   };
 };
 
