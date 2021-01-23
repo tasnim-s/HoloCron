@@ -43,7 +43,7 @@ class SessionFormLogin extends React.Component {
 
 
     render() {
-        const { formType, otherForm } = this.props;
+        const { formType, otherForm, demo } = this.props;
         return (
             <div className="login-container">
 
@@ -62,6 +62,7 @@ class SessionFormLogin extends React.Component {
                             <div className="form-errors">{this.renderErrors()}</div>
                             <div className="border"></div>
                             {otherForm}
+                            {demo}
                         </div>
                     </form>
                 </div>
@@ -79,7 +80,10 @@ const mstp = ({errors}) => ({
 const mdtp = dispatch => ({
     processForm: user => dispatch(login(user)),
     otherForm: (<button onClick={() => dispatch(openModal('signup'))}>Create New Account</button>),
-    clearErrors: () => dispatch(clearErrors())
+    clearErrors: () => dispatch(clearErrors()),
+    demo: (<button onClick={() => dispatch(login({
+        email: 'demo@user', password: 'demouser'
+    }))}>Demo Login</button>)
 });
 
 export default connect(mstp,mdtp)(SessionFormLogin);

@@ -543,7 +543,8 @@ var SessionFormLogin = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           formType = _this$props.formType,
-          otherForm = _this$props.otherForm;
+          otherForm = _this$props.otherForm,
+          demo = _this$props.demo;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "login-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -568,7 +569,7 @@ var SessionFormLogin = /*#__PURE__*/function (_React$Component) {
         className: "form-errors"
       }, this.renderErrors()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "border"
-      }), otherForm))));
+      }), otherForm, demo))));
     }
   }]);
 
@@ -595,7 +596,15 @@ var mdtp = function mdtp(dispatch) {
     }, "Create New Account"),
     clearErrors: function clearErrors() {
       return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__.clearErrors)());
-    }
+    },
+    demo: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      onClick: function onClick() {
+        return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__.login)({
+          email: 'demo@user',
+          password: 'demouser'
+        }));
+      }
+    }, "Demo Login")
   };
 };
 
@@ -663,9 +672,9 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
       password: '',
       first_name: '',
       last_name: '',
-      month: '',
-      day: '',
-      year: '',
+      month: 'Jan',
+      day: '1',
+      year: '2020',
       gender: ''
     };
     _this.counter = 0;

@@ -11,9 +11,9 @@ class SessionFormSignup extends React.Component {
             password: '',
             first_name: '',
             last_name: '',
-            month: '',
-            day: '',
-            year: '',
+            month: 'Jan',
+            day: '1',
+            year: '2020',
             gender: ''
         };
         this.counter = 0;

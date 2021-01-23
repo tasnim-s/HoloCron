@@ -90,6 +90,13 @@ form {
     height: 48px;
     margin-bottom: 5px;
   }
+  button:nth-of-type(3) {
+    background: #E1306C;
+    font-size: 17px;
+    width: 200px;
+    height: 48px;
+    margin-bottom: 5px;
+  }
 }
 button:hover {
   filter: brightness(.9);
