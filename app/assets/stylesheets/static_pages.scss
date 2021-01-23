@@ -7,17 +7,25 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, .8);
   z-index: 10;
+  vertical-align: middle;
+  text-align: center;
+  width: 100%
 }
 
 .modal-child {
+  display: inline-block;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: whitesmoke;
   padding: 5px;
+  margin: 20px;
+  text-align: left;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+  border-radius: 8px;
 }
 
 nav {
@@ -26,9 +34,9 @@ nav {
   align-items: center;
 }
 
-div {
-  // background-color: red;
-}
+// div {
+//   background: red
+// }
 
 .login-container {
   display: flex;
@@ -133,4 +141,179 @@ button:hover {
   text-align: center;
   color: red;
   font-size: 13px;
+}
+
+.signup-header-message {
+  background: #fff;
+  margin-top: 0;
+  border-radius: 8px 8px 0 0;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  position: relative;
+  padding-top: 5px;
+  :first-child {
+    font-size: 33px;
+    font-weight: 900;
+    line-height: 38px;
+    color: #1c1e21;
+  }
+
+  :nth-child(2){
+    color: #606770;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.signup-form-container {
+  width: 432px;
+  #closemodal {
+    width: 36px;
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    z-index: 999;
+    font-size: 28px;
+    height: 36px;
+  }
+}
+
+.signup-form-contents {
+  background: #fff;
+  border-radius: 0 0 8px, 8px;
+  border-top: 1px solid #dadde1;
+  padding: 16px;
+  position: relative;
+  p {
+    height: 28px;
+    width: 399px;
+    font-size: 12px;
+    margin: 11px 0;
+    color: #777;
+  }
+  
+
+  .name-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    input {
+      box-sizing: border-box;
+      height: 40px;
+      width: 194px;
+      padding: 11px;
+      font-size: 15px;
+      line-height: 16px;
+      background: #f5f6f7;
+      border-radius: 5px;
+      border: 1px solid #ccd0d5;
+      margin-top: 0px;
+      margin-bottom: 10px;
+      // :first-of-type{
+      //   margin-right:
+      // }
+    }
+  }
+
+  .email-password-input {
+    // margin-bottom: 10px;
+    input{
+      margin-bottom: 10px;
+      margin-top: 0px;
+      padding: 11px;
+      font-size: 15px;
+      line-height: 16px;
+      background: #f5f6f7;
+      border-radius: 5px;
+      border: 1px solid #ccd0d5;
+      height: 16px;
+      width: 375px;
+      
+    }
+  }
+
+  .birthday-title, .gender-title{
+    color: #606770;
+    font-size: 13px;
+    line-height: 20px;
+    margin-bottom: 0px;
+    margin-top: 2px;
+  }
+
+  .month-day-year{
+    width: 399px;
+    height: 36px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    select {
+      height: 36px;
+      width: 125px;
+      border-radius: 4px;
+      color: #1c1e21;
+      font-size: 15px;
+      height: 36px;
+      line-height: 20px;
+      padding: 0 8px;
+      padding-right: 20px;
+      border: 1px solid #ccd0d5;
+    }
+  }
+
+  .gender-container{
+    width: 400px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    label {
+      box-sizing: border-box;
+      height: 36px;
+      width: 125px;
+      border-radius: 4px;
+      color: #1c1e21;
+      font-size: 15px;
+      height: 36px;
+      line-height: 20px;
+      padding: 0 8px;
+      padding-right: 0px;
+      border: 1px solid #ccd0d5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0px;
+      input { 
+        height: 13px;
+        width: 36px;
+        margin-top: 0;
+        color: red;
+        background: purple;
+        align-content: flex-end;
+      }
+    }
+  }
+
+
+  .sign-up-button-div {
+    display: flex;
+    justify-content: center;
+    button {
+      height: 36px;
+      width: 194px;
+      background: #00a400;
+      color: #fff;
+      font-size: 18px;
+      padding: 0 32px;
+    }
+  }
+
+  #closemodal {
+    width: 36px;
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    z-index: 999;
+    font-size: 14px;
+    height: 36px;
+  }
 }

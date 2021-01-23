@@ -221,7 +221,7 @@ __webpack_require__.r(__webpack_exports__);
     component: _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_4__.default
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
     exact: true,
-    path: "/",
+    path: "/profile",
     component: _profilepage_profilepage_container__WEBPACK_IMPORTED_MODULE_5__.default
   })));
 });
@@ -393,7 +393,7 @@ var ProfilePage = function ProfilePage(_ref) {
       last_name = user.last_name,
       birthday = user.birthday,
       gender = user.gender;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Inside ProfilePage", email, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), first_name, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), last_name, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), birthday, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), gender);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Inside ProfilePage", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), email, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), first_name, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), last_name, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), birthday, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), gender);
 };
 
 var mstp = function mstp(_ref2) {
@@ -501,15 +501,19 @@ var SessionFormLogin = /*#__PURE__*/function (_React$Component) {
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
-  } // componentDidMount() {
-  //     this.props.clearErrors();
-  // }
-  // componentWillUnmount() {
-  //     this.props.clearErrors();
-  // }
-
+  }
 
   _createClass(SessionFormLogin, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.clearErrors();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.clearErrors();
+    }
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
@@ -659,7 +663,9 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
       password: '',
       first_name: '',
       last_name: '',
-      birthday: '',
+      month: '',
+      day: '',
+      year: '',
       gender: ''
     };
     _this.counter = 0;
@@ -668,11 +674,25 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(SessionFormSignup, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.clearErrors();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.clearErrors();
+    }
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
       this.counter++;
       var user = Object.assign({}, this.state);
+      user["birthday"] = "".concat(this.state.month, "/").concat(this.state.day, "/").concat(this.state.year);
+      delete user[month];
+      delete user[day];
+      delete user[year];
       this.props.processForm(user).then(this.props.closeModal);
     }
   }, {
@@ -720,15 +740,20 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         return yearOptions;
       };
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "signup-form-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        id: "closemodal",
         onClick: closeModal
-      }, "X"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "x"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "signup-header-message"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, formType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "It's quick and easy")), this.counter === 0 ? null : this.renderErrors(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "border"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, formType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "It's quick and easy")), this.counter === 0 ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "form-errors"
+      }, this.renderErrors()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "signup-form-contents"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "name-inputs"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
@@ -740,7 +765,9 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         onChange: this.update('last_name'),
         value: this.state.last_name,
         placeholder: "Last name"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "email-password-input"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         onChange: this.update('email'),
         value: this.state.email,
@@ -750,15 +777,16 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         onChange: this.update('password'),
         value: this.state.password,
         placeholder: "New password"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "birthday-title"
       }, "Birthday"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-        className: "monthDayYear"
+        className: "month-day-year"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
-        id: "month"
+        value: this.state.month,
+        id: "month",
+        onChange: this.update('month')
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-        value: "Jan",
-        selected: true
+        value: "Jan"
       }, "Jan"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
         value: "Feb"
       }, "Feb"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
@@ -782,29 +810,45 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
       }, "Nov"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
         value: "Dec"
       }, "Dec")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
-        id: "day"
+        value: this.state.day,
+        id: "day",
+        onChange: this.update('day')
       }, dayOptions().map(function (option) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
+          key: "day".concat(option),
           value: "".concat(option)
         }, "".concat(option));
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
-        id: "year"
+        value: this.state.year,
+        id: "year",
+        onChange: this.update('year')
       }, yearOptions().map(function (option) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
+          key: "yr".concat(option),
           value: "".concat(option)
         }, "".concat(option));
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "gender-title"
       }, "Gender"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
         className: "gender-container"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
-        htmlFor: "female"
-      }, "Female"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Female", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "radio",
-        name: "gender",
-        id: "female",
-        value: "female"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, formType)));
+        value: "Female",
+        checked: this.state.gender === "Female",
+        onChange: this.update('gender')
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Male", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: "radio",
+        value: "Male",
+        onChange: this.update('gender'),
+        checked: this.state.gender === "Male"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Other", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: "radio",
+        value: "Other",
+        onChange: this.update('gender'),
+        checked: this.state.gender === "Other"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "By clicking Sign Up, you agree to go into a galaxy far, far away. Do. Or do not. There is no try."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "sign-up-button-div"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, formType)))));
     }
   }]);
 
@@ -1169,7 +1213,7 @@ var Auth = function Auth(_ref) {
     exact: exact,
     render: function render(props) {
       return !loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, props) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Redirect, {
-        to: "/"
+        to: "/profile"
       });
     }
   });

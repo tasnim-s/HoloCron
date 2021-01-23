@@ -13,13 +13,13 @@ class SessionFormLogin extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    // componentDidMount() {
-    //     this.props.clearErrors();
-    // }
+    componentDidMount() {
+        this.props.clearErrors();
+    }
 
-    // componentWillUnmount() {
-    //     this.props.clearErrors();
-    // }
+    componentWillUnmount() {
+        this.props.clearErrors();
+    }
 
     handleSubmit(e) {
         e.preventDefault();

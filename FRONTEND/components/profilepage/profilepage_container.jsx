@@ -5,6 +5,7 @@ const ProfilePage = ({user}) => {
     const {email, first_name, last_name, birthday, gender} = user;
     return (
         <div>Inside ProfilePage
+            <br/>
             {email}
             <br/>
             {first_name}

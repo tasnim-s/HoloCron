@@ -11,17 +11,32 @@ class SessionFormSignup extends React.Component {
             password: '',
             first_name: '',
             last_name: '',
-            birthday: '',
+            month: '',
+            day: '',
+            year: '',
             gender: ''
         };
         this.counter = 0;
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        this.props.clearErrors();
+    }
+
+    componentWillUnmount() {
+        this.props.clearErrors();
+    }
+
+
     handleSubmit(e) {
         e.preventDefault();
         this.counter++;
-        const user = Object.assign({}, this.state);
+        let user = Object.assign({}, this.state);
+        user["birthday"] = `${this.state.month}/${this.state.day}/${this.state.year}`;
+        delete user[month];
+        delete user[day];
+        delete user[year];
         this.props.processForm(user).then(this.props.closeModal);
     }
 
@@ -57,50 +72,66 @@ class SessionFormSignup extends React.Component {
             return yearOptions;
         };
         return (
-            <div>
+            <div className="signup-form-container">
                 <form onSubmit={this.handleSubmit} >
-                    <div onClick={closeModal}>X</div>
+                    
+                    <div id="closemodal" onClick={closeModal}>x</div>
                     <div className="signup-header-message">
-                        <div>{formType}</div>
+                        <div>
+                            {formType}
+                        </div>
                         <div>It's quick and easy</div>
                     </div>
-                    {this.counter === 0 ? null : this.renderErrors()}
-                    <div className="border"></div>
-                    <div className="name-inputs">
-                        <input type="text" onChange={this.update('first_name')} value={this.state.first_name} placeholder="First name" />
-                        <input type="text" onChange={this.update('last_name')} value={this.state.last_name} placeholder="Last name" />
+                    {this.counter === 0 ? null : <div className="form-errors">{this.renderErrors()}</div>}
+                    <div className="signup-form-contents">
+                        <div className="name-inputs">
+                            <input type="text" onChange={this.update('first_name')} value={this.state.first_name} placeholder="First name" />
+                            <input type="text" onChange={this.update('last_name')} value={this.state.last_name} placeholder="Last name" />
+                        </div>
+                        <div className="email-password-input">
+                            <input type="text" onChange={this.update('email')} value={this.state.email} placeholder="Email" />
+                            <input type="password" onChange={this.update('password')} value={this.state.password} placeholder="New password" />
+                        </div>
+                        <div className="birthday-title">Birthday</div>
+                        <span className="month-day-year">
+                            <select value={this.state.month} id="month" onChange={this.update('month')}>
+                                <option value="Jan">Jan</option>
+                                <option value="Feb">Feb</option>
+                                <option value="Mar">Mar</option>
+                                <option value="Apr">Apr</option>
+                                <option value="May">May</option>
+                                <option value="Jun">Jun</option>
+                                <option value="Jul">Jul</option>
+                                <option value="Aug">Aug</option>
+                                <option value="Sep">Sep</option>
+                                <option value="Oct">Oct</option>
+                                <option value="Nov">Nov</option>
+                                <option value="Dec">Dec</option>
+                            </select>
+                            <select value={this.state.day} id="day" onChange={this.update('day')}>
+                                {dayOptions().map(option => <option key={`day${option}`} value={`${option}`}>{`${option}`}</option>)}
+                            </select>
+                            <select value={this.state.year} id="year" onChange={this.update('year')}>
+                                {yearOptions().map(option => <option key={`yr${option}`} value={`${option}`}>{`${option}`}</option>)}
+                            </select>
+                        </span>
+                        <div className="gender-title">Gender</div>
+                        <span className="gender-container" >
+                            <label>Female
+                                <input type="radio" value="Female" checked={this.state.gender === "Female"} onChange={this.update('gender')} />
+                            </label>
+                            <label>Male
+                                <input type="radio" value="Male" onChange={this.update('gender')} checked={this.state.gender === "Male"} />
+                            </label>
+                            <label>Other
+                                <input type="radio" value="Other" onChange={this.update('gender')} checked={this.state.gender === "Other"} />
+                            </label>
+                        </span>
+                        <p>By clicking Sign Up, you agree to go into a galaxy far, far away. Do. Or do not. There is no try.</p>
+                        <div className="sign-up-button-div">
+                            <button>{formType}</button>
+                        </div>
                     </div>
-                    <input type="text" onChange={this.update('email')} value={this.state.email} placeholder="Email" />
-                    <input type="password" onChange={this.update('password')} value={this.state.password} placeholder="New password" />
-                    <div className="birthday-title">Birthday</div>
-                    <span className="monthDayYear">
-                        <select id="month">
-                            <option value="Jan" selected>Jan</option>
-                            <option value="Feb">Feb</option>
-                            <option value="Mar">Mar</option>
-                            <option value="Apr">Apr</option>
-                            <option value="May">May</option>
-                            <option value="Jun">Jun</option>
-                            <option value="Jul">Jul</option>
-                            <option value="Aug">Aug</option>
-                            <option value="Sep">Sep</option>
-                            <option value="Oct">Oct</option>
-                            <option value="Nov">Nov</option>
-                            <option value="Dec">Dec</option>
-                        </select>
-                        <select id="day">
-                            {dayOptions().map(option => <option value={`${option}`}>{`${option}`}</option>)}
-                        </select>
-                        <select id="year">
-                            {yearOptions().map(option => <option value={`${option}`}>{`${option}`}</option>)}
-                        </select>
-                    </span>
-                    <div className="gender-title">Gender</div>
-                    <span className="gender-container">
-                        <label htmlFor="female">Female</label>
-                        <input type="radio" name="gender" id="female" value="female"/>
-                    </span>
-                        <button>{formType}</button>
                 </form>
             </div>
         )
