@@ -87,7 +87,7 @@ const mdtp = dispatch => ({
     }}>Create New Account</a>),
     clearErrors: () => dispatch(clearErrors()),
     demo: (<a onClick={() => dispatch(login({
-        email: 'demo@user', password: 'demouser'
+        email: 'player1', password: 'player1'
     }))}>Demo Login?</a>)
 });
 
