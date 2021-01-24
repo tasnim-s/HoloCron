@@ -83,12 +83,39 @@ form {
     // margin: 20px 16px;
     text-align: center;
   }
-  button:nth-of-type(2) {
+
+  .create-new-account {
+    font-family: 'Roboto', sans-serif;
+    border-radius: 6px;
+    color: #fff;
     background: #42b72a;
     font-size: 17px;
     width: 200px;
     height: 48px;
     margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+      font-family: 'Roboto', sans-serif;
+      border-radius: 6px;
+      color: #fff;
+      background: #42b72a;
+      font-size: 17px;
+      width: 200px;
+      height: 48px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 200px;
+      height: 48px;
+      padding: 0;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+    }
   }
   .demo {
     font-family: 'Roboto', sans-serif;
@@ -106,7 +133,20 @@ button:hover {
   cursor: pointer;
 }
 
-a:hover {
+button:active {
+  transform: scale(.98);
+}
+
+.create-new-account:hover {
+  filter: brightness(.9);
+  cursor: pointer;
+}
+
+.create-new-account:active {
+  transform: scale(.98);
+}
+
+.demo a:hover {
   cursor: pointer;
   text-decoration: underline;
 }
@@ -184,13 +224,21 @@ a:hover {
 .signup-form-container {
   width: 432px;
   #closemodal {
+    color: #606770;
     width: 36px;
     position: absolute;
-    right: 0px;
-    top: 10px;
+    right: -5px;
+    top: 15px;
     z-index: 999;
-    font-size: 28px;
+    font-size: 20px;
     height: 36px;
+    
+  }
+  #closemodal:hover {
+    cursor: pointer;
+  }
+  #closemodal:active {
+    transform: scale(.98);
   }
 }
 
@@ -323,13 +371,4 @@ a:hover {
     }
   }
 
-  #closemodal {
-    width: 36px;
-    position: absolute;
-    right: 10px;
-    top: 12px;
-    z-index: 999;
-    font-size: 14px;
-    height: 36px;
-  }
 }

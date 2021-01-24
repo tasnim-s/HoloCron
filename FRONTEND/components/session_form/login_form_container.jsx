@@ -10,6 +10,7 @@ class SessionFormLogin extends React.Component {
             email: '',
             password: ''
         };
+        
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -62,7 +63,8 @@ class SessionFormLogin extends React.Component {
                             {this.props.errors.length === 0 ? null : <div className="form-errors">{this.renderErrors()}</div>}
                             <div className="demo">{demo}</div>
                             <div className="border"></div>
-                            {otherForm}
+                            <div className="create-new-account">{otherForm}</div>
+                            
                         </div>
                     </form>
                 </div>
@@ -79,7 +81,10 @@ const mstp = ({errors}) => ({
 
 const mdtp = dispatch => ({
     processForm: user => dispatch(login(user)),
-    otherForm: (<button onClick={() => dispatch(openModal('signup'))}>Create New Account</button>),
+    otherForm: (<a onClick={() => {
+        dispatch(openModal('signup'));
+        dispatch(clearErrors());
+    }}>Create New Account</a>),
     clearErrors: () => dispatch(clearErrors()),
     demo: (<a onClick={() => dispatch(login({
         email: 'demo@user', password: 'demouser'

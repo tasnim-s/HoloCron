@@ -75,7 +75,7 @@ class SessionFormSignup extends React.Component {
             <div className="signup-form-container">
                 <form onSubmit={this.handleSubmit} >
                     
-                    <div id="closemodal" onClick={closeModal}>x</div>
+                    <div id="closemodal" onClick={closeModal}>✕</div>
                     <div className="signup-header-message">
                         <div>
                             {formType}
