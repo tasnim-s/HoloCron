@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
 export default class NavBar extends React.Component {
     constructor(props){
         super(props);
         this.state = {hidden: true};
         this.handleClick = this.handleClick.bind(this);
         this.dropDown = React.createRef();
+        this.logo = window.logo;
     }
     componentDidMount() {
         this.dropDownListener = e => {
@@ -29,7 +31,7 @@ export default class NavBar extends React.Component {
         const personalGreeting = () => (
             <div className="nav-bar">
                 <div className="logo-and-search">
-                    <Link className="logo-icon" to="/"><i className="fas fa-jedi"></i></Link>
+                    <Link className="logo-icon" to="/"><img src={this.logo} alt=""/></Link>
                     <input className="search-field" type="text" placeholder="Search Holocron" />
                 </div>
 
@@ -50,7 +52,11 @@ export default class NavBar extends React.Component {
                     <div onClick={this.handleClick} ref={div => this.dropDown = div} className="settings-dropdown">
                         <i  className="fas fa-caret-square-down"></i>
                         {!this.state.hidden && <div className="dropdown-contents" onClick={e => e.stopPropagation()}>
-                            <i onClick={logout} className="fas fa-sign-out-alt">Log Out</i>
+                            <div className="logout-button">
+                                <i onClick={logout} className="fas fa-sign-out-alt"></i>
+                                <div className="logout-text">Log Out</div>
+                            </div>
+                            
                         </div>}
                     </div>
                 </div>
