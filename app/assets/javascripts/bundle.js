@@ -293,11 +293,29 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
       hidden: true
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
-    _this.handleFocus = _this.handleFocus.bind(_assertThisInitialized(_this));
+    _this.dropDown = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
     return _this;
   }
 
   _createClass(NavBar, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.dropDownListener = function (e) {
+        if (!_this2.dropDown.contains(e.target)) _this2.setState({
+          hidden: true
+        });
+      };
+
+      document.addEventListener('click', this.dropDownListener, true);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('click', this.dropDownListener);
+    }
+  }, {
     key: "handleClick",
     value: function handleClick(e) {
       this.setState({
@@ -307,7 +325,7 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _this$props = this.props,
           currentUser = _this$props.currentUser,
@@ -359,11 +377,14 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
         }, currentUser.firstName, " ", currentUser.lastName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
           className: "fas fa-plus-circle"
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          onClick: _this3.handleClick,
+          ref: function ref(div) {
+            return _this3.dropDown = div;
+          },
           className: "settings-dropdown"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-          onClick: _this2.handleClick,
           className: "fas fa-caret-square-down"
-        }), !_this2.state.hidden && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        }), !_this3.state.hidden && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "dropdown-contents",
           onClick: function onClick(e) {
             return e.stopPropagation();

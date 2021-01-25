@@ -6,7 +6,17 @@ export default class NavBar extends React.Component {
         super(props);
         this.state = {hidden: true};
         this.handleClick = this.handleClick.bind(this);
-        this.handleFocus = this.handleFocus.bind(this);
+        this.dropDown = React.createRef();
+    }
+    componentDidMount() {
+        this.dropDownListener = e => {
+            if (!this.dropDown.contains(e.target)) this.setState({hidden: true});
+        }
+        document.addEventListener('click', this.dropDownListener, true);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.dropDownListener);
     }
 
     handleClick(e) {
@@ -37,8 +47,8 @@ export default class NavBar extends React.Component {
                         </Link>
                         <i className="fas fa-plus-circle"></i>
                     </div>
-                    <div className="settings-dropdown">
-                        <i onClick={this.handleClick} className="fas fa-caret-square-down"></i>
+                    <div onClick={this.handleClick} ref={div => this.dropDown = div} className="settings-dropdown">
+                        <i  className="fas fa-caret-square-down"></i>
                         {!this.state.hidden && <div className="dropdown-contents" onClick={e => e.stopPropagation()}>
                             <i onClick={logout} className="fas fa-sign-out-alt">Log Out</i>
                         </div>}
