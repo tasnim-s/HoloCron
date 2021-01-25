@@ -8,16 +8,13 @@ import ProfilePageContainer from './profilepage/profilepage_container';
 import LoginFooter from './login_footer/login_footer';
 
 export default () => (
-    <div>
+    <div className="App">
         <Modal />
-        
-        <NavBarContainer />
-        
+        <ProtectedRoute exact path="/" component={NavBarContainer} />
         <Switch>
             <AuthRoute exact path="/login" component={LoginFormContainer} />
             <ProtectedRoute exact path="/" component={ProfilePageContainer}/>
         </Switch>
-
         <footer>
             <AuthRoute exact path="/login" component={LoginFooter} />
         </footer>

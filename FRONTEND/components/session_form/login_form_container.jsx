@@ -64,7 +64,6 @@ class SessionFormLogin extends React.Component {
                             <div className="demo">{demo}</div>
                             <div className="border"></div>
                             <div className="create-new-account">{otherForm}</div>
-                            
                         </div>
                     </form>
                 </div>
