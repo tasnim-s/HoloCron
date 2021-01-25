@@ -189,10 +189,13 @@ button:active {
 }
 
 .form-errors {
+  list-style: none;
   align-content: center;
   text-align: left;
   color: red;
   font-size: 13px;
+  padding-left: 10px;
+  padding-bottom: 10px;
 }
 
 .signup-header-message {

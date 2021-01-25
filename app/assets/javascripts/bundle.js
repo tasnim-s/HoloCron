@@ -710,7 +710,8 @@ var SessionFormLogin = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           formType = _this$props.formType,
           otherForm = _this$props.otherForm,
-          demo = _this$props.demo;
+          demo = _this$props.demo,
+          modal = _this$props.modal;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "login-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -731,7 +732,7 @@ var SessionFormLogin = /*#__PURE__*/function (_React$Component) {
         onChange: this.update('password'),
         value: this.state.password,
         placeholder: "Password"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, formType), this.props.errors.length === 0 ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, formType), this.props.errors.length === 0 || modal === 'signup' ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "form-errors"
       }, this.renderErrors()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "demo"
@@ -747,10 +748,12 @@ var SessionFormLogin = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 var mstp = function mstp(_ref) {
-  var errors = _ref.errors;
+  var errors = _ref.errors,
+      ui = _ref.ui;
   return {
     errors: errors.sessionErrors,
-    formType: 'Log In'
+    formType: 'Log In',
+    modal: ui.modal
   };
 };
 
@@ -886,12 +889,20 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "renderErrors",
-    value: function renderErrors() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, this.props.errors.map(function (error, i) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-          key: i
-        }, error);
-      }));
+    value: function renderErrors(field) {
+      for (var i = 0; i < this.props.errors.length; i++) {
+        if (this.props.errors[i].includes(field)) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, this.props.errors[i]);
+        }
+      }
+
+      return null; // return (
+      //     <ul>
+      //         {this.props.errors.map((error, i) => (
+      //             <li key={i}>{error}</li>
+      //         ))}
+      //     </ul>
+      // )
     }
   }, {
     key: "render",
@@ -929,9 +940,7 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         onClick: closeModal
       }, "\u2715"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "signup-header-message"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, formType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "It's quick and easy")), this.counter === 0 ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "form-errors"
-      }, this.renderErrors()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, formType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "It's quick and easy")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "signup-form-contents"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "name-inputs"
@@ -945,19 +954,25 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         onChange: this.update('last_name'),
         value: this.state.last_name,
         placeholder: "Last name"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      })), !this.renderErrors("First") || !this.renderErrors("Last") ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "form-errors"
+      }, "What's your name?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "email-password-input"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         onChange: this.update('email'),
         value: this.state.email,
         placeholder: "Email"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "form-errors"
+      }, this.renderErrors("Email")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "password",
         onChange: this.update('password'),
         value: this.state.password,
         placeholder: "New password"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "form-errors"
+      }, this.renderErrors("Password"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "birthday-title"
       }, "Birthday"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
         className: "month-day-year"
@@ -1008,6 +1023,8 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
           value: "".concat(option)
         }, "".concat(option));
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "form-errors"
+      }, this.renderErrors("Birthday")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "gender-title"
       }, "Gender"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
         className: "gender-container"
@@ -1026,7 +1043,9 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         value: "Other",
         onChange: this.update('gender'),
         checked: this.state.gender === "Other"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "By clicking Sign Up, you agree to go into a galaxy far, far away. Do. Or do not. There is no try."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "form-errors"
+      }, this.renderErrors("Gender")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "By clicking Sign Up, you agree to go into a galaxy far, far away. Do. Or do not. There is no try."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "sign-up-button-div"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, formType)))));
     }

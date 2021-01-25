@@ -44,7 +44,7 @@ class SessionFormLogin extends React.Component {
 
 
     render() {
-        const { formType, otherForm, demo } = this.props;
+        const { formType, otherForm, demo, modal } = this.props;
         return (
             <div className="login-container">
 
@@ -60,7 +60,7 @@ class SessionFormLogin extends React.Component {
                             <input type="text" onChange={this.update('email')} value={this.state.email} placeholder="Email" />
                             <input type="password" onChange={this.update('password')} value={this.state.password} placeholder="Password" />
                             <button>{formType}</button>
-                            {this.props.errors.length === 0 ? null : <div className="form-errors">{this.renderErrors()}</div>}
+                            {this.props.errors.length === 0 || modal === 'signup' ? null : <div className="form-errors">{this.renderErrors()}</div>}
                             <div className="demo">{demo}</div>
                             <div className="border"></div>
                             <div className="create-new-account">{otherForm}</div>
@@ -73,9 +73,10 @@ class SessionFormLogin extends React.Component {
     }
 }
 
-const mstp = ({errors}) => ({
+const mstp = ({errors, ui}) => ({
     errors: errors.sessionErrors,
-    formType: 'Log In'
+    formType: 'Log In',
+    modal: ui.modal
 });
 
 const mdtp = dispatch => ({

@@ -44,14 +44,20 @@ class SessionFormSignup extends React.Component {
         return e => this.setState({ [field]: e.currentTarget.value });
     }
 
-    renderErrors() {
-        return (
-            <ul>
-                {this.props.errors.map((error, i) => (
-                    <li key={i}>{error}</li>
-                ))}
-            </ul>
-        )
+    renderErrors(field) {
+        for(let i = 0; i < this.props.errors.length; i++){
+            if (this.props.errors[i].includes(field)) {
+                return <li>{this.props.errors[i]}</li>
+            }
+        }
+        return null;
+        // return (
+        //     <ul>
+        //         {this.props.errors.map((error, i) => (
+        //             <li key={i}>{error}</li>
+        //         ))}
+        //     </ul>
+        // )
     }
 
 
@@ -82,15 +88,21 @@ class SessionFormSignup extends React.Component {
                         </div>
                         <div>It's quick and easy</div>
                     </div>
-                    {this.counter === 0 ? null : <div className="form-errors">{this.renderErrors()}</div>}
+                    
                     <div className="signup-form-contents">
                         <div className="name-inputs">
                             <input type="text" onChange={this.update('first_name')} value={this.state.first_name} placeholder="First name" />
+                            
                             <input type="text" onChange={this.update('last_name')} value={this.state.last_name} placeholder="Last name" />
                         </div>
+                        {!this.renderErrors("First") || !this.renderErrors("Last") ? null : <div className="form-errors">What's your name?</div>}
+                        {/* <div className="form-errors">{this.renderErrors("First")} {this.renderErrors("Last")}</div> */}
+                        {/* <div className="form-errors">{this.renderErrors("Last")}</div> */}
                         <div className="email-password-input">
                             <input type="text" onChange={this.update('email')} value={this.state.email} placeholder="Email" />
+                            <div className="form-errors">{this.renderErrors("Email")}</div>
                             <input type="password" onChange={this.update('password')} value={this.state.password} placeholder="New password" />
+                            <div className="form-errors">{this.renderErrors("Password")}</div>
                         </div>
                         <div className="birthday-title">Birthday</div>
                         <span className="month-day-year">
@@ -115,6 +127,7 @@ class SessionFormSignup extends React.Component {
                                 {yearOptions().map(option => <option key={`yr${option}`} value={`${option}`}>{`${option}`}</option>)}
                             </select>
                         </span>
+                        <div className="form-errors">{this.renderErrors("Birthday")}</div>
                         <div className="gender-title">Gender</div>
                         <span className="gender-container" >
                             <label>Female
@@ -127,6 +140,7 @@ class SessionFormSignup extends React.Component {
                                 <input type="radio" value="Other" onChange={this.update('gender')} checked={this.state.gender === "Other"} />
                             </label>
                         </span>
+                        <div className="form-errors">{this.renderErrors("Gender")}</div>
                         <p>By clicking Sign Up, you agree to go into a galaxy far, far away. Do. Or do not. There is no try.</p>
                         <div className="sign-up-button-div">
                             <button>{formType}</button>

@@ -9,7 +9,7 @@ class Api::SessionsController < ApplicationController
             login(@user)
             render "api/users/show"
         else
-            render json: ["WRONG!!!"], status: 401
+            render json: ["With you, the Force is not."], status: 401
         end
     end
 
