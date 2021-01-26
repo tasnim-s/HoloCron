@@ -2,9 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.fas fa-jedi {
-  font-size: 100px;
-}
+
+
 .modal-background {
   position: fixed;
   top: 0;
@@ -405,7 +404,7 @@ button:active {
     text-decoration: none;
   }
   color: #e4e6eb;
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
@@ -416,6 +415,7 @@ button:active {
   align-items: center;
   background-color: #1c1e21;
   padding: 0 10px;
+  z-index: 999;
   i, a {
     color: #b0b3b8;
   }
@@ -532,7 +532,7 @@ button:active {
         align-items: center;
         position: absolute;
         // height: 430px;
-        height: 130px;
+        height: 135px;
         width: 360px;
         background: #252526;
         top: 54px;
@@ -548,6 +548,8 @@ button:active {
           justify-content: center;
           align-items: center;
           border-radius: 7px;
+          margin-top: 5px;
+          margin-bottom: 5px;
           .see-your-profile-container {
             display: flex;
             flex-direction: column;
@@ -574,7 +576,7 @@ button:active {
         }
 
         .divider {
-          border: 1px solid #dadde1;
+          border: 1px solid #3d4042;
           width: 328px;
         }
 
@@ -588,6 +590,8 @@ button:active {
           justify-content: flex-start;
           align-items: center;
           border-radius: 7px;
+          margin-top: 5px;
+          margin-bottom: 5px;
 
           i {
             margin: 8px 12px 8px 0px;
@@ -596,13 +600,35 @@ button:active {
       }
     }
   }
+}
+
+// ___________________________________________________________________________
+.profile-page-container{
+  position: absolute;
+  background-color: red;
+  top: 56px;
 
 
+  .cover-photo-container {
+    width: 940px;
+    height: 349px;
+    background: black;
+    img {
+      width: inherit;
+      height: inherit;
+    }
+  }
 
+  .profile-pic-container {
+    width: 168px;
+    height: 168px;
+    border-radius: 50%;
+    img {
+      width: inherit;
+      height: inherit;
+      border-radius: inherit;
+    }
+  }
 
-
-
-
-
-
+  
 }

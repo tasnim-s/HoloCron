@@ -11,10 +11,12 @@ export default () => (
     <div className="App">
         <Modal />
         <ProtectedRoute exact path="/" component={NavBarContainer} />
+        {/* <div className="rest-of-page"> */}
         <Switch>
             <AuthRoute exact path="/login" component={LoginFormContainer} />
-            <ProtectedRoute exact path="/" component={ProfilePageContainer}/>
+            <ProtectedRoute exact path="/" component={ProfilePageContainer} />
         </Switch>
+        {/* </div> */}
         <footer>
             <AuthRoute exact path="/login" component={LoginFooter} />
         </footer>

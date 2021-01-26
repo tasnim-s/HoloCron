@@ -1,21 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import CoverPhoto from './cover_photo';
+import ProfilePic from './profile-pic';
 
 const ProfilePage = ({user}) => {
-    const {email, first_name, last_name, birthday, gender} = user;
+    const { email, firstName, lastName, birthday, gender, coverUrl, propicUrl} = user;
     return (
-        <div>
+        <div className="profile-page-container">
             Inside ProfilePage
-            <br/>
-            {email}
-            <br/>
-            {first_name}
-            <br />
-            {last_name}
-            <br />
-            {birthday}
-            <br />
-            {gender}
+            <CoverPhoto coverPhoto={coverUrl}/>
+            <ProfilePic proPic={propicUrl} />
+            <div className="profile-page-name">
+                <h1>{firstName} {lastName}</h1>
+            </div>
+            <div className="divider"></div>
+            
+
         </div>
     )
 };

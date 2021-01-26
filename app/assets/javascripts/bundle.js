@@ -556,6 +556,56 @@ var mdtp = function mdtp(dispatch) {
 
 /***/ }),
 
+/***/ "./FRONTEND/components/profilepage/cover_photo.jsx":
+/*!*********************************************************!*\
+  !*** ./FRONTEND/components/profilepage/cover_photo.jsx ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (_ref) {
+  var coverPhoto = _ref.coverPhoto;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "cover-photo-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: coverPhoto,
+    alt: "Your Cover Photo Here"
+  }));
+});
+
+/***/ }),
+
+/***/ "./FRONTEND/components/profilepage/profile-pic.jsx":
+/*!*********************************************************!*\
+  !*** ./FRONTEND/components/profilepage/profile-pic.jsx ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (_ref) {
+  var proPic = _ref.proPic;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "profile-pic-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: proPic,
+    alt: "Your Profile Pic Here"
+  }));
+});
+
+/***/ }),
+
 /***/ "./FRONTEND/components/profilepage/profilepage_container.jsx":
 /*!*******************************************************************!*\
   !*** ./FRONTEND/components/profilepage/profilepage_container.jsx ***!
@@ -569,17 +619,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _cover_photo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cover_photo */ "./FRONTEND/components/profilepage/cover_photo.jsx");
+/* harmony import */ var _profile_pic__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./profile-pic */ "./FRONTEND/components/profilepage/profile-pic.jsx");
+
+
 
 
 
 var ProfilePage = function ProfilePage(_ref) {
   var user = _ref.user;
   var email = user.email,
-      first_name = user.first_name,
-      last_name = user.last_name,
+      firstName = user.firstName,
+      lastName = user.lastName,
       birthday = user.birthday,
-      gender = user.gender;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Inside ProfilePage", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), email, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), first_name, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), last_name, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), birthday, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), gender);
+      gender = user.gender,
+      coverUrl = user.coverUrl,
+      propicUrl = user.propicUrl;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "profile-page-container"
+  }, "Inside ProfilePage", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_cover_photo__WEBPACK_IMPORTED_MODULE_2__.default, {
+    coverPhoto: coverUrl
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_profile_pic__WEBPACK_IMPORTED_MODULE_3__.default, {
+    proPic: propicUrl
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "profile-page-name"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, firstName, " ", lastName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "divider"
+  }));
 };
 
 var mstp = function mstp(_ref2) {
