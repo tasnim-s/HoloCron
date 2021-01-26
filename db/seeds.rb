@@ -8,7 +8,7 @@
 
 player1 = User.create(first_name: "Baby", last_name: "Yoda", email: "player1", password: 'player1', birthday: 'Apr/1/2020', gender: 'Male')
 
-player1.cover_photo.attach(io: File.open("/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/app/assets/images/bernie_totoro.jpg"), filename: "bernie.jpg")
+player1.cover_photo.attach(io: File.open("app/assets/images/bernie_totoro.jpg"), filename: "bernie.jpg")
 
-player1.profile_pic.attach(io: File.open("/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/app/assets/images/babyYoda.jpg"), filename: "grogu.jpg")
+player1.profile_pic.attach(io: File.open("app/assets/images/babyYoda.jpg"), filename: "grogu.jpg")
 
