@@ -15,7 +15,7 @@ export default class NavBar extends React.Component {
         this.dropDownListener = e => {
             if (!this.dropDown.contains(e.target)) this.setState({hidden: true});
         }
-        document.addEventListener('click', this.dropDownListener, true);
+        document.addEventListener('click', this.dropDownListener, false);
     }
 
     componentWillUnmount() {

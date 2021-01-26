@@ -11,6 +11,9 @@ const Modal = ({modal, closeModal}) => {
         case 'signup':
             component = <SignupFormContainer />;
             break;
+        case 'editprofile':
+            component = <EditProfileFormContainer />;
+            break;
         default:
             return null;
     }
