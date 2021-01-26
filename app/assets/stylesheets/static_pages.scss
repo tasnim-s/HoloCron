@@ -493,7 +493,7 @@ button:active {
       }
       .name-pic{
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-content: center;
         align-items: center;
         height: 40px;
@@ -630,5 +630,5 @@ button:active {
     }
   }
 
-  
+
 }

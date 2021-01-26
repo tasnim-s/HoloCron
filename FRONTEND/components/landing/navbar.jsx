@@ -46,7 +46,7 @@ export default class NavBar extends React.Component {
                     <div className="nav-right">
                         <Link className='name-pic' to={`/user/${currentUser.id}`}>
                             <img src={this.babyYoda} alt=""/>
-                            <div className="display-name">{currentUser.firstName} {currentUser.lastName}</div>
+                            <div className="display-name">{currentUser.firstName}</div>
                         </Link>
                         <i className="fas fa-plus-circle"></i>
                     </div>
