@@ -509,7 +509,7 @@ button:active {
           background: #3a3b3c;
         }
       .fa-plus-circle {
-        font-size: 38px;
+        font-size: 36px;
         border-radius: 50%;
       }
     }
@@ -519,16 +519,80 @@ button:active {
       .fa-caret-square-down{
         font-size: 38px;
         margin-right: 5px;
+        padding-bottom: 2px;
       }
       .dropdown-contents {
+        .see-your-profile:hover, .logout-button:hover {
+          background: #3a3b3c;
+          cursor: pointer;
+        }
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
         position: absolute;
-        height: 430px;
+        // height: 430px;
+        height: 130px;
         width: 360px;
         background: #252526;
         top: 54px;
         right: 14px;
         border-radius: 8px;
         box-shadow: 0 12px 28px 0 rgba(0,0,0,0.2), 0 2px 4px 0 rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.05);
+
+        .see-your-profile {
+          display: flex;
+          background: #252526;
+          width: 344px;
+          height: 76px;
+          justify-content: center;
+          align-items: center;
+          border-radius: 7px;
+          .see-your-profile-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            width: 256px;
+            height: 57px;
+            padding: 0 8px;
+            .display-name {
+              font-size: 17px;
+              margin-bottom: 5px;
+            }
+            .see-your-profile-text {
+              color: #dadde1;
+              font-size: 15px;
+            }
+          }
+          img {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            margin-right: 12px;
+          }
+        }
+
+        .divider {
+          border: 1px solid #dadde1;
+          width: 328px;
+        }
+
+        .logout-button {
+          box-sizing: border-box;
+          background: #252526;
+          width: 344px;
+          height: 52px;
+          padding: 0 8px;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          border-radius: 7px;
+
+          i {
+            margin: 8px 12px 8px 0px;
+          }
+        }
       }
     }
   }

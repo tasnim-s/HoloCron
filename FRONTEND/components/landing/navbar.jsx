@@ -9,6 +9,7 @@ export default class NavBar extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.dropDown = React.createRef();
         this.logo = window.logo;
+        this.babyYoda = window.babyYoda;
     }
     componentDidMount() {
         this.dropDownListener = e => {
@@ -44,7 +45,7 @@ export default class NavBar extends React.Component {
                 <div className="settings-link">
                     <div className="nav-right">
                         <Link className='name-pic' to={`/user/${currentUser.id}`}>
-                            <img src={currentUser.photoUrl} alt=""/>
+                            <img src={this.babyYoda} alt=""/>
                             <div className="display-name">{currentUser.firstName} {currentUser.lastName}</div>
                         </Link>
                         <i className="fas fa-plus-circle"></i>
@@ -52,8 +53,16 @@ export default class NavBar extends React.Component {
                     <div onClick={this.handleClick} ref={div => this.dropDown = div} className="settings-dropdown">
                         <i  className="fas fa-caret-square-down"></i>
                         {!this.state.hidden && <div className="dropdown-contents" onClick={e => e.stopPropagation()}>
-                            <div className="logout-button">
-                                <i onClick={logout} className="fas fa-sign-out-alt"></i>
+                            <div className="see-your-profile">
+                                <img src={this.babyYoda} alt="" />
+                                <div className="see-your-profile-container">
+                                    <span className="display-name">{currentUser.firstName} {currentUser.lastName}</span>
+                                    <span className="see-your-profile-text">See your profile</span>
+                                </div>
+                            </div>
+                            <div className="divider"></div>
+                            <div onClick={logout} className="logout-button">
+                                <i className="fas fa-sign-out-alt"></i>
                                 <div className="logout-text">Log Out</div>
                             </div>
                             

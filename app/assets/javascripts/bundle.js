@@ -295,6 +295,7 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     _this.dropDown = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
     _this.logo = window.logo;
+    _this.babyYoda = window.babyYoda;
     return _this;
   }
 
@@ -372,7 +373,7 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
           className: "name-pic",
           to: "/user/".concat(currentUser.id)
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          src: currentUser.photoUrl,
+          src: _this3.babyYoda,
           alt: ""
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "display-name"
@@ -392,9 +393,22 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
             return e.stopPropagation();
           }
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "see-your-profile"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          src: _this3.babyYoda,
+          alt: ""
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "see-your-profile-container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+          className: "display-name"
+        }, currentUser.firstName, " ", currentUser.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+          className: "see-your-profile-text"
+        }, "See your profile"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "divider"
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          onClick: logout,
           className: "logout-button"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-          onClick: logout,
           className: "fas fa-sign-out-alt"
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "logout-text"
