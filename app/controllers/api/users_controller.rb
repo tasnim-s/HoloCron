@@ -11,6 +11,7 @@ class Api::UsersController < ApplicationController
 
     def show
         @user = User.find_by(id: params(:id))
+        @posts = @user.posts
         render :show
     end
 
@@ -27,6 +28,9 @@ class Api::UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:email, :password, :first_name, :last_name, :birthday, :gender)
+        params.require(:user).transform_keys(&:underscore).permit(:email, :password, :first_name, :last_name, :birthday, :gender, :bio, :workplace, :school, :current_city)
     end
+
+
+    
 end

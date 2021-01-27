@@ -22,6 +22,7 @@ const Protected = ({ component: Component, path, loggedIn, exact }) => (
     )} />
 );
 
+
 const mstp = ({session}) => ({
     loggedIn: Boolean(session.id)
 });

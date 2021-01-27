@@ -6,9 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-player1 = User.create(first_name: "Grogu", last_name: "Yoda", email: "player1", password: 'player1', birthday: 'Apr/1/2020', gender: 'Male')
+User.destroy_all
+Post.destroy_all
+demo = User.create(first_name: "Grogu", last_name: "Yoda", email: "player1", password: 'player1', birthday: 'Apr 1, 2020', gender: 'Male', bio: 'May the force be with you.', workplace: 'Jedi Temple', school: 'Jedi Academy', current_city: 'Coruscant')
 
-player1.cover_photo.attach(io: File.open("app/assets/images/bernie_totoro.jpg"), filename: "bernie.jpg")
+demo.cover_photo.attach(io: File.open("app/assets/images/bernie_totoro.jpg"), filename: "bernie.jpg")
 
-player1.profile_pic.attach(io: File.open("app/assets/images/babyYoda.jpg"), filename: "grogu.jpg")
+demo.profile_pic.attach(io: File.open("app/assets/images/babyYoda.jpg"), filename: "grogu.jpg")
 

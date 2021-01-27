@@ -272,14 +272,10 @@ button:active {
       border: 1px solid #ccd0d5;
       margin-top: 0px;
       margin-bottom: 10px;
-      // :first-of-type{
-      //   margin-right:
-      // }
     }
   }
 
   .email-password-input {
-    // margin-bottom: 10px;
     input{
       margin-bottom: 10px;
       margin-top: 0px;
@@ -377,7 +373,6 @@ button:active {
   padding: 20px 0px 0px;
   display: flex;
   flex-direction: column;
-  // justify-content: center;
   align-items: center;
 
   .login-footer-content {
@@ -392,6 +387,7 @@ button:active {
 
 // -------------------------------------------------------------------------
 .nav-bar {
+  border-bottom: 1px solid #393a3b;
   ::placeholder {
     color: #b0b3b8;
     opacity: 1;
@@ -413,7 +409,8 @@ button:active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1c1e21;
+  // background-color: #1c1e21;
+  background: #232626;
   padding: 0 10px;
   z-index: 999;
   i, a {
@@ -605,24 +602,20 @@ button:active {
 // ___________________________________________________________________________
 .profile-page-container{
   position: absolute;
-  background-color: red;
+  
   top: 56px;
-
+  left: 0;
+  right: 0;
+  color: #e3e6ea;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .cover-photo-container {
     width: 940px;
     height: 349px;
     background: black;
-    img {
-      width: inherit;
-      height: inherit;
-    }
-  }
-
-  .profile-pic-container {
-    width: 168px;
-    height: 168px;
-    border-radius: 50%;
+    border-radius: 0px 0px max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 0px 0px 8px 8px;
     img {
       width: inherit;
       height: inherit;
@@ -630,5 +623,65 @@ button:active {
     }
   }
 
+  .profile-pic-container {
+    width: 168px;
+    height: 168px;
+    border-radius: 50%;
+    position: relative;
+    top: -155px;
+    z-index: 2;
+    img {
+      width: inherit;
+      height: inherit;
+      border-radius: inherit;
+    }
+  }
 
+  
+
+}
+
+.profile-page-top {
+  background: #232626;
+  top: inherit;
+  height: 508px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .pp-name-bio {
+    position: relative;
+    top: -135px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 99px;
+    // width: 100%;
+    z-index: 3;
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .bio {
+      font-size: 17px;
+      color: #b0b3b8;
+      font-family: system-ui;
+    }
+  }
+
+  .divider {
+    position: relative;
+    top: -110px;
+    width: 876px;
+    border-top: 1px solid #3e4042;
+  }
+}
+
+.profile-page-content {
+  background: #18191a;
+  height: 500px;
+  width: 100%;
 }

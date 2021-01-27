@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../actions/modal_actions';
 import SignupFormContainer from './session_form/signup_form_container';
+import EditProfileFormContainer from './profilepage/edit_profile_form_container';
 
 const Modal = ({modal, closeModal}) => {
     if (!modal) return null;

@@ -9,7 +9,6 @@ export default class NavBar extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.dropDown = React.createRef();
         this.logo = window.logo;
-        this.babyYoda = window.babyYoda;
     }
     componentDidMount() {
         this.dropDownListener = e => {
@@ -44,8 +43,8 @@ export default class NavBar extends React.Component {
 
                 <div className="settings-link">
                     <div className="nav-right">
-                        <Link className='name-pic' to={`/user/${currentUser.id}`}>
-                            <img src={this.babyYoda} alt=""/>
+                        <Link className='name-pic' to={`/profile`}>
+                            <img src={currentUser.propicUrl} alt=""/>
                             <div className="display-name">{currentUser.firstName}</div>
                         </Link>
                         <i className="fas fa-plus-circle"></i>
@@ -54,7 +53,7 @@ export default class NavBar extends React.Component {
                         <i  className="fas fa-caret-square-down"></i>
                         {!this.state.hidden && <div className="dropdown-contents" onClick={e => e.stopPropagation()}>
                             <div className="see-your-profile">
-                                <img src={this.babyYoda} alt="" />
+                                <img src={currentUser.propicUrl} alt="" />
                                 <div className="see-your-profile-container">
                                     <span className="display-name">{currentUser.firstName} {currentUser.lastName}</span>
                                     <span className="see-your-profile-text">See your profile</span>

@@ -1,9 +1,10 @@
 import React from 'react';
 
+
 export default (props) => {
     return (
-        <div className="edit-form-container">
-            EDIT YOUR PROFILE
+        <div className="create-post-container">
+            What's on your mind?
         </div>
     )
 }

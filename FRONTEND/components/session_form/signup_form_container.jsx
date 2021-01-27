@@ -9,8 +9,8 @@ class SessionFormSignup extends React.Component {
         this.state = {
             email: '',
             password: '',
-            first_name: '',
-            last_name: '',
+            firstName: '',
+            lastName: '',
             month: 'Jan',
             day: '1',
             year: '2020',
@@ -33,7 +33,7 @@ class SessionFormSignup extends React.Component {
         e.preventDefault();
         this.counter++;
         let user = Object.assign({}, this.state);
-        user["birthday"] = `${this.state.month}/${this.state.day}/${this.state.year}`;
+        user["birthday"] = `${this.state.month} ${this.state.day}, ${this.state.year}`;
         delete user[month];
         delete user[day];
         delete user[year];
@@ -91,9 +91,9 @@ class SessionFormSignup extends React.Component {
                     
                     <div className="signup-form-contents">
                         <div className="name-inputs">
-                            <input type="text" onChange={this.update('first_name')} value={this.state.first_name} placeholder="First name" />
+                            <input type="text" onChange={this.update('firstName')} value={this.state.firstName} placeholder="First name" />
                             
-                            <input type="text" onChange={this.update('last_name')} value={this.state.last_name} placeholder="Last name" />
+                            <input type="text" onChange={this.update('lastName')} value={this.state.lastName} placeholder="Last name" />
                         </div>
                         {!this.renderErrors("First") || !this.renderErrors("Last") ? null : <div className="form-errors">What's your name?</div>}
                         {/* <div className="form-errors">{this.renderErrors("First")} {this.renderErrors("Last")}</div> */}
