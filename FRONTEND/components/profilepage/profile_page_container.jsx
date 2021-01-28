@@ -5,8 +5,10 @@ import CoverPhoto from './cover_photo';
 import MenuBar from './menu_bar';
 import ProfilePic from './profile_pic';
 import UserPostsContainer from './user_posts_container';
+import { openModal, closeModal } from '../../actions/modal_actions';
+import { clearErrors } from '../../actions/session_actions';
 
-const ProfilePage = ({user, editProfileForm}) => {
+const ProfilePage = ({user, editProfileForm, closeModal}) => {
     const { email, firstName, lastName, birthday, coverUrl, propicUrl, bio, workplace, school, currentCity} = user;
     return (
         <div className="profile-page-container">
@@ -16,17 +18,19 @@ const ProfilePage = ({user, editProfileForm}) => {
 
                 <div className="pp-name-bio">
                     <h1>{firstName} {lastName}</h1>
-                    {bio && <div className="bio">{bio}</div>}
+                    {bio ? <div className="bio">{bio}</div> : <div className="bio">Add Bio</div>}
                 </div>
-                
+
                 <div className="divider"></div>
                 <MenuBar editProfile={editProfileForm}/>
 
             </div>
             
-            <div className="profile-page-content">
-                <About email={email} birthday={birthday}workplace={workplace} school={school}currentCity={currentCity} />
-                <UserPostsContainer />
+            <div className="profile-page-bot">
+                <div className="pp-content-container">
+                    <About email={email} birthday={birthday} workplace={workplace} school={school} currentCity={currentCity} />
+                    <UserPostsContainer user={user} />
+                </div>
             </div>
             
         </div>
@@ -41,7 +45,8 @@ const mdtp = dispatch => ({
     editProfileForm: (<a onClick={() => {
         dispatch(openModal('editprofile'));
         dispatch(clearErrors());
-    }}>Edit Profile</a>)
+    }}>Edit Profile</a>),
+    closeModal: () => dispatch(closeModal())
 });
 
 export default connect(mstp, mdtp)(ProfilePage);

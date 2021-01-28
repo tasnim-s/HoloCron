@@ -28,3 +28,5 @@ export const signup = user => dispatch => SessUtil.signup(user).then(user => dis
 export const login = user => dispatch => SessUtil.login(user).then(user => dispatch(receiveCurrentUser(user)), err => dispatch(receiveErrors(err.responseJSON)));
 
 export const logout = () => dispatch => SessUtil.logout().then(() => dispatch(logoutCurrentUser()), err => dispatch(receiveErrors(err.responseJSON)));
+
+export const update = user => dispatch => SessUtil.update(user).then(user => dispatch(receiveCurrentUser(user)), err => dispatch(receiveErrors(err.responseJSON)));

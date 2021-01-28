@@ -1,10 +1,16 @@
 import React from 'react';
 
 
-export default (props) => {
+export default ({user}) => {
     return (
         <div className="create-post-container">
-            What's on your mind?
+            <div className="propic-and-button">
+                <div className="propic">
+                    {user.propicUrl ? <img src={user.propicUrl} /> : <img src={window.defaultPropic} />}
+                </div>
+                <div className="post-button">What's on your mind?</div>
+            </div>
+            <div className="addphoto"></div>
         </div>
     )
 }

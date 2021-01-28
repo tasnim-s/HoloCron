@@ -126,7 +126,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "clearErrors": () => /* binding */ clearErrors,
 /* harmony export */   "signup": () => /* binding */ signup,
 /* harmony export */   "login": () => /* binding */ login,
-/* harmony export */   "logout": () => /* binding */ logout
+/* harmony export */   "logout": () => /* binding */ logout,
+/* harmony export */   "update": () => /* binding */ update
 /* harmony export */ });
 /* harmony import */ var _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/session_api_util */ "./FRONTEND/util/session_api_util.js");
 
@@ -181,6 +182,15 @@ var logout = function logout() {
   return function (dispatch) {
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__.logout().then(function () {
       return dispatch(logoutCurrentUser());
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
+    });
+  };
+};
+var update = function update(user) {
+  return function (dispatch) {
+    return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__.update(user).then(function (user) {
+      return dispatch(receiveCurrentUser(user));
     }, function (err) {
       return dispatch(receiveErrors(err.responseJSON));
     });
@@ -533,10 +543,10 @@ var Modal = function Modal(_ref) {
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "modal-background",
-    onClick: closeModal
+    className: modal === "editprofile" ? 'editP-background' : "modal-background",
+    onClick: modal === "editprofile" ? closeModal : null
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "modal-child",
+    className: modal === "editprofile" ? 'editP-child' : "modal-child",
     onClick: function onClick(e) {
       return e.stopPropagation();
     }
@@ -586,12 +596,14 @@ __webpack_require__.r(__webpack_exports__);
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "intro"
   }, "Intro"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "about-contents"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "workplace"
   }, "Works at ", workplace), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "school"
-  }, "Went to ", school, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, "Studied at ", school, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "currentcity"
-  }, "Lives in ", currentCity, " "));
+  }, "Lives in ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, currentCity))));
 });
 
 /***/ }),
@@ -613,9 +625,8 @@ __webpack_require__.r(__webpack_exports__);
   var coverPhoto = _ref.coverPhoto;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "cover-photo-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    src: coverPhoto,
-    alt: "Your Cover Photo Here"
+  }, coverPhoto && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: coverPhoto
   }));
 });
 
@@ -634,10 +645,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (_ref) {
+  var user = _ref.user;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "create-post-container"
-  }, "What's on your mind?");
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "propic-and-button"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "propic"
+  }, user.propicUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: user.propicUrl
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: window.defaultPropic
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "post-button"
+  }, "What's on your mind?")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "addphoto"
+  }));
 });
 
 /***/ }),
@@ -654,12 +678,73 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./FRONTEND/actions/session_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./FRONTEND/actions/modal_actions.js");
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+
+
+
+
+var EditProfileForm = function EditProfileForm(_ref) {
+  var closeModal = _ref.closeModal,
+      user = _ref.user;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "edit-form-container"
-  }, "EDIT YOUR PROFILE");
-});
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "edit-heading"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Edit Profile")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "closemodal",
+    onClick: closeModal
+  }, "\u2715"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "edit-pp-block"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "title"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Profile Picture"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    type: "file"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "change-container"
+  }, user.propicUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "pp",
+    src: user.propicUrl
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "pp",
+    src: window.defaultPropic
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "title"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Cover Photo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    type: "file"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "change-container"
+  }, user.coverUrl && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "cover",
+    src: user.coverUrl
+  }))));
+};
+
+var mstp = function mstp(_ref2) {
+  var users = _ref2.entities.users,
+      session = _ref2.session;
+  return {
+    user: users[session.id]
+  };
+};
+
+var mdtp = function mdtp(dispatch) {
+  return {
+    processForm: function processForm(user) {
+      return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__.update)(user));
+    },
+    closeModal: function closeModal() {
+      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__.closeModal)());
+    },
+    clearErrors: function clearErrors() {
+      return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__.clearErrors)());
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mstp, mdtp)(EditProfileForm));
 
 /***/ }),
 
@@ -755,6 +840,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _menu_bar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu_bar */ "./FRONTEND/components/profilepage/menu_bar.jsx");
 /* harmony import */ var _profile_pic__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./profile_pic */ "./FRONTEND/components/profilepage/profile_pic.jsx");
 /* harmony import */ var _user_posts_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user_posts_container */ "./FRONTEND/components/profilepage/user_posts_container.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/modal_actions */ "./FRONTEND/actions/modal_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/session_actions */ "./FRONTEND/actions/session_actions.js");
+
+
 
 
 
@@ -765,7 +854,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var ProfilePage = function ProfilePage(_ref) {
   var user = _ref.user,
-      editProfileForm = _ref.editProfileForm;
+      editProfileForm = _ref.editProfileForm,
+      closeModal = _ref.closeModal;
   var email = user.email,
       firstName = user.firstName,
       lastName = user.lastName,
@@ -786,21 +876,27 @@ var ProfilePage = function ProfilePage(_ref) {
     proPic: propicUrl
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "pp-name-bio"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, firstName, " ", lastName), bio && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, firstName, " ", lastName), bio ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "bio"
-  }, bio)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, bio) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "bio"
+  }, "Add Bio")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "divider"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_menu_bar__WEBPACK_IMPORTED_MODULE_4__.default, {
     editProfile: editProfileForm
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "profile-page-content"
+    className: "profile-page-bot"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "pp-content-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about__WEBPACK_IMPORTED_MODULE_2__.default, {
     email: email,
     birthday: birthday,
     workplace: workplace,
     school: school,
     currentCity: currentCity
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_user_posts_container__WEBPACK_IMPORTED_MODULE_6__.default, null)));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_user_posts_container__WEBPACK_IMPORTED_MODULE_6__.default, {
+    user: user
+  }))));
 };
 
 var mstp = function mstp(_ref2) {
@@ -815,10 +911,13 @@ var mdtp = function mdtp(dispatch) {
   return {
     editProfileForm: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
       onClick: function onClick() {
-        dispatch(openModal('editprofile'));
-        dispatch(clearErrors());
+        dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_7__.openModal)('editprofile'));
+        dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_8__.clearErrors)());
       }
-    }, "Edit Profile")
+    }, "Edit Profile"),
+    closeModal: function closeModal() {
+      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_7__.closeModal)());
+    }
   };
 };
 
@@ -843,9 +942,10 @@ __webpack_require__.r(__webpack_exports__);
   var proPic = _ref.proPic;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "profile-pic-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    src: proPic,
-    alt: "Your Profile Pic Here"
+  }, proPic ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: proPic
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: window.defaultPropic
   }));
 });
 
@@ -868,10 +968,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (props) {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (_ref) {
+  var user = _ref.user;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "user-posts-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_create_post__WEBPACK_IMPORTED_MODULE_1__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_posts_index__WEBPACK_IMPORTED_MODULE_2__.default, null));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_create_post__WEBPACK_IMPORTED_MODULE_1__.default, {
+    user: user
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "posts-index-title"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "title-post"
+  }, "Posts")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_posts_index__WEBPACK_IMPORTED_MODULE_2__.default, null));
 });
 
 /***/ }),
@@ -1753,7 +1860,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "login": () => /* binding */ login,
 /* harmony export */   "signup": () => /* binding */ signup,
-/* harmony export */   "logout": () => /* binding */ logout
+/* harmony export */   "logout": () => /* binding */ logout,
+/* harmony export */   "update": () => /* binding */ update
 /* harmony export */ });
 var login = function login(user) {
   return $.ajax({
@@ -1777,6 +1885,15 @@ var logout = function logout() {
   return $.ajax({
     method: 'DELETE',
     url: "/api/session"
+  });
+};
+var update = function update(user) {
+  return $.ajax({
+    method: 'PATCH',
+    url: "/api/users/".concat(user.id),
+    data: {
+      user: user
+    }
   });
 };
 
