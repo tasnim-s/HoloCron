@@ -27,7 +27,7 @@ export default class NavBar extends React.Component {
 
 
     render() {
-        const {currentUser, logout} = this.props;
+        const {currentUser, logout, createPostForm} = this.props;
         const personalGreeting = () => (
             <div className="nav-bar">
                 <div className="logo-and-search">
@@ -44,16 +44,16 @@ export default class NavBar extends React.Component {
                 <div className="settings-link">
                     <div className="nav-right">
                         <Link className='name-pic' to={`/profile`}>
-                            <img src={currentUser.propicUrl} alt=""/>
+                            {currentUser.propicUrl ? <img src={currentUser.propicUrl} /> : <img src={window.defaultPropic} />}
                             <div className="display-name">{currentUser.firstName}</div>
                         </Link>
-                        <i className="fas fa-plus-circle"></i>
+                        <i onClick={createPostForm} className="fas fa-plus-circle"></i>
                     </div>
                     <div onClick={this.handleClick} ref={div => this.dropDown = div} className="settings-dropdown">
                         <i  className="fas fa-caret-square-down"></i>
                         {!this.state.hidden && <div className="dropdown-contents" onClick={e => e.stopPropagation()}>
                             <div className="see-your-profile">
-                                <img src={currentUser.propicUrl} alt="" />
+                                {currentUser.propicUrl ? <img src={currentUser.propicUrl} /> : <img src={window.defaultPropic} />}
                                 <div className="see-your-profile-container">
                                     <span className="display-name">{currentUser.firstName} {currentUser.lastName}</span>
                                     <span className="see-your-profile-text">See your profile</span>

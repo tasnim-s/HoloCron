@@ -1,4 +1,5 @@
 import * as SessUtil from '../util/session_api_util';
+import * as PostUtil from '../util/post_api_util';
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const LOGOUT_CURRENT_USER = "LOGOUT_CURRENT_USER";
@@ -14,7 +15,7 @@ const logoutCurrentUser = () => ({
     type: LOGOUT_CURRENT_USER
 });
 
-const receiveErrors = errors => ({
+export const receiveErrors = errors => ({
     type: RECEIVE_SESSION_ERRORS,
     errors
 });
@@ -30,3 +31,7 @@ export const login = user => dispatch => SessUtil.login(user).then(user => dispa
 export const logout = () => dispatch => SessUtil.logout().then(() => dispatch(logoutCurrentUser()), err => dispatch(receiveErrors(err.responseJSON)));
 
 export const update = user => dispatch => SessUtil.update(user).then(user => dispatch(receiveCurrentUser(user)), err => dispatch(receiveErrors(err.responseJSON)));
+
+
+
+export const createPost = post => dispatch => PostUtil.createPost(post).then(user => dispatch(receiveCurrentUser(user)), err => dispatch(receiveErrors(err.responseJSON)));

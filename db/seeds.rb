@@ -14,4 +14,4 @@ demo.cover_photo.attach(io: File.open("app/assets/images/bernie_totoro.jpg"), fi
 
 demo.profile_pic.attach(io: File.open("app/assets/images/babyYoda.jpg"), filename: "grogu.jpg")
 
-post1 = Post.create(content: "Demo Post", creator_id: 1)
+post1 = Post.create(content: "Demo Post", creator_id: demo.id)

@@ -4,6 +4,7 @@
 
 
 
+
 .modal-background {
   position: fixed;
   top: 0;
@@ -480,9 +481,11 @@ button:active {
       align-content: center;
       margin-right: 10px;
       img {
+        
       height: 28px;
       width: 28px;
       border-radius: 50%;
+      object-fit: cover;
       }
       .display-name {
       height: 19px;
@@ -572,6 +575,8 @@ button:active {
             width: 60px;
             border-radius: 50%;
             margin-right: 12px;
+            margin-left: 7px;
+            object-fit: cover;
           }
         }
 
@@ -602,7 +607,8 @@ button:active {
   }
 }
 
-// ___________________________________________________________________________
+// Profile Page___________________________________________________________________________
+
 .profile-page-container{
   position: absolute;
   
@@ -615,6 +621,10 @@ button:active {
   align-items: center;
 
   .cover-photo-container {
+    &:hover {
+      cursor: pointer;
+    }
+    object-fit: cover;
     width: 940px;
     height: 349px;
     background: #18191a;
@@ -624,6 +634,7 @@ button:active {
       width: inherit;
       height: inherit;
       border-radius: inherit;
+      object-fit: cover;
     }
   }
 
@@ -647,6 +658,7 @@ button:active {
       height: inherit;
       border-radius: inherit;
       vertical-align: center;
+      object-fit: cover;
     }
   }
 
@@ -769,10 +781,13 @@ button:active {
 
 .profile-page-bot {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   background: #18191a;
-  height: 500px;
+  height: 1000px;
   width: 100%;
+  bottom: 0;
 
   .pp-content-container {
     display: flex;
@@ -866,6 +881,7 @@ button:active {
               height: inherit;
               width: inherit;
               border-radius: inherit;
+              object-fit: cover;
             }
           }
 
@@ -880,6 +896,10 @@ button:active {
             align-items: center;
             border-radius: 20px;
             color: #838588;
+            &:hover {
+              cursor: pointer;
+              filter: brightness(1.1);
+            }
           }
         }
 
@@ -936,7 +956,7 @@ button:active {
   z-index: 10;
   vertical-align: middle;
   text-align: center;
-  width: 100%
+  width: 100%;
 }
 
 .editP-child {
@@ -946,13 +966,15 @@ button:active {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 5px;
-  margin: 20px;
+  margin: 40px;
   text-align: left;
   background: #252526;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
   border-radius: 8px;
   z-index: 12;
   max-width: 700px;
+  // height: 100%;
+  // overflow: auto;
 }
 
 .edit-form-container {
@@ -1018,7 +1040,7 @@ button:active {
     }
 
     .change-container {
-      box-sizing: border-box;
+      // box-sizing: border-box;
       width: 700px;
       height: 200px;
       padding: 16px 12px 0;
@@ -1030,12 +1052,253 @@ button:active {
         height: 168px;
         width: 168px;
         border-radius: 50%;
+        object-fit: cover;
       }
       .cover {
         width: 500px;
         height: 185px;
         border-radius: 6px;
+        object-fit: cover;
       }
+
+      
+    }
+
+    .bio-edit {
+      height: 140px;
+      textarea {
+        box-sizing: border-box;
+        width: 221px;
+        height: 72px;
+        border-radius: 6px;
+        padding: 8px 12px;
+        background: #3a3b3b;
+        color: #8a8d91;
+      }
+    }
+
+    .customize-intro {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      height: 156px;
+      // margin-bottom: 50px;
+      .inputs {
+        box-sizing: border-box;
+        display: flex;
+        width: 660px;
+        justify-content: space-between;
+        height: 48px;
+        label {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          input {
+            box-sizing: border-box;
+            padding: 4px 12px;
+            border-radius: 6px;
+            background: #3a3b3b;
+            color: #8a8d91;
+          }
+        }
+      }
+
+      .save-button {
+        box-sizing: border-box;
+        height: 36px;
+        width: 114px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 6px;
+        background: #2c88ff;
+        font-size: 15px;
+
+        &:hover {
+          cursor: pointer;
+          filter: brightness(1.1);
+        }
+        &:active {
+          transform: scale(.98);
+        }
+      }
+    }
+  }
+}
+
+.create-post-form {
+  box-sizing: border-box;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  .closemodal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    height: 36px;
+    width: 36px;
+    font-size: 22px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    color: #a8abaf;
+    &:hover {
+      filter: brightness(1.1);
+      cursor: pointer;
+    }
+  }
+
+  .cp-top {
+    box-sizing: border-box;
+    width: 500px;
+    height: 132px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+
+    .cp-heading {
+      width: 468px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: #e4e6eb;
+    }
+
+    .pp-name {
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 72px;
+      width: 468px;
+      padding: 16px 0;
+      border-top: 1px solid #323233;
+
+      .pp {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .name {
+        color: #e4e6eb;
+        padding-left: 15px;
+        font-size: 15px;
+      }
+    }
+  }
+
+  .content {
+    box-sizing: border-box;
+    width: 500px;
+    height: 80px;
+    padding: 0 16px 40px;
+
+    input {
+      &:focus {
+        outline: none;
+      }
+      width: 468px;
+      height: 28px;
+      background: inherit;
+      font-size: 24px;
+      color: #e4e6eb;
+    }
+  }
+
+  .post-button {
+    box-sizing: border-box;
+    height: 36px;
+    width: 468px;
+    padding: 16px;
+    background: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    background: #2c88ff;
+    &:hover {
+      cursor: pointer;
+      filter: brightness(1.1);
+    }
+    &:active {
+      transform: scale(.98);
+    }
+  }
+}
+
+
+.posts-index-container {
+  box-sizing: border-box;
+  height: 100%;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  
+
+  .posts-item {
+    width: 500px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px;
+    background: #252526;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    
+
+    .pp-time-bar {
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 48px;
+      width: 500px;
+      margin: 0 0 12px;
+      padding: 12px 16px 0;
+
+      .pp {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .time-name {
+        padding-left: 10px;
+
+        .name {
+          font-size: 15px;
+          font-weight: bold;
+        }
+
+        .time {
+          font-size: 13px;
+        }
+      }
+    }
+
+    .content {
+      width: 468px;
+      height: auto;
+      font-size: 24px;
     }
   }
 }

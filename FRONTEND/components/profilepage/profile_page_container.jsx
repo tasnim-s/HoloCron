@@ -8,7 +8,7 @@ import UserPostsContainer from './user_posts_container';
 import { openModal, closeModal } from '../../actions/modal_actions';
 import { clearErrors } from '../../actions/session_actions';
 
-const ProfilePage = ({user, editProfileForm, closeModal}) => {
+const ProfilePage = ({user, editProfileForm, createPostForm}) => {
     const { email, firstName, lastName, birthday, coverUrl, propicUrl, bio, workplace, school, currentCity} = user;
     return (
         <div className="profile-page-container">
@@ -29,7 +29,7 @@ const ProfilePage = ({user, editProfileForm, closeModal}) => {
             <div className="profile-page-bot">
                 <div className="pp-content-container">
                     <About email={email} birthday={birthday} workplace={workplace} school={school} currentCity={currentCity} />
-                    <UserPostsContainer user={user} />
+                    <UserPostsContainer createPostForm={createPostForm} user={user} />
                 </div>
             </div>
             
@@ -46,6 +46,7 @@ const mdtp = dispatch => ({
         dispatch(openModal('editprofile'));
         dispatch(clearErrors());
     }}>Edit Profile</a>),
+    createPostForm: () => dispatch(openModal('createPost')),
     closeModal: () => dispatch(closeModal())
 });
 

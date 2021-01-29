@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { closeModal } from '../actions/modal_actions';
 import SignupFormContainer from './session_form/signup_form_container';
 import EditProfileFormContainer from './profilepage/edit_profile_form_container';
+import CreatePostModule from './profilepage/create_post_module';
 
 const Modal = ({modal, closeModal}) => {
     if (!modal) return null;
@@ -15,18 +16,23 @@ const Modal = ({modal, closeModal}) => {
         case 'editprofile':
             component = <EditProfileFormContainer />;
             break;
+        case 'createPost':
+            component = <CreatePostModule />;
+            break;
         default:
             return null;
     }
 
     return (
-        <div className={modal === "editprofile" ? 'editP-background' : "modal-background"} onClick={modal === "editprofile" ? closeModal : null}>
-            <div className={modal === "editprofile" ? 'editP-child' : "modal-child"} onClick={e => e.stopPropagation()}>
+        <div className={modal === "signup" ? "modal-background" : 'editP-background'} >
+            <div className={modal === "signup" ? "modal-child" : 'editP-child'} onClick={e => e.stopPropagation()}>
                 {component}
             </div>
         </div>
     )
 }
+
+// onClick = { modal === "editprofile" ? closeModal : null}
 
 
 const mstp = ({ui}) => ({

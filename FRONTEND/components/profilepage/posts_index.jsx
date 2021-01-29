@@ -2,10 +2,11 @@ import React from 'react';
 import PostItem from './post_item';
 
 
-export default (props) => {
+export default ({user}) => {
+    
     return (
         <div className="posts-index-container">
-            <PostItem />
+            {user.posts.reverse().map(post => <PostItem key={post.id} user={user} post={post} />)}
         </div>
     )
 }

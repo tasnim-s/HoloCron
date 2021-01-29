@@ -2,14 +2,14 @@ import React from 'react';
 import CreatePost from './create_post';
 import PostsIndex from './posts_index';
 
-export default ({user}) => {
+export default ({user, createPostForm}) => {
     return (
         <div className="user-posts-container">
-            <CreatePost user={user} />
+            <CreatePost createPostForm={createPostForm}  user={user} />
             <div className="posts-index-title">
                 <div className="title-post">Posts</div>
             </div>
-            <PostsIndex />
+            <PostsIndex user={user} />
         </div>
     )
 }

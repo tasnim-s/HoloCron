@@ -136,8 +136,8 @@ class SessionFormSignup extends React.Component {
                             <label>Male
                                 <input type="radio" value="Male" onChange={this.update('gender')} checked={this.state.gender === "Male"} />
                             </label>
-                            <label>Other
-                                <input type="radio" value="Other" onChange={this.update('gender')} checked={this.state.gender === "Other"} />
+                            <label>Non-Binary
+                                <input type="radio" value="Non-Binary" onChange={this.update('gender')} checked={this.state.gender === "Non-Binary"} />
                             </label>
                         </span>
                         <div className="form-errors">{this.renderErrors("Gender")}</div>
