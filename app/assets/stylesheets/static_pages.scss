@@ -1293,6 +1293,20 @@ button:active {
           font-size: 13px;
         }
       }
+
+      .delete-button {
+        background: #3a3b3b;
+        margin-left: 205px;
+        padding: 5px;
+        border-radius: 6px;
+        &:hover {
+          cursor: pointer;
+          filter: brightness(1.1);
+        }
+        &:active {
+          transform: scale(.98);
+        }
+      }
     }
 
     .content {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default ({user, post}) => {
+export default ({user, post, deletePost}) => {
     return (
         <div className="posts-item">
             <div className="pp-time-bar">
@@ -10,6 +10,7 @@ export default ({user, post}) => {
                     <div className="name">{user.firstName} {user.lastName}</div>
                     <div className="time">{post.updated_at}</div>
                 </div>
+                <div onClick={() => deletePost(post.id)} className="delete-button">Delete</div>
             </div>
             <div className="content">{post.content}</div>
         </div>

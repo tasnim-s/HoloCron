@@ -35,3 +35,5 @@ export const update = user => dispatch => SessUtil.update(user).then(user => dis
 
 
 export const createPost = post => dispatch => PostUtil.createPost(post).then(user => dispatch(receiveCurrentUser(user)), err => dispatch(receiveErrors(err.responseJSON)));
+
+export const deletePost = (postId) => dispatch => PostUtil.deletePost(postId).then(user => dispatch(receiveCurrentUser(user)), err => dispatch(receiveErrors(err.responseJSON)));

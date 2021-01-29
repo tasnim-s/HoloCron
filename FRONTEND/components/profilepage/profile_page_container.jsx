@@ -6,9 +6,9 @@ import MenuBar from './menu_bar';
 import ProfilePic from './profile_pic';
 import UserPostsContainer from './user_posts_container';
 import { openModal, closeModal } from '../../actions/modal_actions';
-import { clearErrors } from '../../actions/session_actions';
+import { clearErrors, deletePost } from '../../actions/session_actions';
 
-const ProfilePage = ({user, editProfileForm, createPostForm}) => {
+const ProfilePage = ({user, editProfileForm, createPostForm, deletePost}) => {
     const { email, firstName, lastName, birthday, coverUrl, propicUrl, bio, workplace, school, currentCity} = user;
     return (
         <div className="profile-page-container">
@@ -29,7 +29,7 @@ const ProfilePage = ({user, editProfileForm, createPostForm}) => {
             <div className="profile-page-bot">
                 <div className="pp-content-container">
                     <About email={email} birthday={birthday} workplace={workplace} school={school} currentCity={currentCity} />
-                    <UserPostsContainer createPostForm={createPostForm} user={user} />
+                    <UserPostsContainer deletePost={deletePost} createPostForm={createPostForm} user={user} />
                 </div>
             </div>
             
@@ -47,7 +47,8 @@ const mdtp = dispatch => ({
         dispatch(clearErrors());
     }}>Edit Profile</a>),
     createPostForm: () => dispatch(openModal('createPost')),
-    closeModal: () => dispatch(closeModal())
+    closeModal: () => dispatch(closeModal()),
+    deletePost: postId => dispatch(deletePost(postId))
 });
 
 export default connect(mstp, mdtp)(ProfilePage);

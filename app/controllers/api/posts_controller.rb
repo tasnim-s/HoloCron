@@ -26,8 +26,9 @@ class Api::PostsController < ApplicationController
     def destroy
         @post = Post.find_by(id: params[:id])
         if @post
+            @user = @post.creator
             @post.destroy
-            render :show
+            render 'api/users/show'
         else
             render ['Post does not exist']
         end

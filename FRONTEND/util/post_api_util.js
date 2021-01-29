@@ -5,3 +5,10 @@ export const createPost = (post) => (
         data: { post }
     })
 );
+
+export const deletePost = (postId) => (
+    $.ajax({
+        method: 'DELETE',
+        url: `/api/posts/${postId}`
+    })
+);

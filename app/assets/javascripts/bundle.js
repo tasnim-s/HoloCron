@@ -129,7 +129,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "login": () => /* binding */ login,
 /* harmony export */   "logout": () => /* binding */ logout,
 /* harmony export */   "update": () => /* binding */ update,
-/* harmony export */   "createPost": () => /* binding */ createPost
+/* harmony export */   "createPost": () => /* binding */ createPost,
+/* harmony export */   "deletePost": () => /* binding */ deletePost
 /* harmony export */ });
 /* harmony import */ var _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/session_api_util */ "./FRONTEND/util/session_api_util.js");
 /* harmony import */ var _util_post_api_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/post_api_util */ "./FRONTEND/util/post_api_util.js");
@@ -202,6 +203,15 @@ var update = function update(user) {
 var createPost = function createPost(post) {
   return function (dispatch) {
     return _util_post_api_util__WEBPACK_IMPORTED_MODULE_1__.createPost(post).then(function (user) {
+      return dispatch(receiveCurrentUser(user));
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
+    });
+  };
+};
+var deletePost = function deletePost(postId) {
+  return function (dispatch) {
+    return _util_post_api_util__WEBPACK_IMPORTED_MODULE_1__.deletePost(postId).then(function (user) {
       return dispatch(receiveCurrentUser(user));
     }, function (err) {
       return dispatch(receiveErrors(err.responseJSON));
@@ -1079,7 +1089,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (_ref) {
   var user = _ref.user,
-      post = _ref.post;
+      post = _ref.post,
+      deletePost = _ref.deletePost;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "posts-item"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1098,7 +1109,12 @@ __webpack_require__.r(__webpack_exports__);
     className: "name"
   }, user.firstName, " ", user.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "time"
-  }, post.updated_at))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, post.updated_at)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    onClick: function onClick() {
+      return deletePost(post.id);
+    },
+    className: "delete-button"
+  }, "Delete")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "content"
   }, post.content));
 });
@@ -1121,14 +1137,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (_ref) {
-  var user = _ref.user;
+  var user = _ref.user,
+      deletePost = _ref.deletePost;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "posts-index-container"
   }, user.posts.reverse().map(function (post) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_post_item__WEBPACK_IMPORTED_MODULE_1__.default, {
       key: post.id,
       user: user,
-      post: post
+      post: post,
+      deletePost: deletePost
     });
   }));
 });
@@ -1168,7 +1186,8 @@ __webpack_require__.r(__webpack_exports__);
 var ProfilePage = function ProfilePage(_ref) {
   var user = _ref.user,
       editProfileForm = _ref.editProfileForm,
-      createPostForm = _ref.createPostForm;
+      createPostForm = _ref.createPostForm,
+      deletePost = _ref.deletePost;
   var email = user.email,
       firstName = user.firstName,
       lastName = user.lastName,
@@ -1208,6 +1227,7 @@ var ProfilePage = function ProfilePage(_ref) {
     school: school,
     currentCity: currentCity
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_user_posts_container__WEBPACK_IMPORTED_MODULE_6__.default, {
+    deletePost: deletePost,
     createPostForm: createPostForm,
     user: user
   }))));
@@ -1234,6 +1254,9 @@ var mdtp = function mdtp(dispatch) {
     },
     closeModal: function closeModal() {
       return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_7__.closeModal)());
+    },
+    deletePost: function deletePost(postId) {
+      return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_8__.deletePost)(postId));
     }
   };
 };
@@ -1287,7 +1310,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (_ref) {
   var user = _ref.user,
-      createPostForm = _ref.createPostForm;
+      createPostForm = _ref.createPostForm,
+      deletePost = _ref.deletePost;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "user-posts-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_create_post__WEBPACK_IMPORTED_MODULE_1__.default, {
@@ -1298,6 +1322,7 @@ __webpack_require__.r(__webpack_exports__);
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "title-post"
   }, "Posts")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_posts_index__WEBPACK_IMPORTED_MODULE_2__.default, {
+    deletePost: deletePost,
     user: user
   }));
 });
@@ -2116,7 +2141,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createPost": () => /* binding */ createPost
+/* harmony export */   "createPost": () => /* binding */ createPost,
+/* harmony export */   "deletePost": () => /* binding */ deletePost
 /* harmony export */ });
 var createPost = function createPost(post) {
   return $.ajax({
@@ -2125,6 +2151,12 @@ var createPost = function createPost(post) {
     data: {
       post: post
     }
+  });
+};
+var deletePost = function deletePost(postId) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "/api/posts/".concat(postId)
   });
 };
 
