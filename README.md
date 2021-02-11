@@ -1,24 +1,44 @@
-# README
+Holocron
+======
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+HoloCron, a Facebook clone, is a social media application that allows users to post content which can be viewed by other users as well as building a personalized profile to display their posts that other users can follow.
 
-Things you may want to cover:
+[Live Site](https://holo-cron.herokuapp.com/)
 
-* Ruby version
+## Technologies Used
 
-* System dependencies
+### Backend
+* PosgreSQL
+* Ruby on Rails
 
-* Configuration
+### Frontend
+* Javascript
+* React
+* Redux
+* HTML/SCSS
 
-* Database creation
+### Asset Management
+* AWS S3
 
-* Database initialization
+## Features
 
-* How to run the test suite
+### User Authentication
 
-* Services (job queues, cache servers, search engines, etc.)
+* Users can securely signup, login, and logout to their individualized experience.
+* Demo Login for fast and easy access.
 
-* Deployment instructions
+![Login-Page](https://github.com/tasnim-s/GitHubImages/blob/main/Login%20Page.png)
 
-* ...
+
+### Profile Pages
+
+* Users can create a customized profile to let others know more about them.
+* Users can post 
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
