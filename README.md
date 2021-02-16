@@ -33,12 +33,4 @@ HoloCron, a Facebook clone, is a social media application that allows users to p
 ### Profile Pages
 
 * Users can create a customized profile to let others know more about them.
-* Users can post 
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+* Users can post to their page
