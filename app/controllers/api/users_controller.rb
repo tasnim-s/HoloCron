@@ -1,6 +1,11 @@
 class Api::UsersController < ApplicationController
 
     before_action :ensure_logged_in, only:[:show]
+
+    def index
+        @users = User.all
+        render :index
+    end
     
     def create
         @user = User.new(user_params)
@@ -13,8 +18,7 @@ class Api::UsersController < ApplicationController
     end
 
     def show
-        @user = User.find_by(id: params[:id])
-        @posts = @user.posts
+        @user = User.includes(:posts, :comments).find_by(id: params[:id])
         render :show
     end
 
