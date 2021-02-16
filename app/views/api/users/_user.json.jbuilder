@@ -1,5 +1,5 @@
 json.key_format! camelize: :lower
-json.extract! user, :id, :email, :first_name, :last_name, :birthday, :gender, :post_ids, :comment_ids
+json.extract! user, :id, :email, :first_name, :last_name, :birthday, :gender, :post_ids, :comment_ids, :likes
 json.extract! user, :bio if user.bio
 json.extract! user, :workplace if user.workplace
 json.extract! user, :school if user.school

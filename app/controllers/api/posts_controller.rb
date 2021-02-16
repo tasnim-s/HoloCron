@@ -8,7 +8,6 @@ class Api::PostsController < ApplicationController
     def create
         @post = Post.new(post_params)
         if @post.save
-            @user = @post.creator
             render :show
         else
             render json: @post.errors.full_messages, status: 422
@@ -32,7 +31,6 @@ class Api::PostsController < ApplicationController
     def destroy
         @post = Post.find_by(id: params[:id])
         if @post
-            @user = @post.creator
             @post.destroy
             render json: {}
         else
