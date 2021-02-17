@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { openModal } from '../../actions/modal_actions';
+import { logout } from '../../actions/session_actions';
 
 
-export default class NavBar extends React.Component {
+class NavBar extends React.Component {
     constructor(props){
         super(props);
         this.state = {hidden: true};
@@ -44,7 +47,7 @@ export default class NavBar extends React.Component {
                 <div className="settings-link">
                     <div className="nav-right">
                         <Link className='name-pic' to={`/profile`}>
-                            {currentUser.propicUrl ? <img src={currentUser.propicUrl} /> : <img src={window.defaultPropic} />}
+                            {currentUser.profilePic ? <img src={currentUser.profilePic} /> : <img src={window.defaultPropic} />}
                             <div className="display-name">{currentUser.firstName}</div>
                         </Link>
                         <i onClick={createPostForm} className="fas fa-plus-circle"></i>
@@ -53,7 +56,7 @@ export default class NavBar extends React.Component {
                         <i  className="fas fa-caret-square-down"></i>
                         {!this.state.hidden && <div className="dropdown-contents" onClick={e => e.stopPropagation()}>
                             <div className="see-your-profile">
-                                {currentUser.propicUrl ? <img src={currentUser.propicUrl} /> : <img src={window.defaultPropic} />}
+                                {currentUser.profilePic ? <img src={currentUser.profilePic} /> : <img src={window.defaultPropic} />}
                                 <div className="see-your-profile-container">
                                     <span className="display-name">{currentUser.firstName} {currentUser.lastName}</span>
                                     <span className="see-your-profile-text">See your profile</span>
@@ -72,7 +75,17 @@ export default class NavBar extends React.Component {
             </div>
         );
 
-        return currentUser && personalGreeting();
-
+        return personalGreeting();
     }
 }
+
+const mstp = ({ session , entities: {users}}) => ({
+    currentUser: users[session.id]
+});
+
+const mdtp = dispatch => ({
+    logout: () => dispatch(logout()),
+    createPostForm: () => dispatch(openModal('createPost')),
+});
+
+export default connect(mstp, mdtp)(NavBar);

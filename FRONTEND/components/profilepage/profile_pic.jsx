@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default ({proPic}) => {
+export default ({profilePic}) => {
     return (
         <div className="profile-pic-container">
-            {proPic ? <img src={proPic} /> : <img src={window.defaultPropic} />}
+            {profilePic ? <img src={profilePic} /> : <img src={window.defaultPropic} />}
         </div>
     )
 }

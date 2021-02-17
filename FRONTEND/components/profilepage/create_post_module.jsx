@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearErrors, createPost } from '../../actions/session_actions';
+import { clearErrors} from '../../actions/session_actions';
 import { closeModal } from '../../actions/modal_actions';
+import {createPost} from '../../actions/post_actions';
 
 class CreatePostModule extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {content: "", creator_id: this.props.user.id};
+        this.state = {content: "", creatorId: this.props.user.id};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -29,7 +30,7 @@ class CreatePostModule extends React.Component {
                     </div>
                     <div className="closemodal" onClick={closeModal}>✕</div>
                     <div className="pp-name">
-                        <div className="pp">{user.propicUrl ? <img className="pp" src={user.propicUrl} /> : <img className="pp" src={window.defaultPropic} />}</div>
+                        <div className="pp">{user.profilePic ? <img className="pp" src={user.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>
                         <div className="name">{user.firstName} {user.lastName}</div>
                     </div>
                     

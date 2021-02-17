@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearErrors, update } from '../../actions/session_actions';
+import { clearErrors } from '../../actions/session_actions';
 import { closeModal } from '../../actions/modal_actions';
+import { updateUser } from '../../actions/user_actions';
 
 class EditProfileForm extends React.Component {
     constructor(props) {
@@ -44,14 +45,14 @@ class EditProfileForm extends React.Component {
                         <input type="file" onChange={this.handleFile('profilePic')} />
                     </div>
                     <div className="change-container">
-                        {user.propicUrl ? <img className="pp" src={user.propicUrl} /> : <img className="pp" src={window.defaultPropic} />}
+                        {user.profilePic ? <img className="pp" src={user.profilePic} /> : <img className="pp" src={window.defaultPropic} />}
                     </div>
                     <div className="title">
                         <span>Cover Photo</span>
                         <input type="file" onChange={this.handleFile('coverPhoto')} />
                     </div>
                     <div className="change-container">
-                        {user.coverUrl ? <img className="cover" src={user.coverUrl} /> : <img className="cover" src={window.defaultCover} />}
+                        {user.coverPhoto ? <img className="cover" src={user.coverPhoto} /> : <img className="cover" src={window.defaultCover} />}
                     </div>
                     <div className="title">
                         <span>Bio</span>
@@ -86,7 +87,7 @@ const mstp = ({ entities: {users}, session }) => ({
 });
 
 const mdtp = dispatch => ({
-    processForm: user => dispatch(update(user)),
+    processForm: user => dispatch(updateUser(user)),
     closeModal: () => dispatch(closeModal()),
     clearErrors: () => dispatch(clearErrors())
 });

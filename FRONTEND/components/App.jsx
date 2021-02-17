@@ -1,16 +1,16 @@
 import React from 'react';
 import {Route, Switch, Link, Redirect} from 'react-router-dom';
 import Modal from './modal';
-import NavBarContainer from './landing/navbar_container';
+import NavBar from './nav/navbar';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import LoginFormContainer from './session_form/login_form_container';
+import LoginFormContainer from './session_forms/login_form_container';
 import ProfilePageContainer from './profilepage/profile_page_container';
-import LoginFooter from './login_footer/login_footer';
+import LoginFooter from './session_forms/login_footer';
 
 export default () => (
     <div className="App">
         <Modal />
-        <ProtectedRoute path="/" component={NavBarContainer} />
+        <ProtectedRoute path="/" component={NavBar} />
         
         <Switch>
             <AuthRoute exact path="/login" component={LoginFormContainer} />

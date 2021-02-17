@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import About from './about';
 import CoverPhoto from './cover_photo';
@@ -6,15 +6,19 @@ import MenuBar from './menu_bar';
 import ProfilePic from './profile_pic';
 import UserPostsContainer from './user_posts_container';
 import { openModal, closeModal } from '../../actions/modal_actions';
-import { clearErrors, deletePost } from '../../actions/session_actions';
+import { clearErrors } from '../../actions/session_actions';
+import { deletePost, fetchAllPosts } from '../../actions/post_actions';
 
-const ProfilePage = ({user, editProfileForm, createPostForm, deletePost}) => {
-    const { email, firstName, lastName, birthday, coverUrl, propicUrl, bio, workplace, school, currentCity} = user;
+const ProfilePage = ({user, editProfileForm, createPostForm, deletePost, fetchAllPosts, posts}) => {
+    useEffect(() => {
+        fetchAllPosts();
+    },[user])
+    const { email, firstName, lastName, birthday, coverPhoto, profilePic, bio, workplace, school, currentCity} = user;
     return (
         <div className="profile-page-container">
             <div className="profile-page-top">
-                <CoverPhoto coverPhoto={coverUrl}/>
-                <ProfilePic proPic={propicUrl} />
+                <CoverPhoto coverPhoto={coverPhoto}/>
+                <ProfilePic profilePic={profilePic} />
 
                 <div className="pp-name-bio">
                     <h1>{firstName} {lastName}</h1>
@@ -29,7 +33,7 @@ const ProfilePage = ({user, editProfileForm, createPostForm, deletePost}) => {
             <div className="profile-page-bot">
                 <div className="pp-content-container">
                     <About email={email} birthday={birthday} workplace={workplace} school={school} currentCity={currentCity} />
-                    <UserPostsContainer deletePost={deletePost} createPostForm={createPostForm} user={user} />
+                    <UserPostsContainer deletePost={deletePost} createPostForm={createPostForm} user={user} posts={posts} />
                 </div>
             </div>
             
@@ -37,8 +41,9 @@ const ProfilePage = ({user, editProfileForm, createPostForm, deletePost}) => {
     )
 };
 
-const mstp = ({ session , entities: {users}}) => ({
-    user: users[session.id]
+const mstp = ({ session , entities: {users, posts}}) => ({
+    user: users[session.id],
+    posts: Object.values(posts).filter(post => post.creatorId === session.id)
 });
 
 const mdtp = dispatch => ({
@@ -48,7 +53,8 @@ const mdtp = dispatch => ({
     }}>Edit Profile</a>),
     createPostForm: () => dispatch(openModal('createPost')),
     closeModal: () => dispatch(closeModal()),
-    deletePost: postId => dispatch(deletePost(postId))
+    deletePost: postId => dispatch(deletePost(postId)),
+    fetchAllPosts: () => dispatch(fetchAllPosts())
 });
 
 export default connect(mstp, mdtp)(ProfilePage);

@@ -51,13 +51,6 @@ class SessionFormSignup extends React.Component {
             }
         }
         return null;
-        // return (
-        //     <ul>
-        //         {this.props.errors.map((error, i) => (
-        //             <li key={i}>{error}</li>
-        //         ))}
-        //     </ul>
-        // )
     }
 
 

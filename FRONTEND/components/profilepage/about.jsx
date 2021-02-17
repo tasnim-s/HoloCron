@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({email, birthday, workplace, school, currentCity}) => {
+export default ({workplace, school, currentCity}) => {
     return (
         <div className="about-container">
             <div className="intro">Intro</div>

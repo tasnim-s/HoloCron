@@ -6,7 +6,7 @@ export default ({user, createPostForm}) => {
         <div className="create-post-container">
             <div className="propic-and-button">
                 <div className="propic">
-                    {user.propicUrl ? <img src={user.propicUrl} /> : <img src={window.defaultPropic} />}
+                    {user.profilePic ? <img src={user.profilePic} /> : <img src={window.defaultPropic} />}
                 </div>
                 <div onClick={createPostForm} className="post-button">What's on your mind?</div>
             </div>

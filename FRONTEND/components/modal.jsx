@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../actions/modal_actions';
-import SignupFormContainer from './session_form/signup_form_container';
+import SignupFormContainer from './session_forms/signup_form_container';
 import EditProfileFormContainer from './profilepage/edit_profile_form_container';
 import CreatePostModule from './profilepage/create_post_module';
 
