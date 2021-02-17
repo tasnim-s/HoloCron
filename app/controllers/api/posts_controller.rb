@@ -5,6 +5,11 @@ class Api::PostsController < ApplicationController
         render :index
     end
     
+    def show
+        @post = Post.includes(:comments).find_by(id: params[:id])
+        render :show
+    end
+    
     def create
         @post = Post.new(post_params)
         if @post.save
@@ -23,16 +28,12 @@ class Api::PostsController < ApplicationController
         end
     end
 
-    def show
-        @post = Post.includes(:comments).find_by(id: params[:id])
-        render :show
-    end
 
     def destroy
         @post = Post.find_by(id: params[:id])
         if @post
             @post.destroy
-            render json: {}
+            render :index
         else
             render ['Post does not exist']
         end

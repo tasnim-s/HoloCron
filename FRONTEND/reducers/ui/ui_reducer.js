@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import sessionErrors from './session_errors_reducer';
+import modal from "./modal_reducer"
 
 export default combineReducers({
-    sessionErrors
+    modal
 });
