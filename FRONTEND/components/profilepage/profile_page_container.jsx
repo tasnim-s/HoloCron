@@ -13,7 +13,7 @@ const ProfilePage = ({user, editProfileForm, createPostForm, deletePost, fetchAl
     useEffect(() => {
         fetchAllPosts();
     },[user])
-    const { email, firstName, lastName, birthday, coverPhoto, profilePic, bio, workplace, school, currentCity} = user;
+    const { firstName, lastName, coverPhoto, profilePic, bio, workplace, school, currentCity} = user;
     return (
         <div className="profile-page-container">
             <div className="profile-page-top">
@@ -32,7 +32,7 @@ const ProfilePage = ({user, editProfileForm, createPostForm, deletePost, fetchAl
             
             <div className="profile-page-bot">
                 <div className="pp-content-container">
-                    <About email={email} birthday={birthday} workplace={workplace} school={school} currentCity={currentCity} />
+                    <About editProfile={editProfileForm} workplace={workplace} school={school} currentCity={currentCity} />
                     <UserPostsContainer deletePost={deletePost} createPostForm={createPostForm} user={user} posts={posts} />
                 </div>
             </div>
@@ -50,7 +50,7 @@ const mdtp = dispatch => ({
     editProfileForm: (<a onClick={() => {
         dispatch(openModal('editprofile'));
         dispatch(clearErrors());
-    }}>Edit Profile</a>),
+    }}><span>Edit Profile</span></a>),
     createPostForm: () => dispatch(openModal('createPost')),
     closeModal: () => dispatch(closeModal()),
     deletePost: postId => dispatch(deletePost(postId)),

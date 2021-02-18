@@ -484,10 +484,8 @@ __webpack_require__.r(__webpack_exports__);
     component: _session_forms_login_form_container__WEBPACK_IMPORTED_MODULE_4__.default
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
     exact: true,
-    path: "/profile",
+    path: "/profile/:userId",
     component: _profilepage_profile_page_container__WEBPACK_IMPORTED_MODULE_5__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Redirect, {
-    to: "/profile"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.AuthRoute, {
     exact: true,
     path: "/login",
@@ -711,7 +709,7 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
           className: "nav-right"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
           className: "name-pic",
-          to: "/profile"
+          to: "/profile/".concat(currentUser.id)
         }, currentUser.profilePic ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
           src: currentUser.profilePic
         }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
@@ -734,6 +732,8 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
           onClick: function onClick(e) {
             return e.stopPropagation();
           }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+          to: "/profile/".concat(currentUser.id)
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "see-your-profile"
         }, currentUser.profilePic ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
@@ -746,7 +746,7 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
           className: "display-name"
         }, currentUser.firstName, " ", currentUser.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
           className: "see-your-profile-text"
-        }, "See your profile"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        }, "See your profile")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "divider"
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           onClick: logout,
@@ -804,7 +804,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (_ref) {
   var workplace = _ref.workplace,
       school = _ref.school,
-      currentCity = _ref.currentCity;
+      currentCity = _ref.currentCity,
+      editProfile = _ref.editProfile;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "about-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -817,7 +818,9 @@ __webpack_require__.r(__webpack_exports__);
     className: "school"
   }, "Studied at ", school, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "currentcity"
-  }, "Lives in ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, currentCity))));
+  }, "Lives in ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, currentCity)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "edit"
+  }, editProfile)));
 });
 
 /***/ }),
@@ -988,6 +991,7 @@ var CreatePostModule = /*#__PURE__*/function (_React$Component) {
       }, user.firstName, " ", user.lastName))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "content"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        autoFocus: true,
         type: "text",
         onChange: this.handleChange,
         value: this.state.content,
@@ -1272,9 +1276,26 @@ __webpack_require__.r(__webpack_exports__);
   var user = _ref.user,
       post = _ref.post,
       deletePost = _ref.deletePost;
+
+  var dateParser = function dateParser(createdAt) {
+    var date = new Date(createdAt);
+    var today = Date.now();
+
+    if (today - date > 86400000) {
+      return date.toDateString() + " at " + date.toLocaleTimeString();
+    } else {
+      return "Today at " + date.toLocaleTimeString();
+    }
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "posts-item"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    onClick: function onClick() {
+      return deletePost(post.id);
+    },
+    className: "delete-button"
+  }, "\u2022\u2022\u2022"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "pp-time-bar"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "pp"
@@ -1290,12 +1311,7 @@ __webpack_require__.r(__webpack_exports__);
     className: "name"
   }, user.firstName, " ", user.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "time"
-  }, post.createdAt)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    onClick: function onClick() {
-      return deletePost(post.id);
-    },
-    className: "delete-button"
-  }, "Delete")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, dateParser(post.createdAt)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "content"
   }, post.content));
 });
@@ -1321,16 +1337,22 @@ __webpack_require__.r(__webpack_exports__);
   var posts = _ref.posts,
       user = _ref.user,
       deletePost = _ref.deletePost;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "posts-index-container"
-  }, posts.map(function (post) {
+  var userPosts = posts.sort(function (a, b) {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  }).map(function (post) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_post_item__WEBPACK_IMPORTED_MODULE_1__.default, {
       key: post.id,
       user: user,
       post: post,
       deletePost: deletePost
     });
-  }));
+  });
+  var noPosts = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "no-posts"
+  }, "No posts available");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "posts-index-container"
+  }, userPosts.length ? userPosts : noPosts);
 });
 
 /***/ }),
@@ -1377,10 +1399,8 @@ var ProfilePage = function ProfilePage(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fetchAllPosts();
   }, [user]);
-  var email = user.email,
-      firstName = user.firstName,
+  var firstName = user.firstName,
       lastName = user.lastName,
-      birthday = user.birthday,
       coverPhoto = user.coverPhoto,
       profilePic = user.profilePic,
       bio = user.bio,
@@ -1410,8 +1430,7 @@ var ProfilePage = function ProfilePage(_ref) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "pp-content-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about__WEBPACK_IMPORTED_MODULE_2__.default, {
-    email: email,
-    birthday: birthday,
+    editProfile: editProfileForm,
     workplace: workplace,
     school: school,
     currentCity: currentCity
@@ -1443,7 +1462,7 @@ var mdtp = function mdtp(dispatch) {
         dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_7__.openModal)('editprofile'));
         dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_8__.clearErrors)());
       }
-    }, "Edit Profile"),
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Edit Profile")),
     createPostForm: function createPostForm() {
       return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_7__.openModal)('createPost'));
     },

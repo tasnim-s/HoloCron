@@ -37,7 +37,7 @@ class CreatePostModule extends React.Component {
                 </div>
                 
                 <div className="content">
-                    <input type="text" onChange={this.handleChange} value={this.state.content} placeholder="What's on your mind?" />
+                    <input autoFocus type="text" onChange={this.handleChange} value={this.state.content} placeholder="What's on your mind?" />
                 </div>
                 <div onClick={this.handleSubmit} className="post-button">
                     <span>Post</span>

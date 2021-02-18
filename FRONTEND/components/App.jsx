@@ -14,8 +14,7 @@ export default () => (
         
         <Switch>
             <AuthRoute exact path="/login" component={LoginFormContainer} />
-            <ProtectedRoute exact path="/profile" component={ProfilePageContainer} />
-            <Redirect to="/profile" />
+            <ProtectedRoute exact path="/profile/:userId" component={ProfilePageContainer} />
         </Switch>
        
         <footer>

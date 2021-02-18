@@ -46,7 +46,7 @@ class NavBar extends React.Component {
 
                 <div className="settings-link">
                     <div className="nav-right">
-                        <Link className='name-pic' to={`/profile`}>
+                        <Link className='name-pic' to={`/profile/${currentUser.id}`}>
                             {currentUser.profilePic ? <img src={currentUser.profilePic} /> : <img src={window.defaultPropic} />}
                             <div className="display-name">{currentUser.firstName}</div>
                         </Link>
@@ -55,6 +55,7 @@ class NavBar extends React.Component {
                     <div onClick={this.handleClick} ref={div => this.dropDown = div} className="settings-dropdown">
                         <i  className="fas fa-caret-square-down"></i>
                         {!this.state.hidden && <div className="dropdown-contents" onClick={e => e.stopPropagation()}>
+                            <Link to={`/profile/${currentUser.id}`} >
                             <div className="see-your-profile">
                                 {currentUser.profilePic ? <img src={currentUser.profilePic} /> : <img src={window.defaultPropic} />}
                                 <div className="see-your-profile-container">
@@ -62,6 +63,7 @@ class NavBar extends React.Component {
                                     <span className="see-your-profile-text">See your profile</span>
                                 </div>
                             </div>
+                            </Link>
                             <div className="divider"></div>
                             <div onClick={logout} className="logout-button">
                                 <i className="fas fa-sign-out-alt"></i>

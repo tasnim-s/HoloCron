@@ -33,6 +33,7 @@ class Api::PostsController < ApplicationController
         @post = Post.find_by(id: params[:id])
         if @post
             @post.destroy
+            @posts = Post.all
             render :index
         else
             render ['Post does not exist']

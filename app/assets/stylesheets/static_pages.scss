@@ -748,7 +748,7 @@ button:active {
       align-items: center;
       width: 124px;
       height: 36px;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 900px;
       border-radius: 6px;
       background: #3a3b3b;
@@ -765,7 +765,9 @@ button:active {
         height: inherit;
         width: inherit;
         cursor: pointer;
-        
+        span {
+          padding-left: 7px;
+        }
       }
       &:hover {
         filter: brightness(1.2);
@@ -802,7 +804,7 @@ button:active {
       box-sizing: border-box;
       width: 360px;
       // height: 384px;
-      height: 190px;
+      height:max-content;
       background: #252526;
       margin: 8px;
       border-radius: 8px;
@@ -848,6 +850,38 @@ button:active {
           background-position: 0px top;
         }
 
+        .edit {
+          box-sizing: border-box;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: auto;
+          height: 36px;
+          font-size: 16px;
+          font-weight: 900;
+          border-radius: 6px;
+          background: #3a3b3b;
+          padding: 0;
+          margin: 0;
+          a {
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: inherit;
+            width: 100%;
+            cursor: pointer;
+            span {
+              display: none;
+            }
+            &::after {
+              content: "Edit Details";
+            }
+          }
+          &:hover {
+            filter: brightness(1.2);
+          }
+        }
       }
     }
 
@@ -957,6 +991,7 @@ button:active {
   vertical-align: middle;
   text-align: center;
   width: 100%;
+  overflow-y: scroll;
 }
 
 .editP-child {
@@ -967,6 +1002,7 @@ button:active {
   transform: translate(-50%, -50%);
   padding: 5px;
   margin: 40px;
+  margin-top: 100px;
   text-align: left;
   background: #252526;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
@@ -1224,13 +1260,13 @@ button:active {
     height: 36px;
     width: 468px;
     padding: 16px;
-    background: blue;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 6px;
     margin-bottom: 12px;
     background: #2c88ff;
+    color: white;
     &:hover {
       cursor: pointer;
       filter: brightness(1.1);
@@ -1250,8 +1286,17 @@ button:active {
   flex-direction: column;
   justify-content: flex-start;
   
+  .no-posts {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    padding: 16px;
+  }
 
   .posts-item {
+    position: relative;
     width: 500px;
     height: auto;
     display: flex;
@@ -1263,6 +1308,29 @@ button:active {
     padding-bottom: 20px;
     margin-bottom: 20px;
     
+    .delete-button {
+      
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      height: 26px;
+      width: 26px;
+      border-radius: 50%;
+      padding: 5px;
+      // background-color: rgba(255, 0, 0, 0.317);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      letter-spacing: 1px;
+      &:hover {
+        cursor: pointer;
+        // filter: brightness(1.1);
+        background: #3a3b3b;
+      }
+      &:active {
+        transform: scale(.98);
+      }
+    }
 
     .pp-time-bar {
       box-sizing: border-box;
@@ -1287,6 +1355,7 @@ button:active {
         .name {
           font-size: 15px;
           font-weight: bold;
+          margin-bottom: 5px;
         }
 
         .time {
@@ -1294,19 +1363,7 @@ button:active {
         }
       }
 
-      .delete-button {
-        background: #3a3b3b;
-        margin-left: 205px;
-        padding: 5px;
-        border-radius: 6px;
-        &:hover {
-          cursor: pointer;
-          filter: brightness(1.1);
-        }
-        &:active {
-          transform: scale(.98);
-        }
-      }
+      
     }
 
     .content {

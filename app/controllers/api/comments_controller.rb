@@ -32,6 +32,7 @@ class Api::CommentsController < ApplicationController
         @comment = comment.find_by(id: params[:id])
         if @comment
             @comment.destroy
+            @comments = Comment.all
             render :index
         else
             render ['comment does not exist']
