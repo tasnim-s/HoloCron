@@ -8,6 +8,8 @@ class EditProfileForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.props.user;
+        this.state.changedcp = false;
+        this.state.changedpp = false;
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -16,22 +18,30 @@ class EditProfileForm extends React.Component {
     }
 
     handleFile(field) {
-        return e => this.setState({[field]: e.currentTarget.files[0]});
+        let changed = "";
+        field === 'profilePic' ? changed = "changedpp" : changed = "changedcp";
+        return e => this.setState({[field]: e.currentTarget.files[0], [changed]: true });
     }
 
     handleSubmit(e) {
+        e.preventDefault();
         const formData = new FormData();
         formData.append('user[bio]', this.state.bio);
-        formData.append('user[coverPhoto]', this.state.coverPhoto);
         formData.append('user[currentCity]', this.state.currentCity);
-        formData.append('user[profilePic]', this.state.profilePic);
         formData.append('user[school]', this.state.school);
         formData.append('user[workplace]', this.state.workplace);
         formData.append('user[id]', this.state.id);
+        if(this.state.changedcp) {
+            formData.append('user[coverPhoto]', this.state.coverPhoto);
+        }
+        if(this.state.changedpp) {
+            formData.append('user[profilePic]', this.state.profilePic);
+        }
         this.props.processForm(formData).then(this.props.closeModal);
     }
 
     render() {
+        console.log(this.state);
         const { closeModal, user } = this.props
         return (
             <div className="edit-form-container">

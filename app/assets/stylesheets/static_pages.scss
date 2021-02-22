@@ -15,7 +15,7 @@
   z-index: 10;
   vertical-align: middle;
   text-align: center;
-  width: 100%
+  width: 100%;
 }
 
 .modal-child {
@@ -413,7 +413,7 @@ button:active {
   // background-color: #1c1e21;
   background: #232626;
   padding: 0 10px;
-  z-index: 999;
+  z-index: 9;
   i, a {
     color: #b0b3b8;
   }
@@ -611,10 +611,10 @@ button:active {
 
 .profile-page-container{
   position: absolute;
-  
   top: 56px;
   left: 0;
   right: 0;
+  // height: 100%;
   color: #e3e6ea;
   display: flex;
   flex-direction: column;
@@ -641,6 +641,9 @@ button:active {
   .profile-pic-container {
     &:hover {
       filter: brightness(1.1);
+    }
+    &:active {
+      transform: scale(.98);
     }
     cursor: pointer;
     width: 168px;
@@ -787,9 +790,9 @@ button:active {
   justify-content: flex-start;
   align-items: center;
   background: #18191a;
-  height: 1000px;
   width: 100%;
-  bottom: 0;
+  height: fit-content;
+  padding-bottom: 200px;
 
   .pp-content-container {
     display: flex;
@@ -888,6 +891,7 @@ button:active {
     .user-posts-container {
       width: 500px;
       margin: 8px;
+      height: fit-content;
 
       .create-post-container {
         display: flex;
@@ -991,7 +995,6 @@ button:active {
   vertical-align: middle;
   text-align: center;
   width: 100%;
-  overflow-y: scroll;
 }
 
 .editP-child {
@@ -1001,27 +1004,28 @@ button:active {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 5px;
-  margin: 40px;
-  margin-top: 100px;
   text-align: left;
   background: #252526;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
   border-radius: 8px;
   z-index: 12;
-  max-width: 700px;
-  // height: 100%;
-  // overflow: auto;
 }
 
 .edit-form-container {
   box-sizing: border-box;
   background: inherit;
-  width: 700px;
+  width: 50vw;
+  max-width: 700px;
+  height: 90vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   color: #e4e6eb;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .closemodal {
     display: flex;
     align-items: center;
@@ -1043,9 +1047,8 @@ button:active {
 
   .edit-heading {
     box-sizing: border-box;
-    width: 700px;
-    height: 60px;
-    padding: 0 60px;
+    width: 100%;
+    padding: 19px 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1058,7 +1061,7 @@ button:active {
 
   .edit-pp-block {
     box-sizing: border-box;
-    width: 700px;
+    width: 100%;
     height: auto;
     .title {
       display: flex;
@@ -1077,7 +1080,7 @@ button:active {
 
     .change-container {
       // box-sizing: border-box;
-      width: 700px;
+      width: 100%;
       height: 200px;
       padding: 16px 12px 0;
       display: flex;

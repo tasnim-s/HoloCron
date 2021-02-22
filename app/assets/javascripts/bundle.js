@@ -392,7 +392,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fetchUser": () => /* binding */ fetchUser,
 /* harmony export */   "updateUser": () => /* binding */ updateUser
 /* harmony export */ });
-/* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api__util */ "./FRONTEND/util/user_api__util.js");
+/* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./FRONTEND/util/user_api_util.js");
 
 var RECEIVE_ALL_USERS = "RECEIVE_ALL_USERS";
 var RECEIVE_USER = "RECEIVE_USER";
@@ -1090,6 +1090,8 @@ var EditProfileForm = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = _this.props.user;
+    _this.state.changedcp = false;
+    _this.state.changedpp = false;
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -1108,26 +1110,39 @@ var EditProfileForm = /*#__PURE__*/function (_React$Component) {
     value: function handleFile(field) {
       var _this3 = this;
 
+      var changed = "";
+      field === 'profilePic' ? changed = "changedpp" : changed = "changedcp";
       return function (e) {
-        return _this3.setState(_defineProperty({}, field, e.currentTarget.files[0]));
+        var _this3$setState;
+
+        return _this3.setState((_this3$setState = {}, _defineProperty(_this3$setState, field, e.currentTarget.files[0]), _defineProperty(_this3$setState, changed, true), _this3$setState));
       };
     }
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      e.preventDefault();
       var formData = new FormData();
       formData.append('user[bio]', this.state.bio);
-      formData.append('user[coverPhoto]', this.state.coverPhoto);
       formData.append('user[currentCity]', this.state.currentCity);
-      formData.append('user[profilePic]', this.state.profilePic);
       formData.append('user[school]', this.state.school);
       formData.append('user[workplace]', this.state.workplace);
       formData.append('user[id]', this.state.id);
+
+      if (this.state.changedcp) {
+        formData.append('user[coverPhoto]', this.state.coverPhoto);
+      }
+
+      if (this.state.changedpp) {
+        formData.append('user[profilePic]', this.state.profilePic);
+      }
+
       this.props.processForm(formData).then(this.props.closeModal);
     }
   }, {
     key: "render",
     value: function render() {
+      console.log(this.state);
       var _this$props = this.props,
           closeModal = _this$props.closeModal,
           user = _this$props.user;
@@ -2706,7 +2721,7 @@ var Auth = function Auth(_ref) {
     exact: exact,
     render: function render(props) {
       return !loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, props) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Redirect, {
-        to: "/profile/:userId"
+        to: "/"
       });
     }
   });
@@ -2780,10 +2795,10 @@ var logout = function logout() {
 
 /***/ }),
 
-/***/ "./FRONTEND/util/user_api__util.js":
-/*!*****************************************!*\
-  !*** ./FRONTEND/util/user_api__util.js ***!
-  \*****************************************/
+/***/ "./FRONTEND/util/user_api_util.js":
+/*!****************************************!*\
+  !*** ./FRONTEND/util/user_api_util.js ***!
+  \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
