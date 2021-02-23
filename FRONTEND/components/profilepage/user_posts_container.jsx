@@ -2,14 +2,15 @@ import React from 'react';
 import CreatePost from './create_post';
 import PostsIndex from './posts_index';
 
-export default ({posts, user,  createPostForm, deletePost}) => {
+export default ({posts, user, currentUser, createPostForm, deletePost}) => {
     return (
         <div className="user-posts-container">
-            <CreatePost createPostForm={createPostForm}  user={user} />
+            {currentUser === user ? <CreatePost createPostForm={createPostForm}  user={user} /> : null}
+            
             <div className="posts-index-title">
                 <div className="title-post">Posts</div>
             </div>
-            <PostsIndex deletePost={deletePost} user={user} posts={posts} />
+            <PostsIndex currentUser={currentUser} deletePost={deletePost} user={user} posts={posts} />
         </div>
     )
 }

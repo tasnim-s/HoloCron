@@ -1,6 +1,7 @@
 import React from 'react';
 
-export default ({editProfile}) => {
+export default ({editProfile, currentUser, user}) => {
+    const edit = currentUser === user ? <div className="edit-profile">{editProfile}</div> : <div className="edit-profile">Add Friend</div>;
     return (
         <div className="menu-bar">
             <div className="tabs">
@@ -9,7 +10,7 @@ export default ({editProfile}) => {
                     <div className="active"></div>
                 </div>
             </div>
-            <div className="edit-profile">{editProfile}</div>
+            {edit}
         </div>
     )
 }

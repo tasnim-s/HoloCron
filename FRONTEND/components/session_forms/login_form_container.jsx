@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { login, clearErrors } from '../../actions/session_actions';
 import { openModal } from '../../actions/modal_actions';
 import { fetchAllUsers } from '../../actions/user_actions';
+import { fetchAllPosts } from '../../actions/post_actions';
 
 class SessionFormLogin extends React.Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class SessionFormLogin extends React.Component {
     componentDidMount() {
         this.props.clearErrors();
         this.props.fetchAllUsers();
+        this.props.fetchAllPosts();
     }
 
     componentWillUnmount() {
@@ -91,7 +93,8 @@ const mdtp = dispatch => ({
     demo: (<a onClick={() => dispatch(login({
         email: 'player1', password: 'player1'
     }))}>Demo Login?</a>),
-    fetchAllUsers:  () => dispatch(fetchAllUsers())
+    fetchAllUsers: () => dispatch(fetchAllUsers()),
+    fetchAllPosts: () => dispatch(fetchAllPosts())
 });
 
 export default connect(mstp,mdtp)(SessionFormLogin);

@@ -25,7 +25,7 @@ export default class PostItem extends React.Component {
     }
 
     render() {
-        const {user, post, deletePost} = this.props;
+        const {user, post, deletePost, currentUser} = this.props;
         const dateParser = (createdAt) => {
             const date = new Date(createdAt);
             const today = Date.now();
@@ -38,12 +38,15 @@ export default class PostItem extends React.Component {
 
         return (
             <div className="posts-item">
+                {
+                currentUser === user && 
                 <div className="item-edit-dropdown" onClick={this.handleDropDown} ref={div => this.dropDown = div} >•••
                     {!this.state.hidden && <div className="edit-options" onClick={e => e.stopPropagation()}>
 
                         <div onClick={() => deletePost(post.id)} className="delete-button">Delete</div>
                     </div>}
                 </div>
+                }
                 <div className="pp-time-bar">
                     <div className="pp">{user.profilePic ? <img className="pp" src={user.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>
                     <div className="time-name">
@@ -52,7 +55,7 @@ export default class PostItem extends React.Component {
                     </div>
                 </div>
                 <div className="content">{post.content}</div>
-                {post.image && <img src={post.image} />}
+                {post.image && <img className="post-item-image" src={post.image} />}
             </div>
         )
 
