@@ -1090,8 +1090,8 @@ var EditProfileForm = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = _this.props.user;
-    _this.state.changedcp = false;
-    _this.state.changedpp = false;
+    _this.state.ppUrl = null;
+    _this.state.coverUrl = null;
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -1110,12 +1110,21 @@ var EditProfileForm = /*#__PURE__*/function (_React$Component) {
     value: function handleFile(field) {
       var _this3 = this;
 
-      var changed = "";
-      field === 'profilePic' ? changed = "changedpp" : changed = "changedcp";
       return function (e) {
-        var _this3$setState;
+        var changed = "";
+        field === 'profilePic' ? changed = "ppUrl" : changed = "coverUrl";
+        var file = e.currentTarget.files[0];
+        var fileReader = new FileReader();
 
-        return _this3.setState((_this3$setState = {}, _defineProperty(_this3$setState, field, e.currentTarget.files[0]), _defineProperty(_this3$setState, changed, true), _this3$setState));
+        fileReader.onloadend = function () {
+          var _this3$setState;
+
+          _this3.setState((_this3$setState = {}, _defineProperty(_this3$setState, field, file), _defineProperty(_this3$setState, changed, fileReader.result), _this3$setState));
+        };
+
+        if (file) {
+          fileReader.readAsDataURL(file);
+        }
       };
     }
   }, {
@@ -1129,11 +1138,11 @@ var EditProfileForm = /*#__PURE__*/function (_React$Component) {
       formData.append('user[workplace]', this.state.workplace);
       formData.append('user[id]', this.state.id);
 
-      if (this.state.changedcp) {
+      if (this.state.coverUrl) {
         formData.append('user[coverPhoto]', this.state.coverPhoto);
       }
 
-      if (this.state.changedpp) {
+      if (this.state.ppUrl) {
         formData.append('user[profilePic]', this.state.profilePic);
       }
 
@@ -1142,10 +1151,51 @@ var EditProfileForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       console.log(this.state);
       var _this$props = this.props,
           closeModal = _this$props.closeModal,
           user = _this$props.user;
+
+      var previewPP = function previewPP() {
+        if (_this4.state.ppUrl) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            className: "pp",
+            src: _this4.state.ppUrl
+          });
+        } else if (user.profilePic) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            className: "pp",
+            src: user.profilePic
+          });
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            className: "pp",
+            src: window.defaultPropic
+          });
+        }
+      };
+
+      var previewCP = function previewCP() {
+        if (_this4.state.coverUrl) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            className: "cover",
+            src: _this4.state.coverUrl
+          });
+        } else if (user.coverPhoto) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            className: "cover",
+            src: user.coverPhoto
+          });
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            className: "cover",
+            src: window.defaultCover
+          });
+        }
+      };
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "edit-form-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1162,26 +1212,14 @@ var EditProfileForm = /*#__PURE__*/function (_React$Component) {
         onChange: this.handleFile('profilePic')
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "change-container"
-      }, user.profilePic ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-        className: "pp",
-        src: user.profilePic
-      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-        className: "pp",
-        src: window.defaultPropic
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, previewPP()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "title"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Cover Photo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "file",
         onChange: this.handleFile('coverPhoto')
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "change-container"
-      }, user.coverPhoto ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-        className: "cover",
-        src: user.coverPhoto
-      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-        className: "cover",
-        src: window.defaultCover
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, previewCP()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "title"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Bio")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "change-container bio-edit"

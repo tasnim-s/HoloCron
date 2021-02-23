@@ -8,8 +8,8 @@ class EditProfileForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.props.user;
-        this.state.changedcp = false;
-        this.state.changedpp = false;
+        this.state.ppUrl = null;
+        this.state.coverUrl = null;
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -18,9 +18,19 @@ class EditProfileForm extends React.Component {
     }
 
     handleFile(field) {
-        let changed = "";
-        field === 'profilePic' ? changed = "changedpp" : changed = "changedcp";
-        return e => this.setState({[field]: e.currentTarget.files[0], [changed]: true });
+        return e => {
+            let changed = "";
+            field === 'profilePic' ? changed = "ppUrl" : changed = "coverUrl";
+            const file = e.currentTarget.files[0];
+            const fileReader = new FileReader();
+            fileReader.onloadend = () => {
+
+                this.setState({[field]: file, [changed]: fileReader.result });
+            };
+            if(file) {
+                fileReader.readAsDataURL(file);
+            }
+        } 
     }
 
     handleSubmit(e) {
@@ -31,10 +41,10 @@ class EditProfileForm extends React.Component {
         formData.append('user[school]', this.state.school);
         formData.append('user[workplace]', this.state.workplace);
         formData.append('user[id]', this.state.id);
-        if(this.state.changedcp) {
+        if(this.state.coverUrl) {
             formData.append('user[coverPhoto]', this.state.coverPhoto);
         }
-        if(this.state.changedpp) {
+        if(this.state.ppUrl) {
             formData.append('user[profilePic]', this.state.profilePic);
         }
         this.props.processForm(formData).then(this.props.closeModal);
@@ -42,7 +52,25 @@ class EditProfileForm extends React.Component {
 
     render() {
         console.log(this.state);
-        const { closeModal, user } = this.props
+        const { closeModal, user } = this.props;
+        const previewPP = () => {
+            if(this.state.ppUrl) {
+                return <img className="pp" src={this.state.ppUrl} />
+            } else if(user.profilePic) {
+                return <img className="pp" src={user.profilePic} />
+            } else {
+                return <img className="pp" src={window.defaultPropic} />
+            }
+        };
+        const previewCP = () => {
+            if(this.state.coverUrl) {
+                return <img className="cover" src={this.state.coverUrl} />
+            } else if(user.coverPhoto) {
+                return <img className="cover" src={user.coverPhoto} />
+            } else {
+                return <img className="cover" src={window.defaultCover} />
+            }
+        };
         return (
             <div className="edit-form-container">
                 <div className="edit-heading">
@@ -55,14 +83,14 @@ class EditProfileForm extends React.Component {
                         <input type="file" onChange={this.handleFile('profilePic')} />
                     </div>
                     <div className="change-container">
-                        {user.profilePic ? <img className="pp" src={user.profilePic} /> : <img className="pp" src={window.defaultPropic} />}
+                        {previewPP()}
                     </div>
                     <div className="title">
                         <span>Cover Photo</span>
                         <input type="file" onChange={this.handleFile('coverPhoto')} />
                     </div>
                     <div className="change-container">
-                        {user.coverPhoto ? <img className="cover" src={user.coverPhoto} /> : <img className="cover" src={window.defaultCover} />}
+                        {previewCP()}
                     </div>
                     <div className="title">
                         <span>Bio</span>
