@@ -24,7 +24,6 @@ class EditProfileForm extends React.Component {
             const file = e.currentTarget.files[0];
             const fileReader = new FileReader();
             fileReader.onloadend = () => {
-
                 this.setState({[field]: file, [changed]: fileReader.result });
             };
             if(file) {
@@ -80,14 +79,16 @@ class EditProfileForm extends React.Component {
                 <div className="edit-pp-block">
                     <div className="title">
                         <span>Profile Picture</span>
-                        <input type="file" onChange={this.handleFile('profilePic')} />
+                        <input type="file" onChange={this.handleFile('profilePic')} id="file-pp" hidden/>
+                        <label htmlFor="file-pp">Edit</label>
                     </div>
                     <div className="change-container">
                         {previewPP()}
                     </div>
                     <div className="title">
                         <span>Cover Photo</span>
-                        <input type="file" onChange={this.handleFile('coverPhoto')} />
+                        <input type="file" onChange={this.handleFile('coverPhoto')} id="file-cp" hidden/>
+                        <label htmlFor="file-cp">Edit</label>
                     </div>
                     <div className="change-container">
                         {previewCP()}

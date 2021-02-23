@@ -656,6 +656,7 @@ button:active {
     justify-content: center;
     align-items: center;
     align-content: center;
+    border: 2px solid #242526;
     img {
       width: inherit;
       height: inherit;
@@ -1066,6 +1067,7 @@ button:active {
     .title {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 20px 16px 4px;
       span {
         font-size: 20px;
@@ -1075,6 +1077,16 @@ button:active {
         width: 100px;
         background: transparent;
         color: #2b72cd;
+      }
+      label {
+        font-size: 17px;
+        color: #2e89ff;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover {
+          background: rgba(255,255,255,0.1);
+        }
       }
     }
 
@@ -1312,7 +1324,7 @@ button:active {
     padding-bottom: 20px;
     margin-bottom: 20px;
     
-    .delete-button {
+    .item-edit-dropdown {
       
       position: absolute;
       top: 10px;
@@ -1321,7 +1333,6 @@ button:active {
       width: 26px;
       border-radius: 50%;
       padding: 5px;
-      // background-color: rgba(255, 0, 0, 0.317);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1333,6 +1344,13 @@ button:active {
       }
       &:active {
         transform: scale(.98);
+      }
+
+      .edit-options {
+        position: absolute;
+        top: 36px;
+        right: 0;
+        border: 1px solid red;
       }
     }
 
@@ -1374,6 +1392,13 @@ button:active {
       width: 468px;
       height: auto;
       font-size: 24px;
+      padding-top: 5px;
+    }
+
+    img {
+      padding-top: 10px;
+      width: 100%;
+      height: auto;
     }
   }
 }

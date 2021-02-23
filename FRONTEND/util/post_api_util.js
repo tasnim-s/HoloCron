@@ -15,8 +15,10 @@ export const requestPost = postId => (
 export const createPost = post => (
     $.ajax({
         method: 'POST',
-        url: `/api/users/${post.creatorId}/posts`,
-        data: { post }
+        url: `/api/users/${post.get("post[creatorId]")}/posts`,
+        data: post,
+        contentType: false,
+        processData: false
     })
 );
 
