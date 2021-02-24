@@ -460,9 +460,6 @@ button:active {
       filter: brightness(1.2);
       background: #3a3b3c;
     }
-    a:active {
-      border-bottom: 3px solid #2c88ff;
-    }
   }
 
   .settings-link {
@@ -535,7 +532,7 @@ button:active {
         align-items: center;
         position: absolute;
         // height: 430px;
-        height: 135px;
+        height: fit-content;
         width: 360px;
         background: #252526;
         top: 54px;
@@ -596,7 +593,7 @@ button:active {
           align-items: center;
           border-radius: 7px;
           margin-top: 5px;
-          margin-bottom: 5px;
+          margin-bottom: 8px;
 
           i {
             margin: 8px 12px 8px 0px;
@@ -1475,4 +1472,10 @@ button:active {
       height: auto;
     }
   }
+}
+
+
+
+.newsfeed {
+  background: red;
 }

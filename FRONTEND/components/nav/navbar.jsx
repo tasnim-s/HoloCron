@@ -81,9 +81,12 @@ class NavBar extends React.Component {
     }
 }
 
-const mstp = ({ session , entities: {users}}) => ({
-    currentUser: users[session.id]
-});
+const mstp = ({ session , entities: {users}}, ownProps) => {
+    debugger;
+    return {
+        currentUser: users[session.id]
+    }
+};
 
 const mdtp = dispatch => ({
     logout: () => dispatch(logout()),
