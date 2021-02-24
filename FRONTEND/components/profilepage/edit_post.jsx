@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { clearErrors} from '../../actions/session_actions';
 import { closeModal } from '../../actions/modal_actions';
 import {updatePost} from '../../actions/post_actions';
+import { closeEdit } from '../../actions/filter_actions';
 
 class EditPost extends React.Component {
     constructor(props) {
@@ -33,6 +34,7 @@ class EditPost extends React.Component {
         const formData = new FormData();
         formData.append('post[content]', this.state.content);
         formData.append('post[creatorId]', this.state.creatorId);
+        formData.append('post[id]', this.state.id);
         if(this.state.image) {
             formData.append('post[image]', this.state.image);
         }
@@ -41,12 +43,20 @@ class EditPost extends React.Component {
 
     render() {
         const {closeModal, user} = this.props;
-        const preview = this.state.imageURL ? <img src={this.state.imageURL} /> : null;
+        const preview = () => {
+            if (this.state.imageURL) {
+                return <img className="image-preview" src={this.state.imageURL} />;
+            } else if (this.state.image) {
+                return <img className="image-preview" src={this.state.image} />;
+            } else {
+                return null;
+            }
+        }
         return (
             <div className="create-post-form">
                 <div className="cp-top">
                     <div className="cp-heading">
-                        <span>Create Post</span>
+                        <span>Edit Post</span>
                     </div>
                     <div className="closemodal" onClick={closeModal}>✕</div>
                     <div className="pp-name">
@@ -58,8 +68,11 @@ class EditPost extends React.Component {
                 
                 <div className="content">
                     <input autoFocus type="text" onChange={this.handleChange} value={this.state.content} placeholder="What's on your mind?" />
-                    <input type="file" onChange={this.handleFile} />
-                    {preview}
+                    {preview()}
+                    <div className="media">Add to Your Post
+                        <input type="file" onChange={this.handleFile} id="file-post" hidden/>
+                        <label htmlFor="file-post"><i className="fas fa-image"></i><span>Photo</span></label>
+                    </div>
                 </div>
                 <div onClick={this.handleSubmit} className="post-button">
                     <span>Post</span>
@@ -69,13 +82,17 @@ class EditPost extends React.Component {
     }
 }
 
-const mstp = ({ entities: { users }, session }) => ({
-    user: users[session.id]
+const mstp = ({ entities: { users, posts }, session, ui: {filter} }) => ({
+    user: users[session.id],
+    post: posts[filter.postId]
 });
 
 const mdtp = dispatch => ({
     processForm: post => dispatch(updatePost(post)),
-    closeModal: () => dispatch(closeModal()),
+    closeModal: () => {
+        dispatch(closeModal());
+        dispatch(closeEdit());
+    },
     clearErrors: () => dispatch(clearErrors())
 });
 

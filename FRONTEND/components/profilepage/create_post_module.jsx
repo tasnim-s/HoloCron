@@ -41,7 +41,7 @@ class CreatePostModule extends React.Component {
 
     render() {
         const {closeModal, user} = this.props;
-        const preview = this.state.imageURL ? <img src={this.state.imageURL} /> : null;
+        const preview = this.state.imageURL ? <img className="image-preview" src={this.state.imageURL} /> : null;
         return (
             <div className="create-post-form">
                 <div className="cp-top">
@@ -58,8 +58,11 @@ class CreatePostModule extends React.Component {
                 
                 <div className="content">
                     <input autoFocus type="text" onChange={this.handleChange} value={this.state.content} placeholder="What's on your mind?" />
-                    <input type="file" onChange={this.handleFile} />
                     {preview}
+                    <div className="media">Add to Your Post
+                        <input type="file" onChange={this.handleFile} id="file-post" hidden/>
+                        <label htmlFor="file-post"><i class="fas fa-image"></i><span>Photo</span></label>
+                    </div>
                 </div>
                 <div onClick={this.handleSubmit} className="post-button">
                     <span>Post</span>

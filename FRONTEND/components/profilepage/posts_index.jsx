@@ -2,9 +2,9 @@ import React from 'react';
 import PostItem from './post_item';
 
 
-export default ({posts, user, deletePost, currentUser}) => {
+export default ({posts, user, deletePost, currentUser, editPost}) => {
 
-    const userPosts = posts.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).map(post => <PostItem key={post.id} user={user} post={post} deletePost={deletePost} currentUser={currentUser} />);
+    const userPosts = posts.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).map(post => <PostItem key={post.id} user={user} post={post} deletePost={deletePost} currentUser={currentUser} editPost={editPost} />);
 
     const noPosts = <div className="no-posts">No posts available</div>
     

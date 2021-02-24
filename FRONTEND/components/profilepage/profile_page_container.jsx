@@ -9,6 +9,7 @@ import { openModal, closeModal } from '../../actions/modal_actions';
 import { clearErrors } from '../../actions/session_actions';
 import { deletePost, fetchAllPosts } from '../../actions/post_actions';
 import { fetchAllUsers } from '../../actions/user_actions';
+import {clickPost} from '../../actions/filter_actions';
 
 class ProfilePage extends React.Component {
     constructor(props){
@@ -21,7 +22,7 @@ class ProfilePage extends React.Component {
     }
 
     render() {
-        const {user, editProfileForm, createPostForm, deletePost, posts, currentUser} = this.props;
+        const {user, editProfileForm, createPostForm, deletePost, posts, currentUser, editPost} = this.props;
         const { firstName, lastName, coverPhoto, profilePic, bio } = user;
         return (
             <div className="profile-page-container">
@@ -42,7 +43,7 @@ class ProfilePage extends React.Component {
                 <div className="profile-page-bot">
                     <div className="pp-content-container">
                         <About editProfile={editProfileForm} user={user} currentUser={currentUser} />
-                        <UserPostsContainer deletePost={deletePost} createPostForm={createPostForm} user={user} posts={posts} currentUser={currentUser} />
+                        <UserPostsContainer editPost={editPost} deletePost={deletePost} createPostForm={createPostForm} user={user} posts={posts} currentUser={currentUser} />
                     </div>
                 </div>
                 
@@ -54,7 +55,6 @@ class ProfilePage extends React.Component {
 }
 
 const mstp = ({session, entities: {users, posts}}, ownProps) => {
-    debugger;
     return {
         currentUser: users[session.id],
         user: users[ownProps.match.params.userId],
@@ -71,7 +71,11 @@ const mdtp = dispatch => ({
     closeModal: () => dispatch(closeModal()),
     deletePost: postId => dispatch(deletePost(postId)),
     fetchAllPosts: () => dispatch(fetchAllPosts()),
-    fetchAllUsers: () => dispatch(fetchAllUsers())
+    fetchAllUsers: () => dispatch(fetchAllUsers()),
+    editPost: (postId) => {
+        dispatch(clickPost(postId));
+        dispatch(openModal('editPost'));
+    },
 });
 
 export default connect(mstp, mdtp)(ProfilePage);
