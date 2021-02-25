@@ -35,7 +35,7 @@ class EditPost extends React.Component {
         formData.append('post[content]', this.state.content);
         formData.append('post[creatorId]', this.state.creatorId);
         formData.append('post[id]', this.state.id);
-        if(this.state.image) {
+        if(this.state.imageURL) {
             formData.append('post[image]', this.state.image);
         }
         this.props.processForm(formData).then(this.props.closeModal);

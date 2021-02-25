@@ -61,7 +61,7 @@ class CreatePostModule extends React.Component {
                     {preview}
                     <div className="media">Add to Your Post
                         <input type="file" onChange={this.handleFile} id="file-post" hidden/>
-                        <label htmlFor="file-post"><i class="fas fa-image"></i><span>Photo</span></label>
+                        <label htmlFor="file-post"><i className="fas fa-image"></i><span>Photo</span></label>
                     </div>
                 </div>
                 <div onClick={this.handleSubmit} className="post-button">

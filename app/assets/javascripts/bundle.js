@@ -710,7 +710,16 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           currentUser = _this$props.currentUser,
           logout = _this$props.logout,
-          createPostForm = _this$props.createPostForm;
+          createPostForm = _this$props.createPostForm,
+          page = _this$props.page;
+
+      var selected = function selected(klass) {
+        if (klass.includes("home")) {
+          return page.includes('newsfeed') ? klass + " selected" : klass;
+        } else if (klass.includes("friends")) {
+          return page.includes('friends') ? klass + " selected" : klass;
+        }
+      };
 
       var personalGreeting = function personalGreeting() {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -729,16 +738,28 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
           placeholder: "Search Holocron"
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "newsfeed-friends-links"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "newsfeed-link-container"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
           className: "newsfeed-link",
           to: "/"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-          className: "fas fa-home"
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+          className: selected("fas fa-home")
+        })), page.includes("newsfeed") ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "bottom-bar-selected"
+        }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "bottom-bar"
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "friends-link-container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
           className: "friends-link",
           to: "/friends"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-          className: "fas fa-user-friends"
+          className: selected("fas fa-user-friends")
+        })), page.includes("friends") ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "bottom-bar-selected"
+        }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "bottom-bar"
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
           className: "github-link",
           href: "https://github.com/tasnim-s"
@@ -809,9 +830,9 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
 var mstp = function mstp(_ref, ownProps) {
   var session = _ref.session,
       users = _ref.entities.users;
-  debugger;
   return {
-    currentUser: users[session.id]
+    currentUser: users[session.id],
+    page: ownProps.location.pathname
   };
 };
 
@@ -843,6 +864,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/user_actions */ "./FRONTEND/actions/user_actions.js");
+/* harmony import */ var _actions_post_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/post_actions */ "./FRONTEND/actions/post_actions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -868,6 +891,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var Newsfeed = /*#__PURE__*/function (_React$Component) {
   _inherits(Newsfeed, _React$Component);
 
@@ -880,6 +905,12 @@ var Newsfeed = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(Newsfeed, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchAllUsers();
+      this.props.fetchAllPosts();
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -891,12 +922,29 @@ var Newsfeed = /*#__PURE__*/function (_React$Component) {
   return Newsfeed;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-var mstp = function mstp(state, ownProps) {
-  return {};
+var mstp = function mstp(_ref, ownProps) {
+  var session = _ref.session,
+      _ref$entities = _ref.entities,
+      users = _ref$entities.users,
+      posts = _ref$entities.posts;
+  // let relatedPosts, relatedUsers;
+  // users ? relatedUsers = Object.values(users).filter(user => user.)
+  return {
+    currentUser: users[session.id] //     posts: relatedPosts,
+    //     friends: relatedUsers
+
+  };
 };
 
 var mdtp = function mdtp(dispatch) {
-  return {};
+  return {
+    fetchAllUsers: function fetchAllUsers() {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.fetchAllUsers)());
+    },
+    fetchAllPosts: function fetchAllPosts() {
+      return dispatch((0,_actions_post_actions__WEBPACK_IMPORTED_MODULE_3__.fetchAllPosts)());
+    }
+  };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mstp, mdtp)(Newsfeed));
@@ -1155,7 +1203,7 @@ var CreatePostModule = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
         htmlFor: "file-post"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-        "class": "fas fa-image"
+        className: "fas fa-image"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Photo")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: this.handleSubmit,
         className: "post-button"
@@ -1291,7 +1339,7 @@ var EditPost = /*#__PURE__*/function (_React$Component) {
       formData.append('post[creatorId]', this.state.creatorId);
       formData.append('post[id]', this.state.id);
 
-      if (this.state.image) {
+      if (this.state.imageURL) {
         formData.append('post[image]', this.state.image);
       }
 
@@ -2282,7 +2330,6 @@ var SessionFormLogin = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       this.props.clearErrors();
       this.props.fetchAllUsers();
-      this.props.fetchAllPosts();
     }
   }, {
     key: "componentWillUnmount",

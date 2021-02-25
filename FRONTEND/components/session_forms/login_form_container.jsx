@@ -19,7 +19,6 @@ class SessionFormLogin extends React.Component {
     componentDidMount() {
         this.props.clearErrors();
         this.props.fetchAllUsers();
-        this.props.fetchAllPosts();
     }
 
     componentWillUnmount() {

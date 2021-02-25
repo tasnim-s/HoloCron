@@ -30,7 +30,14 @@ class NavBar extends React.Component {
 
 
     render() {
-        const {currentUser, logout, createPostForm} = this.props;
+        const {currentUser, logout, createPostForm, page} = this.props;
+        const selected = (klass) => {
+            if(klass.includes("home")) {
+                return page.includes('newsfeed') ? klass + " selected" : klass;
+            } else if(klass.includes("friends")){
+                return page.includes('friends') ? klass + " selected" : klass;
+            }
+        };
         const personalGreeting = () => (
             <div className="nav-bar">
                 <div className="logo-and-search">
@@ -39,8 +46,14 @@ class NavBar extends React.Component {
                 </div>
 
                 <div className="newsfeed-friends-links">
-                    <Link className="newsfeed-link" to="/"><i className="fas fa-home"></i></Link>
-                    <Link className="friends-link" to="/friends"><i className="fas fa-user-friends"></i></Link>
+                    <div className="newsfeed-link-container">
+                        <Link className="newsfeed-link" to="/"><i className={selected("fas fa-home")}></i></Link>
+                        {page.includes("newsfeed") ? <div className="bottom-bar-selected"></div> : <div className="bottom-bar"></div> }
+                    </div>
+                    <div className="friends-link-container">
+                        <Link className="friends-link" to="/friends"><i className={selected("fas fa-user-friends")}></i></Link>
+                        {page.includes("friends") ? <div className="bottom-bar-selected"></div> : <div className="bottom-bar"></div> }
+                    </div>
                     <a className="github-link" href="https://github.com/tasnim-s"><i className="fab fa-github"></i></a>
                 </div>
 
@@ -82,9 +95,9 @@ class NavBar extends React.Component {
 }
 
 const mstp = ({ session , entities: {users}}, ownProps) => {
-    debugger;
     return {
-        currentUser: users[session.id]
+        currentUser: users[session.id],
+        page: ownProps.location.pathname
     }
 };
 
