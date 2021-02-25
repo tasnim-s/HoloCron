@@ -1503,8 +1503,36 @@ button:active {
   }
 }
 
+.spinner {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   
+  i {
+    font-size: 50px;
+    animation: loading-spinner infinite 3s linear;
+  }
+}
+
+@keyframes loading-spinner {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 
 
 .newsfeed {
   background: red;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

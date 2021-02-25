@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAllUsers } from '../../actions/user_actions';
 import { fetchAllPosts } from '../../actions/post_actions';
+import Spinner from '../loading/spinner';
 
 class Newsfeed extends React.Component {
     componentDidMount(){
@@ -11,7 +12,7 @@ class Newsfeed extends React.Component {
     render() {
         return (
             <div className="newsfeed">
-                Newsfeed
+                <Spinner />
             </div>
         )
     }

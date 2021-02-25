@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { openModal } from '../../actions/modal_actions';
 import { logout } from '../../actions/session_actions';
+import Spinner from '../loading/spinner';
 
 
 class NavBar extends React.Component {
@@ -90,7 +91,7 @@ class NavBar extends React.Component {
             </div>
         );
 
-        return personalGreeting();
+        return currentUser ? personalGreeting() : <Spinner />;
     }
 }
 
