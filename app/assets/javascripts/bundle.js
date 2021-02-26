@@ -420,7 +420,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "receiveUserErrors": () => /* binding */ receiveUserErrors,
 /* harmony export */   "fetchAllUsers": () => /* binding */ fetchAllUsers,
 /* harmony export */   "fetchUser": () => /* binding */ fetchUser,
-/* harmony export */   "updateUser": () => /* binding */ updateUser
+/* harmony export */   "updateUser": () => /* binding */ updateUser,
+/* harmony export */   "addFriendship": () => /* binding */ addFriendship,
+/* harmony export */   "removeFriendship": () => /* binding */ removeFriendship
 /* harmony export */ });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./FRONTEND/util/user_api_util.js");
 
@@ -469,6 +471,20 @@ var updateUser = function updateUser(formData) {
       return dispatch(receiveUser(user));
     }, function (err) {
       return dispatch(receiveUserErrors(err.responseJSON));
+    });
+  };
+};
+var addFriendship = function addFriendship(friendship) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.createFriendship(friendship).then(function () {
+      return dispatch(fetchAllUsers());
+    });
+  };
+};
+var removeFriendship = function removeFriendship(friendship) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.destroyFriendship(friendship).then(function () {
+      return dispatch(fetchAllUsers());
     });
   };
 };
@@ -1974,12 +1990,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (_ref) {
   var editProfile = _ref.editProfile,
       currentUser = _ref.currentUser,
-      user = _ref.user;
+      user = _ref.user,
+      addFriendship = _ref.addFriendship,
+      removeFriendship = _ref.removeFriendship;
+  var friendship = {
+    user_id: currentUser.id,
+    friend_id: user.id
+  };
+
+  var addFriend = function addFriend() {
+    var userFriends = currentUser.friends.map(function (friend) {
+      return friend.id;
+    });
+
+    if (userFriends.includes(user.id)) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+        onClick: function onClick() {
+          return removeFriendship(friendship);
+        },
+        className: "edit-profile"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+        className: "fas fa-user-times"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Unfriend"));
+    } else {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+        onClick: function onClick() {
+          return addFriendship(friendship);
+        },
+        className: "edit-profile"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+        className: "fas fa-user-plus"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Add Friend"));
+    }
+  };
+
   var edit = currentUser === user ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "edit-profile"
   }, editProfile) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "edit-profile"
-  }, "Add Friend");
+  }, addFriend());
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "menu-bar"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -2053,13 +2102,15 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      this.dropDownListener = function (e) {
-        if (!_this2.dropDown.contains(e.target)) _this2.setState({
-          hidden: true
-        });
-      };
+      if (this.props.currentUser === this.props.user) {
+        this.dropDownListener = function (e) {
+          if (!_this2.dropDown.contains(e.target)) _this2.setState({
+            hidden: true
+          });
+        };
 
-      document.addEventListener('click', this.dropDownListener, false);
+        document.addEventListener('click', this.dropDownListener, false);
+      }
     }
   }, {
     key: "componentWillUnmount",
@@ -2090,7 +2141,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
         var date = new Date(createdAt);
         var today = Date.now();
 
-        if (today - date > 86400000) {
+        if (today - date > 43200000) {
           return date.toDateString() + " at " + date.toLocaleTimeString();
         } else {
           return "Today at " + date.toLocaleTimeString();
@@ -2099,7 +2150,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "posts-item"
-      }, currentUser === user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, currentUser === user ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "item-edit-dropdown",
         onClick: this.handleDropDown,
         ref: function ref(div) {
@@ -2121,7 +2172,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
         className: "delete-button"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
         className: "fas fa-trash-alt"
-      }), "Move to trash"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }), "Move to trash"))) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "pp-time-bar"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "pp"
@@ -2260,22 +2311,17 @@ var ProfilePage = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(ProfilePage);
 
   function ProfilePage(props) {
-    var _this;
-
     _classCallCheck(this, ProfilePage);
 
-    _this = _super.call(this, props);
-
-    _this.props.fetchAllUsers();
-
-    _this.props.fetchAllPosts();
-
-    return _this;
+    return _super.call(this, props);
   }
 
   _createClass(ProfilePage, [{
     key: "componentDidMount",
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      this.props.fetchAllUsers();
+      this.props.fetchAllPosts();
+    }
   }, {
     key: "render",
     value: function render() {
@@ -2286,29 +2332,28 @@ var ProfilePage = /*#__PURE__*/function (_React$Component) {
           deletePost = _this$props.deletePost,
           posts = _this$props.posts,
           currentUser = _this$props.currentUser,
-          editPost = _this$props.editPost;
-      var firstName = user.firstName,
-          lastName = user.lastName,
-          coverPhoto = user.coverPhoto,
-          profilePic = user.profilePic,
-          bio = user.bio;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          editPost = _this$props.editPost,
+          addFriendship = _this$props.addFriendship,
+          removeFriendship = _this$props.removeFriendship;
+      return !user ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "profile-page-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "profile-page-top"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_cover_photo__WEBPACK_IMPORTED_MODULE_3__.default, {
-        coverPhoto: coverPhoto
+        coverPhoto: user.coverPhoto
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_profile_pic__WEBPACK_IMPORTED_MODULE_5__.default, {
-        profilePic: profilePic
+        profilePic: user.profilePic
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "pp-name-bio"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, firstName, " ", lastName), bio ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, user.firstName, " ", user.lastName), user.bio ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "bio"
-      }, bio) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, user.bio) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "bio"
       }, "Add Bio")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "divider"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_menu_bar__WEBPACK_IMPORTED_MODULE_4__.default, {
+        removeFriendship: removeFriendship,
+        addFriendship: addFriendship,
         user: user,
         currentUser: currentUser,
         editProfile: editProfileForm
@@ -2355,7 +2400,9 @@ var mdtp = function mdtp(dispatch) {
         dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_7__.openModal)('editprofile'));
         dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_8__.clearErrors)());
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Edit Profile")),
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+      className: "fas fa-pen"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Edit Profile")),
     createPostForm: function createPostForm() {
       return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_7__.openModal)('createPost'));
     },
@@ -2374,6 +2421,12 @@ var mdtp = function mdtp(dispatch) {
     editPost: function editPost(postId) {
       dispatch((0,_actions_filter_actions__WEBPACK_IMPORTED_MODULE_11__.clickPost)(postId));
       dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_7__.openModal)('editPost'));
+    },
+    addFriendship: function addFriendship(friendship) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_10__.addFriendship)(friendship));
+    },
+    removeFriendship: function removeFriendship(friendship) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_10__.removeFriendship)(friendship));
     }
   };
 };

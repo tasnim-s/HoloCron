@@ -9,10 +9,12 @@ export default class PostItem extends React.Component {
     }
 
     componentDidMount() {
-        this.dropDownListener = e => {
-            if (!this.dropDown.contains(e.target)) this.setState({ hidden: true });
+        if(this.props.currentUser === this.props.user) {
+            this.dropDownListener = e => {
+                if (!this.dropDown.contains(e.target)) this.setState({ hidden: true });
+            }
+            document.addEventListener('click', this.dropDownListener, false);
         }
-        document.addEventListener('click', this.dropDownListener, false);
     }
 
     componentWillUnmount() {
@@ -26,27 +28,28 @@ export default class PostItem extends React.Component {
 
     render() {
         const {user, post, deletePost, currentUser, editPost} = this.props;
+
         const dateParser = (createdAt) => {
             const date = new Date(createdAt);
             const today = Date.now();
-            if (today - date > 86400000) {
+            if (today - date > 43200000) {
                 return date.toDateString() + " at " + date.toLocaleTimeString();
             } else {
                 return "Today at " + date.toLocaleTimeString();
             }
-        }  
+        } ;
 
         return (
             <div className="posts-item">
                 {
-                currentUser === user && 
+                currentUser === user ? 
                 <div className="item-edit-dropdown" onClick={this.handleDropDown} ref={div => this.dropDown = div} >•••
                     {!this.state.hidden && <div className="edit-options">
 
                         <div onClick={() => editPost(post.id)} className="edit-post-button"><i className="fas fa-pen"></i>Edit post</div>
                         <div onClick={() => deletePost(post.id)} className="delete-button"><i className="fas fa-trash-alt"></i>Move to trash</div>
                     </div>}
-                </div>
+                </div> : null
                 }
                 <div className="pp-time-bar">
                     <div className="pp">{user.profilePic ? <img className="pp" src={user.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>

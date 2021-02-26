@@ -8,35 +8,34 @@ import UserPostsContainer from './user_posts_container';
 import { openModal, closeModal } from '../../actions/modal_actions';
 import { clearErrors } from '../../actions/session_actions';
 import { deletePost, fetchAllPosts } from '../../actions/post_actions';
-import { fetchAllUsers } from '../../actions/user_actions';
+import { addFriendship, fetchAllUsers, removeFriendship } from '../../actions/user_actions';
 import {clickPost} from '../../actions/filter_actions';
 
 class ProfilePage extends React.Component {
     constructor(props){
         super(props);
-        this.props.fetchAllUsers();
-        this.props.fetchAllPosts();
     }
     componentDidMount() {
+        this.props.fetchAllUsers();
+        this.props.fetchAllPosts();
         
     }
 
     render() {
-        const {user, editProfileForm, createPostForm, deletePost, posts, currentUser, editPost} = this.props;
-        const { firstName, lastName, coverPhoto, profilePic, bio } = user;
-        return (
+        const {user, editProfileForm, createPostForm, deletePost, posts, currentUser, editPost, addFriendship, removeFriendship} = this.props;
+        return !user ? null : (
             <div className="profile-page-container">
                 <div className="profile-page-top">
-                    <CoverPhoto coverPhoto={coverPhoto}/>
-                    <ProfilePic profilePic={profilePic} />
+                    <CoverPhoto coverPhoto={user.coverPhoto}/>
+                    <ProfilePic profilePic={user.profilePic} />
 
                     <div className="pp-name-bio">
-                        <h1>{firstName} {lastName}</h1>
-                        {bio ? <div className="bio">{bio}</div> : <div className="bio">Add Bio</div>}
+                        <h1>{user.firstName} {user.lastName}</h1>
+                        {user.bio ? <div className="bio">{user.bio}</div> : <div className="bio">Add Bio</div>}
                     </div>
 
                     <div className="divider"></div>
-                    <MenuBar user={user} currentUser={currentUser} editProfile={editProfileForm}/>
+                    <MenuBar removeFriendship={removeFriendship} addFriendship={addFriendship} user={user} currentUser={currentUser} editProfile={editProfileForm}/>
 
                 </div>
                 
@@ -66,7 +65,7 @@ const mdtp = dispatch => ({
     editProfileForm: (<a onClick={() => {
         dispatch(openModal('editprofile'));
         dispatch(clearErrors());
-    }}><span>Edit Profile</span></a>),
+    }}><i className="fas fa-pen"></i><span>Edit Profile</span></a>),
     createPostForm: () => dispatch(openModal('createPost')),
     closeModal: () => dispatch(closeModal()),
     deletePost: postId => dispatch(deletePost(postId)),
@@ -76,6 +75,8 @@ const mdtp = dispatch => ({
         dispatch(clickPost(postId));
         dispatch(openModal('editPost'));
     },
+    addFriendship: (friendship) => dispatch(addFriendship(friendship)),
+    removeFriendship: (friendship) => dispatch(removeFriendship(friendship))
 });
 
 export default connect(mstp, mdtp)(ProfilePage);

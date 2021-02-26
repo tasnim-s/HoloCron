@@ -24,3 +24,6 @@ export const fetchAllUsers = () => dispatch => UserUtil.requestAllUsers().then(u
 export const fetchUser = (userId) => dispatch => UserUtil.requestUser(userId).then(user => dispatch(receiveUser(user)), err => dispatch(receiveUserErrors(err.responseJSON)));
 
 export const updateUser = (formData) => dispatch => UserUtil.updateUser(formData).then(user => dispatch(receiveUser(user)), err => dispatch(receiveUserErrors(err.responseJSON)));
+
+export const addFriendship = (friendship) => dispatch => UserUtil.createFriendship(friendship).then(() => dispatch(fetchAllUsers()));
+export const removeFriendship = (friendship) => dispatch => UserUtil.destroyFriendship(friendship).then(() => dispatch(fetchAllUsers()));

@@ -782,11 +782,6 @@ button:active {
       font-weight: 900px;
       border-radius: 6px;
       background: #3a3b3b;
-      background-image: image-url('pencil-icon.png');
-      background-repeat: no-repeat;
-      background-size: 16px 16px;
-      background-position: 12px center;
-      padding-left: 14px;
       a {
         box-sizing: border-box;
         display: flex;
@@ -901,6 +896,9 @@ button:active {
             height: inherit;
             width: 100%;
             cursor: pointer;
+            i {
+              display: none;
+            }
             span {
               display: none;
             }

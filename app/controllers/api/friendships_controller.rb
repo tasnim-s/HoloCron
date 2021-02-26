@@ -1,9 +1,16 @@
 class Api::FriendshipsController < ApplicationController
     def create
-        Friendship.create_link(params[:user_id], params[:friend_id])
+        friendship = Friendship.create_link(friendship_params[:user_id], friendship_params[:friend_id])
+        render json: {}
     end
 
     def destroy
-        Friendship.destroy_link(param[:user_id], params[:friend_id])
+        Friendship.destroy_link(friendship_params[:user_id], friendship_params[:friend_id])
+        render json: {}
+    end
+
+    private
+    def friendship_params
+        params.require(:friendship).transform_keys(&:underscore).permit(:user_id, :friend_id)
     end
 end
