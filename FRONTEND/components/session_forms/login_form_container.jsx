@@ -21,10 +21,6 @@ class SessionFormLogin extends React.Component {
         this.props.fetchAllUsers();
     }
 
-    componentWillUnmount() {
-        this.props.clearErrors();
-    }
-
     handleSubmit(e) {
         e.preventDefault();
         const user = Object.assign({}, this.state);

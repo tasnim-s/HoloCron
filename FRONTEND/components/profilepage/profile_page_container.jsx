@@ -5,6 +5,7 @@ import CoverPhoto from './cover_photo';
 import MenuBar from './menu_bar';
 import ProfilePic from './profile_pic';
 import UserPostsContainer from './user_posts_container';
+import Spinner from '../loading/spinner';
 import { openModal, closeModal } from '../../actions/modal_actions';
 import { clearErrors } from '../../actions/session_actions';
 import { deletePost, fetchAllPosts } from '../../actions/post_actions';
@@ -17,15 +18,16 @@ class ProfilePage extends React.Component {
     }
     componentDidMount() {
         this.props.fetchAllUsers();
-        this.props.fetchAllPosts();
         
     }
 
     render() {
         const {user, editProfileForm, createPostForm, deletePost, posts, currentUser, editPost, addFriendship, removeFriendship} = this.props;
-        return !user ? null : (
+        return !user ? <Spinner /> : (
             <div className="profile-page-container">
+
                 <div className="profile-page-top">
+
                     <CoverPhoto coverPhoto={user.coverPhoto}/>
                     <ProfilePic profilePic={user.profilePic} />
 
@@ -40,10 +42,14 @@ class ProfilePage extends React.Component {
                 </div>
                 
                 <div className="profile-page-bot">
+
                     <div className="pp-content-container">
+
                         <About editProfile={editProfileForm} user={user} currentUser={currentUser} />
                         <UserPostsContainer editPost={editPost} deletePost={deletePost} createPostForm={createPostForm} user={user} posts={posts} currentUser={currentUser} />
+                        
                     </div>
+
                 </div>
                 
             </div>
@@ -53,11 +59,12 @@ class ProfilePage extends React.Component {
 
 }
 
-const mstp = ({session, entities: {users, posts}}, ownProps) => {
+const mstp = ({session, entities: {users}}, ownProps) => {
+    const whosPage = users[ownProps.match.params.userId];
     return {
         currentUser: users[session.id],
-        user: users[ownProps.match.params.userId],
-        posts: Object.values(posts).filter(post => post.creatorId == ownProps.match.params.userId)
+        user: whosPage,
+        posts: whosPage.posts
     }
 };
 

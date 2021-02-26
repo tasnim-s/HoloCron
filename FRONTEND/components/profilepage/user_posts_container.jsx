@@ -10,7 +10,7 @@ export default ({posts, user, currentUser, createPostForm, deletePost, editPost}
             <div className="posts-index-title">
                 <div className="title-post">Posts</div>
             </div>
-            <PostsIndex currentUser={currentUser} deletePost={deletePost} user={user} posts={posts} editPost={editPost}/>
+            <PostsIndex currentUser={currentUser} deletePost={deletePost} posts={posts} editPost={editPost}/>
         </div>
     )
 }

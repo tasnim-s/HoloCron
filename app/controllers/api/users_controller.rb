@@ -18,7 +18,7 @@ class Api::UsersController < ApplicationController
     end
 
     def show
-        @user = User.includes(:posts, :comments).find_by(id: params[:id])
+        @user = User.includes(:posts, :comments, :friends).find_by(id: params[:id])
         render :show
     end
 

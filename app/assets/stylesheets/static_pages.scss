@@ -447,6 +447,7 @@ button:active {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    height: fit-content;
     width: 336px;
     .newsfeed-link-container, .friends-link-container, .github-link {
       display: flex;
@@ -458,7 +459,7 @@ button:active {
       border-radius: 7px;
       a {
         width: 100%;
-        height: 51px;
+        height: 53px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1532,5 +1533,5 @@ button:active {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }

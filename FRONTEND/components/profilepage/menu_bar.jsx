@@ -1,7 +1,9 @@
 import React from 'react';
 
 export default ({editProfile, currentUser, user, addFriendship, removeFriendship}) => {
+
     const friendship = {user_id: currentUser.id, friend_id: user.id};
+
     const addFriend = () => {
         const userFriends = currentUser.friends.map(friend => friend.id);
         if(userFriends.includes(user.id)) {
@@ -10,7 +12,9 @@ export default ({editProfile, currentUser, user, addFriendship, removeFriendship
             return <a onClick={() => addFriendship(friendship)} className="edit-profile"><i className="fas fa-user-plus"></i><span>Add Friend</span></a>
         }
     }
+    
     const edit = currentUser === user ? <div className="edit-profile">{editProfile}</div> : <div className="edit-profile">{addFriend()}</div>;
+
     return (
         <div className="menu-bar">
             <div className="tabs">
