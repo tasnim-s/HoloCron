@@ -10,12 +10,11 @@ import Contacts from './contacts';
 class Newsfeed extends React.Component {
     componentDidMount(){
         this.props.fetchAllUsers();
-        this.props.fetchAllPosts();
     }
     render() {
         const { posts, currentUser, createPostForm, deletePost, editPost } = this.props;
 
-        return !posts ? <Spinner /> : (
+        return !currentUser ? <Spinner /> : (
             <div className="newsfeed">
                 <Navigation currentUser={currentUser} />
                 <Main currentUser={currentUser} posts={posts} createPostForm={createPostForm} deletePost={deletePost} editPost={editPost} />
@@ -25,13 +24,21 @@ class Newsfeed extends React.Component {
     }
 }
 
-const mstp = ({session, entities: {users, posts}}, ownProps) => {
+const mstp = ({session, entities: {users}}) => {
+
+
     const currentUser = users[session.id];
-    const friendIds = currentUser.friends.map(friend => friend.id);
+        let friends = [];
+        currentUser.friendIds.forEach(friendId => friends.push(users[friendId]));
+        let friendsPosts = [];
+        // friends.forEach(friend  => friendsPosts.push(friend.posts));
+        // const relevantPosts = currentUser.posts + friendsPosts.flat()
+    debugger;
     return {
         currentUser: currentUser,
-        posts: Object.values(posts).filter(post => friendIds.includes(post.creatorId || post.creatorId === session.id))
+        // posts: relevantPosts
     }
+    
 }
 
 const mdtp = (dispatch) => {

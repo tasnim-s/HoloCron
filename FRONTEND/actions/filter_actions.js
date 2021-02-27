@@ -1,9 +1,9 @@
 export const CLICK_POST = "CLICK_POST";
 export const CLOSE_EDIT = "CLOSE_EDIT";
 
-export const clickPost = postId => ({
+export const clickPost = post => ({
     type: CLICK_POST,
-    postId
+    post
 });
 
 export const closeEdit = () => ({

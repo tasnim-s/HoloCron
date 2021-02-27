@@ -6,7 +6,6 @@ import FriendsIndex from './friends_index';
 
 class FriendsContainer extends React.Component {
     componentDidMount(){
-        this.props.fetchAllUsers();
     }
     render() {
         return (

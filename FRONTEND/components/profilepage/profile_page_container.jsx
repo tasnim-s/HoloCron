@@ -18,11 +18,10 @@ class ProfilePage extends React.Component {
     }
     componentDidMount() {
         this.props.fetchAllUsers();
-        
     }
 
     render() {
-        const {user, editProfileForm, createPostForm, deletePost, posts, currentUser, editPost, addFriendship, removeFriendship} = this.props;
+        const {user, editProfileForm, createPostForm, deletePost, currentUser, editPost, addFriendship, removeFriendship} = this.props;
         return !user ? <Spinner /> : (
             <div className="profile-page-container">
 
@@ -46,8 +45,8 @@ class ProfilePage extends React.Component {
                     <div className="pp-content-container">
 
                         <About editProfile={editProfileForm} user={user} currentUser={currentUser} />
-                        <UserPostsContainer editPost={editPost} deletePost={deletePost} createPostForm={createPostForm} user={user} posts={posts} currentUser={currentUser} />
-                        
+                        <UserPostsContainer editPost={editPost} deletePost={deletePost} createPostForm={createPostForm} user={user} currentUser={currentUser} />
+
                     </div>
 
                 </div>
@@ -63,8 +62,7 @@ const mstp = ({session, entities: {users}}, ownProps) => {
     const whosPage = users[ownProps.match.params.userId];
     return {
         currentUser: users[session.id],
-        user: whosPage,
-        posts: whosPage.posts
+        user: whosPage
     }
 };
 

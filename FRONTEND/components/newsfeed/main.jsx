@@ -1,6 +1,6 @@
 import React from 'react';
 import CreatePost from '../profilepage/create_post';
-import UserPostsContainer from '../profilepage/user_posts_container';
+import PostsIndex from '../profilepage/posts_index';
 
 export default class Main extends React.Component {
     render() {
@@ -8,9 +8,9 @@ export default class Main extends React.Component {
 
         return (
             <div className="main-container">
-                <CreatePost createPostForm={createPostForm}  user={user} />
+                {/* <CreatePost createPostForm={createPostForm}  user={currentUser} />
 
-                <PostsIndex currentUser={currentUser} deletePost={deletePost} user={user} posts={posts} editPost={editPost}/>
+                <PostsIndex currentUser={currentUser} deletePost={deletePost} user={user} posts={posts} editPost={editPost}/> */}
             </div>
         )
     }

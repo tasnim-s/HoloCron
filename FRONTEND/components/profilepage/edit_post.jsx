@@ -82,9 +82,9 @@ class EditPost extends React.Component {
     }
 }
 
-const mstp = ({ entities: { users, posts }, session, ui: {filter} }) => ({
+const mstp = ({ entities: { users}, session, ui: {filter} }) => ({
     user: users[session.id],
-    post: posts[filter.postId]
+    post: filter.post
 });
 
 const mdtp = dispatch => ({

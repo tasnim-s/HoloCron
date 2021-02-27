@@ -46,9 +46,7 @@ user1.profile_pic.attach(io: File.open("app/assets/images/kobegigi.jpg"), filena
 
 
 
-# comment1 = Comment.create(content: "Demo Comment", commenter_id: demo.id, post_id: post1.id)
-# comment2 = Comment.create(content: "The Force will be with you. Always.", commenter_id: demo.id, post_id: post1.id)
-# comment3 = Comment.create(content: "Never tell me the odds!", commenter_id: demo.id, post_id: post2.id)
-# comment4 = Comment.create(content: "Are you the same animal, and a different beast?", commenter_id: user1.id, post_id: post1.id)
+comment1 = Comment.create(content: "Demo Comment", commenter_id: demo.id, post_id: demo.posts[0].id)
+comment4 = Comment.create(content: "Are you the same animal, and a different beast?", commenter_id: user1.id, post_id: demo.posts[0].id)
 
 

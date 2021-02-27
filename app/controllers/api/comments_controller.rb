@@ -15,7 +15,7 @@ class Api::CommentsController < ApplicationController
     end
 
     def update
-        @comment = comment.find_by(id: params[:id])
+        @comment = Comment.includes(:likes).find_by(id: params[:id])
         if @comment && @comment.update(comment_params)
             render :show
         else
@@ -24,12 +24,12 @@ class Api::CommentsController < ApplicationController
     end
 
     def show
-        @comment = comment.find_by(id: params[:id])
+        @comment = Comment.find_by(id: params[:id])
         render :show
     end
 
     def destroy
-        @comment = comment.find_by(id: params[:id])
+        @comment = Comment.find_by(id: params[:id])
         if @comment
             @comment.destroy
             @comments = Comment.all

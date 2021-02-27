@@ -6,14 +6,15 @@ class Api::PostsController < ApplicationController
     end
     
     def show
-        @post = Post.includes(:comments).find_by(id: params[:id])
+        @post = Post.includes(:comments, :likes, :creator).find_by(id: params[:id])
         render :show
     end
     
     def create
         @post = Post.new(post_params)
         if @post.save
-            render :show
+            @user = User.includes(:posts, :comments, :friends).find_by(id: @post.creator_id)
+            render "api/users/show"
         else
             render json: @post.errors.full_messages, status: 422
         end
@@ -22,7 +23,8 @@ class Api::PostsController < ApplicationController
     def update
         @post = Post.find_by(id: params[:id])
         if @post && @post.update(post_params)
-            render :show
+            @user = User.includes(:posts, :comments, :friends).find_by(id: @post.creator_id)
+            render "api/users/show"
         else
             render json: @post.errors.full_messages, status: 422
         end
@@ -32,9 +34,9 @@ class Api::PostsController < ApplicationController
     def destroy
         @post = Post.find_by(id: params[:id])
         if @post
+            @user = User.includes(:posts, :comments, :friends).find_by(id: @post.creator_id)
             @post.destroy
-            @posts = Post.all
-            render :index
+            render "api/users/show"
         else
             render ['Post does not exist']
         end
