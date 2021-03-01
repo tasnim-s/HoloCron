@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { clearErrors} from '../../actions/session_actions';
 import { closeModal } from '../../actions/modal_actions';
 import {createPost} from '../../actions/post_actions';
+import Spinner from '../loading/spinner';
 
 class CreatePostModule extends React.Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class CreatePostModule extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleFile = this.handleFile.bind(this);
+        this.state.sent = false;
     }
 
     handleChange(e) {
@@ -37,12 +39,13 @@ class CreatePostModule extends React.Component {
             formData.append('post[image]', this.state.image);
         }
         this.props.processForm(formData).then(this.props.closeModal);
+        this.setState({sent: true});
     }
 
     render() {
         const {closeModal, user} = this.props;
         const preview = this.state.imageURL ? <img className="image-preview" src={this.state.imageURL} /> : null;
-        return (
+        return this.state.sent ? <Spinner /> : (
             <div className="create-post-form">
                 <div className="cp-top">
                     <div className="cp-heading">

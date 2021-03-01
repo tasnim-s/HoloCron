@@ -13,9 +13,6 @@ import { addFriendship, fetchAllUsers, removeFriendship } from '../../actions/us
 import {clickPost} from '../../actions/filter_actions';
 
 class ProfilePage extends React.Component {
-    constructor(props){
-        super(props);
-    }
     componentDidMount() {
         this.props.fetchAllUsers();
     }

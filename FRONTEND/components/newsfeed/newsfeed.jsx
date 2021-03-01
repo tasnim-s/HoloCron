@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAllUsers } from '../../actions/user_actions';
-import { fetchAllPosts } from '../../actions/post_actions';
+import { fetchAllPosts, deletePost } from '../../actions/post_actions';
+import { openModal } from '../../actions/modal_actions';
+import {clickPost} from '../../actions/filter_actions';
 import Spinner from '../loading/spinner';
 import Navigation from './navigation';
 import Main from './main';
@@ -10,33 +12,29 @@ import Contacts from './contacts';
 class Newsfeed extends React.Component {
     componentDidMount(){
         this.props.fetchAllUsers();
+        window.scrollTo({top: 0, behavior: "auto"})
     }
+    
     render() {
-        const { posts, currentUser, createPostForm, deletePost, editPost } = this.props;
-
-        return !currentUser ? <Spinner /> : (
+        const { currentUser, createPostForm, deletePost, editPost, users, fetchAllUsers} = this.props;
+        const friends = users.filter(user => currentUser.friendIds.includes(user.id));
+        const friendsPosts = friends.map(friend => friend.posts).flat();
+        const posts = [currentUser.posts, friendsPosts].flat();
+        return !users ? <Spinner /> : (
             <div className="newsfeed">
                 <Navigation currentUser={currentUser} />
-                <Main currentUser={currentUser} posts={posts} createPostForm={createPostForm} deletePost={deletePost} editPost={editPost} />
+                <Main fetchAllUsers={fetchAllUsers} currentUser={currentUser} posts={posts} createPostForm={createPostForm} deletePost={deletePost} editPost={editPost} />
                 <Contacts currentUser={currentUser} />
             </div>
         )
+        
     }
 }
 
 const mstp = ({session, entities: {users}}) => {
-
-
-    const currentUser = users[session.id];
-        let friends = [];
-        currentUser.friendIds.forEach(friendId => friends.push(users[friendId]));
-        let friendsPosts = [];
-        // friends.forEach(friend  => friendsPosts.push(friend.posts));
-        // const relevantPosts = currentUser.posts + friendsPosts.flat()
-    debugger;
     return {
-        currentUser: currentUser,
-        // posts: relevantPosts
+        users: Object.values(users),
+        currentUser: users[session.id]
     }
     
 }

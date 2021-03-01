@@ -1,16 +1,18 @@
 import React from 'react';
 import CreatePost from '../profilepage/create_post';
-import PostsIndex from '../profilepage/posts_index';
+import NewsfeedPosts from './newsfeed_posts';
+import Spinner from '../loading/spinner';
 
 export default class Main extends React.Component {
+    
     render() {
         const { posts, currentUser, createPostForm, deletePost, editPost } = this.props;
 
-        return (
+        return !posts ? <Spinner /> : (
             <div className="main-container">
-                {/* <CreatePost createPostForm={createPostForm}  user={currentUser} />
+                <CreatePost createPostForm={createPostForm}  user={currentUser} />
 
-                <PostsIndex currentUser={currentUser} deletePost={deletePost} user={user} posts={posts} editPost={editPost}/> */}
+                <NewsfeedPosts currentUser={currentUser} deletePost={deletePost} posts={posts} editPost={editPost}/>
             </div>
         )
     }

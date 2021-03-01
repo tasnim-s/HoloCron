@@ -9,7 +9,7 @@ export default class PostItem extends React.Component {
     }
 
     componentDidMount() {
-        if(this.props.currentUser === this.props.user) {
+        if(this.props.currentUser.id === this.props.user.id) {
             this.dropDownListener = e => {
                 if (!this.dropDown.contains(e.target)) this.setState({ hidden: true });
             }
@@ -28,6 +28,7 @@ export default class PostItem extends React.Component {
 
     render() {
         const {user, post, deletePost, currentUser, editPost} = this.props;
+        post.creatorId = post.creator.id;
 
         const dateParser = (createdAt) => {
             const date = new Date(createdAt);
@@ -41,7 +42,7 @@ export default class PostItem extends React.Component {
 
         return (
             <div className="posts-item">
-                {currentUser === user ? 
+                {currentUser.id === user.id ? 
                 <div className="item-edit-dropdown" onClick={this.handleDropDown} ref={div => this.dropDown = div} >•••
                     {!this.state.hidden && <div className="edit-options">
                         <div onClick={() => editPost(post)} className="edit-post-button"><i className="fas fa-pen"></i>Edit post</div>
