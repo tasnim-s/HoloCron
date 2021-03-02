@@ -55,7 +55,7 @@ class NavBar extends React.Component {
                         <Link className="friends-link" to="/friends"><i className={selected("fas fa-user-friends")}></i></Link>
                         {page.includes("friends") ? <div className="bottom-bar-selected"></div> : <div className="bottom-bar"></div> }
                     </div>
-                    <a className="social-link" href="https://www.linkedin.com/in/tasnim-s/"><i className="fas fa-user-tie"></i></a>
+                    <a className="social-link" href="http://tasnimsaiduzzaman.com/" target="_blank" rel="noopener noreferrer"><i className="fas fa-user-tie"></i></a>
                 </div>
 
                 <div className="settings-link">

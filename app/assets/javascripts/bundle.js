@@ -1022,7 +1022,9 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
           className: "bottom-bar"
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
           className: "social-link",
-          href: "https://www.linkedin.com/in/tasnim-s/"
+          href: "http://tasnimsaiduzzaman.com/",
+          target: "_blank",
+          rel: "noopener noreferrer"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
           className: "fas fa-user-tie"
         }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1404,12 +1406,12 @@ var Navigation = /*#__PURE__*/function (_React$Component) {
         className: "navigation"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
         className: "social-link",
-        href: "https://github.com/tasnim-s",
+        href: "http://tasnimsaiduzzaman.com/",
         target: "_blank",
         rel: "noopener noreferrer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
         src: window.tasnim
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Tasnim Saiduzzaman")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Tasnim Saiduzzaman (Creator)")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
         className: "social-link",
         href: "https://github.com/tasnim-s",
         target: "_blank",
