@@ -27,6 +27,7 @@ class ProfilePage extends React.Component {
             this.props.fetchAllUsers().then(() => this.setState({loading: false}));
             this.setState({loading: true});
         }
+        window.scrollTo({top: 0, behavior: "auto"});
     }
 
     render() {

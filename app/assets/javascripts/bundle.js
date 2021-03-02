@@ -637,6 +637,11 @@ var FriendsContainer = /*#__PURE__*/function (_React$Component) {
           loading: true
         });
       }
+
+      window.scrollTo({
+        top: 0,
+        behavior: "auto"
+      });
     }
   }, {
     key: "render",
@@ -2485,11 +2490,23 @@ __webpack_require__.r(__webpack_exports__);
     filtered = friendItems;
   }
 
+  var count = function count() {
+    if (friends.length === 1) {
+      return "1 friend";
+    } else if (friends.length > 1) {
+      return "".concat(friends.length, " friends");
+    } else {
+      return "No friends";
+    }
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "about-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "intro"
   }, "Friends"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "count"
+  }, count()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "friend-contents"
   }, filtered));
 });
@@ -2869,6 +2886,11 @@ var ProfilePage = /*#__PURE__*/function (_React$Component) {
           loading: true
         });
       }
+
+      window.scrollTo({
+        top: 0,
+        behavior: "auto"
+      });
     }
   }, {
     key: "render",

@@ -17,7 +17,7 @@ class Newsfeed extends React.Component {
     componentDidMount(){
         this.props.fetchAllUsers().then(() => this.setState({loading: false}));
         this.setState({loading: true});
-        window.scrollTo({top: 0, behavior: "auto"})
+        window.scrollTo({top: 0, behavior: "auto"});
     }
     
     render() {

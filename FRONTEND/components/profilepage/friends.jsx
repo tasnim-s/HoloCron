@@ -9,9 +9,18 @@ export default ({friends}) => {
     } else {
         filtered = friendItems;
     }
+
+    const count = () => {
+        if(friends.length === 1) {
+            return "1 friend";
+        } else if(friends.length > 1) {
+            return `${friends.length} friends`;
+        } else {return "No friends"}
+    }
     return (
         <div className="about-container">
             <div className="intro">Friends</div>
+            <div className="count">{count()}</div>
             <div className="friend-contents">
                 {filtered}
             </div>
