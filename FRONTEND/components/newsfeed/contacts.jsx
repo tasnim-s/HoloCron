@@ -11,8 +11,6 @@ export default class Contacts extends React.Component {
                     Contacts
                 </div>
                 {friendItems}
-                {friendItems}
-                {friendItems}
             </div>
         )
     }

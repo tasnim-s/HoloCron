@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { clearErrors } from '../../actions/session_actions';
 import { closeModal } from '../../actions/modal_actions';
 import { updateUser } from '../../actions/user_actions';
+import Spinner from '../loading/spinner';
 
 class EditProfileForm extends React.Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class EditProfileForm extends React.Component {
         this.state.ppUrl = null;
         this.state.coverUrl = null;
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state.sent = false;
     }
 
     handleChange(field) {
@@ -47,6 +49,7 @@ class EditProfileForm extends React.Component {
             formData.append('user[profilePic]', this.state.profilePic);
         }
         this.props.processForm(formData).then(this.props.closeModal);
+        this.setState({sent: true})
     }
 
     render() {
@@ -70,7 +73,7 @@ class EditProfileForm extends React.Component {
                 return <img className="cover" src={window.defaultCover} />
             }
         };
-        return (
+        return this.state.sent ? <Spinner /> : (
             <div className="edit-form-container">
                 <div className="edit-heading">
                     <span>Edit Profile</span>

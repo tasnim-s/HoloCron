@@ -602,19 +602,46 @@ var FriendsContainer = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(FriendsContainer);
 
-  function FriendsContainer() {
+  function FriendsContainer(props) {
+    var _this;
+
     _classCallCheck(this, FriendsContainer);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+
+    if (_this.props.users.length <= 1) {
+      _this.state = {
+        loading: true
+      };
+    } else {
+      _this.state = {
+        loading: false
+      };
+    }
+
+    return _this;
   }
 
   _createClass(FriendsContainer, [{
     key: "componentDidMount",
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.users.length <= 1) {
+        this.props.fetchAllUsers().then(function () {
+          return _this2.setState({
+            loading: false
+          });
+        });
+        this.setState({
+          loading: true
+        });
+      }
+    }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      return this.state.loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_loading_spinner__WEBPACK_IMPORTED_MODULE_3__.default, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "friends-page"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_friends_index__WEBPACK_IMPORTED_MODULE_4__.default, {
         currentUser: this.props.currentUser,
@@ -683,7 +710,7 @@ __webpack_require__.r(__webpack_exports__);
     className: "no-friends"
   }, "When you have friend requests or suggestions, you'll see them here.");
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "posts-index-container"
+    className: "friends-index-container"
   }, usersItems.length ? usersItems : noFriends);
 });
 
@@ -1256,7 +1283,7 @@ var Contacts = /*#__PURE__*/function (_React$Component) {
         className: "contacts-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "contacts-header"
-      }, "Contacts"), friendItems, friendItems, friendItems);
+      }, "Contacts"), friendItems);
     }
   }]);
 
@@ -1329,7 +1356,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
           createPostForm = _this$props.createPostForm,
           deletePost = _this$props.deletePost,
           editPost = _this$props.editPost;
-      return !posts ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_loading_spinner__WEBPACK_IMPORTED_MODULE_3__.default, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "main-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_profilepage_create_post__WEBPACK_IMPORTED_MODULE_1__.default, {
         createPostForm: createPostForm,
@@ -1401,7 +1428,6 @@ var Navigation = /*#__PURE__*/function (_React$Component) {
   _createClass(Navigation, [{
     key: "render",
     value: function render() {
-      var currentUser = this.props.currentUser;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "navigation"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
@@ -1508,16 +1534,31 @@ var Newsfeed = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(Newsfeed);
 
-  function Newsfeed() {
+  function Newsfeed(props) {
+    var _this;
+
     _classCallCheck(this, Newsfeed);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      loading: true
+    };
+    return _this;
   }
 
   _createClass(Newsfeed, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchAllUsers();
+      var _this2 = this;
+
+      this.props.fetchAllUsers().then(function () {
+        return _this2.setState({
+          loading: false
+        });
+      });
+      this.setState({
+        loading: true
+      });
       window.scrollTo({
         top: 0,
         behavior: "auto"
@@ -1533,18 +1574,21 @@ var Newsfeed = /*#__PURE__*/function (_React$Component) {
           editPost = _this$props.editPost,
           users = _this$props.users,
           fetchAllUsers = _this$props.fetchAllUsers;
-      var friends = users.filter(function (user) {
-        return currentUser.friendIds.includes(user.id);
-      });
-      var friendsPosts = friends.map(function (friend) {
-        return friend.posts;
-      }).flat();
-      var posts = [currentUser.posts, friendsPosts].flat();
-      return !users ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_loading_spinner__WEBPACK_IMPORTED_MODULE_6__.default, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      var friends, friendsPosts, posts;
+
+      if (!this.state.loading) {
+        friends = users.filter(function (user) {
+          return currentUser.friendIds.includes(user.id);
+        });
+        friendsPosts = friends.map(function (friend) {
+          return friend.posts;
+        }).flat();
+        posts = [currentUser.posts, friendsPosts].flat();
+      }
+
+      return this.state.loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_loading_spinner__WEBPACK_IMPORTED_MODULE_6__.default, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "newsfeed"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_navigation__WEBPACK_IMPORTED_MODULE_7__.default, {
-        currentUser: currentUser
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_main__WEBPACK_IMPORTED_MODULE_8__.default, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_navigation__WEBPACK_IMPORTED_MODULE_7__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_main__WEBPACK_IMPORTED_MODULE_8__.default, {
         fetchAllUsers: fetchAllUsers,
         currentUser: currentUser,
         posts: posts,
@@ -2162,6 +2206,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./FRONTEND/actions/session_actions.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./FRONTEND/actions/modal_actions.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/user_actions */ "./FRONTEND/actions/user_actions.js");
+/* harmony import */ var _loading_spinner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../loading/spinner */ "./FRONTEND/components/loading/spinner.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2192,6 +2237,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var EditProfileForm = /*#__PURE__*/function (_React$Component) {
   _inherits(EditProfileForm, _React$Component);
 
@@ -2207,6 +2253,7 @@ var EditProfileForm = /*#__PURE__*/function (_React$Component) {
     _this.state.ppUrl = null;
     _this.state.coverUrl = null;
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.state.sent = false;
     return _this;
   }
 
@@ -2261,6 +2308,9 @@ var EditProfileForm = /*#__PURE__*/function (_React$Component) {
       }
 
       this.props.processForm(formData).then(this.props.closeModal);
+      this.setState({
+        sent: true
+      });
     }
   }, {
     key: "render",
@@ -2310,7 +2360,7 @@ var EditProfileForm = /*#__PURE__*/function (_React$Component) {
         }
       };
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      return this.state.sent ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_loading_spinner__WEBPACK_IMPORTED_MODULE_5__.default, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "edit-form-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "edit-heading"
@@ -2404,6 +2454,48 @@ var mdtp = function mdtp(dispatch) {
 
 /***/ }),
 
+/***/ "./FRONTEND/components/profilepage/friends.jsx":
+/*!*****************************************************!*\
+  !*** ./FRONTEND/components/profilepage/friends.jsx ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _newsfeed_contact_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../newsfeed/contact_item */ "./FRONTEND/components/newsfeed/contact_item.jsx");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (_ref) {
+  var friends = _ref.friends;
+  var friendItems = friends.map(function (friend) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_newsfeed_contact_item__WEBPACK_IMPORTED_MODULE_1__.default, {
+      key: friend.id,
+      friend: friend
+    });
+  });
+  var filtered;
+
+  if (friendItems.length > 9) {
+    filtered = friendItems.slice(0, 8);
+  } else {
+    filtered = friendItems;
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "about-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "intro"
+  }, "Friends"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "friend-contents"
+  }, filtered));
+});
+
+/***/ }),
+
 /***/ "./FRONTEND/components/profilepage/menu_bar.jsx":
 /*!******************************************************!*\
   !*** ./FRONTEND/components/profilepage/menu_bar.jsx ***!
@@ -2445,7 +2537,7 @@ __webpack_require__.r(__webpack_exports__);
         onClick: function onClick() {
           return addFriendship(friendship);
         },
-        className: "edit-profile"
+        className: "edit-profile add-friend"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
         className: "fas fa-user-plus"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Add Friend"));
@@ -2689,16 +2781,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _about__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./about */ "./FRONTEND/components/profilepage/about.jsx");
-/* harmony import */ var _cover_photo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cover_photo */ "./FRONTEND/components/profilepage/cover_photo.jsx");
-/* harmony import */ var _menu_bar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu_bar */ "./FRONTEND/components/profilepage/menu_bar.jsx");
-/* harmony import */ var _profile_pic__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./profile_pic */ "./FRONTEND/components/profilepage/profile_pic.jsx");
-/* harmony import */ var _user_posts_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user_posts_container */ "./FRONTEND/components/profilepage/user_posts_container.jsx");
-/* harmony import */ var _loading_spinner__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../loading/spinner */ "./FRONTEND/components/loading/spinner.jsx");
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/modal_actions */ "./FRONTEND/actions/modal_actions.js");
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/session_actions */ "./FRONTEND/actions/session_actions.js");
-/* harmony import */ var _actions_post_actions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../actions/post_actions */ "./FRONTEND/actions/post_actions.js");
-/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../actions/user_actions */ "./FRONTEND/actions/user_actions.js");
-/* harmony import */ var _actions_filter_actions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../actions/filter_actions */ "./FRONTEND/actions/filter_actions.js");
+/* harmony import */ var _friends__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./friends */ "./FRONTEND/components/profilepage/friends.jsx");
+/* harmony import */ var _cover_photo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./cover_photo */ "./FRONTEND/components/profilepage/cover_photo.jsx");
+/* harmony import */ var _menu_bar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./menu_bar */ "./FRONTEND/components/profilepage/menu_bar.jsx");
+/* harmony import */ var _profile_pic__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./profile_pic */ "./FRONTEND/components/profilepage/profile_pic.jsx");
+/* harmony import */ var _user_posts_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./user_posts_container */ "./FRONTEND/components/profilepage/user_posts_container.jsx");
+/* harmony import */ var _loading_spinner__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../loading/spinner */ "./FRONTEND/components/loading/spinner.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/modal_actions */ "./FRONTEND/actions/modal_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../actions/session_actions */ "./FRONTEND/actions/session_actions.js");
+/* harmony import */ var _actions_post_actions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../actions/post_actions */ "./FRONTEND/actions/post_actions.js");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../actions/user_actions */ "./FRONTEND/actions/user_actions.js");
+/* harmony import */ var _actions_filter_actions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../actions/filter_actions */ "./FRONTEND/actions/filter_actions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2735,21 +2828,47 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var ProfilePage = /*#__PURE__*/function (_React$Component) {
   _inherits(ProfilePage, _React$Component);
 
   var _super = _createSuper(ProfilePage);
 
-  function ProfilePage() {
+  function ProfilePage(props) {
+    var _this;
+
     _classCallCheck(this, ProfilePage);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+
+    if (_this.props.users.length <= 1) {
+      _this.state = {
+        loading: true
+      };
+    } else {
+      _this.state = {
+        loading: false
+      };
+    }
+
+    return _this;
   }
 
   _createClass(ProfilePage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchAllUsers();
+      var _this2 = this;
+
+      if (this.props.users.length <= 1) {
+        this.props.fetchAllUsers().then(function () {
+          return _this2.setState({
+            loading: false
+          });
+        });
+        this.setState({
+          loading: true
+        });
+      }
     }
   }, {
     key: "render",
@@ -2762,14 +2881,23 @@ var ProfilePage = /*#__PURE__*/function (_React$Component) {
           currentUser = _this$props.currentUser,
           editPost = _this$props.editPost,
           addFriendship = _this$props.addFriendship,
-          removeFriendship = _this$props.removeFriendship;
-      return !user ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_loading_spinner__WEBPACK_IMPORTED_MODULE_7__.default, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          removeFriendship = _this$props.removeFriendship,
+          users = _this$props.users;
+      var friends;
+
+      if (!this.state.loading) {
+        friends = users.filter(function (u) {
+          return user.friendIds.includes(u.id);
+        });
+      }
+
+      return this.state.loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_loading_spinner__WEBPACK_IMPORTED_MODULE_8__.default, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "profile-page-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "profile-page-top"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_cover_photo__WEBPACK_IMPORTED_MODULE_3__.default, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_cover_photo__WEBPACK_IMPORTED_MODULE_4__.default, {
         coverPhoto: user.coverPhoto
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_profile_pic__WEBPACK_IMPORTED_MODULE_5__.default, {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_profile_pic__WEBPACK_IMPORTED_MODULE_6__.default, {
         profilePic: user.profilePic
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "pp-name-bio"
@@ -2779,7 +2907,7 @@ var ProfilePage = /*#__PURE__*/function (_React$Component) {
         className: "bio"
       }, "Add Bio")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "divider"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_menu_bar__WEBPACK_IMPORTED_MODULE_4__.default, {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_menu_bar__WEBPACK_IMPORTED_MODULE_5__.default, {
         removeFriendship: removeFriendship,
         addFriendship: addFriendship,
         user: user,
@@ -2789,11 +2917,15 @@ var ProfilePage = /*#__PURE__*/function (_React$Component) {
         className: "profile-page-bot"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "pp-content-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "tab-contents"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about__WEBPACK_IMPORTED_MODULE_2__.default, {
         editProfile: editProfileForm,
         user: user,
         currentUser: currentUser
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_user_posts_container__WEBPACK_IMPORTED_MODULE_6__.default, {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_friends__WEBPACK_IMPORTED_MODULE_3__.default, {
+        friends: friends
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_user_posts_container__WEBPACK_IMPORTED_MODULE_7__.default, {
         editPost: editPost,
         deletePost: deletePost,
         createPostForm: createPostForm,
@@ -2811,6 +2943,7 @@ var mstp = function mstp(_ref, ownProps) {
       users = _ref.entities.users;
   var whosPage = users[ownProps.match.params.userId];
   return {
+    users: Object.values(users),
     currentUser: users[session.id],
     user: whosPage
   };
@@ -2820,36 +2953,36 @@ var mdtp = function mdtp(dispatch) {
   return {
     editProfileForm: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
       onClick: function onClick() {
-        dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_8__.openModal)('editprofile'));
-        dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_9__.clearErrors)());
+        dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_9__.openModal)('editprofile'));
+        dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_10__.clearErrors)());
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "fas fa-pen"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Edit Profile")),
     createPostForm: function createPostForm() {
-      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_8__.openModal)('createPost'));
+      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_9__.openModal)('createPost'));
     },
     closeModal: function closeModal() {
-      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_8__.closeModal)());
+      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_9__.closeModal)());
     },
     deletePost: function deletePost(postId) {
-      return dispatch((0,_actions_post_actions__WEBPACK_IMPORTED_MODULE_10__.deletePost)(postId));
+      return dispatch((0,_actions_post_actions__WEBPACK_IMPORTED_MODULE_11__.deletePost)(postId));
     },
     fetchAllPosts: function fetchAllPosts() {
-      return dispatch((0,_actions_post_actions__WEBPACK_IMPORTED_MODULE_10__.fetchAllPosts)());
+      return dispatch((0,_actions_post_actions__WEBPACK_IMPORTED_MODULE_11__.fetchAllPosts)());
     },
     fetchAllUsers: function fetchAllUsers() {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_11__.fetchAllUsers)());
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.fetchAllUsers)());
     },
     editPost: function editPost(postId) {
-      dispatch((0,_actions_filter_actions__WEBPACK_IMPORTED_MODULE_12__.clickPost)(postId));
-      dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_8__.openModal)('editPost'));
+      dispatch((0,_actions_filter_actions__WEBPACK_IMPORTED_MODULE_13__.clickPost)(postId));
+      dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_9__.openModal)('editPost'));
     },
     addFriendship: function addFriendship(friendship) {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_11__.addFriendship)(friendship));
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.addFriendship)(friendship));
     },
     removeFriendship: function removeFriendship(friendship) {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_11__.removeFriendship)(friendship));
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.removeFriendship)(friendship));
     }
   };
 };
@@ -3051,8 +3184,7 @@ var SessionFormLogin = /*#__PURE__*/function (_React$Component) {
   _createClass(SessionFormLogin, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.clearErrors();
-      this.props.fetchAllUsers();
+      this.props.clearErrors(); // this.props.fetchAllUsers();
     }
   }, {
     key: "handleSubmit",

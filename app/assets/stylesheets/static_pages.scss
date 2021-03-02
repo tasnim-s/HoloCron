@@ -798,8 +798,13 @@ button:active {
         }
       }
       &:hover {
-        filter: brightness(1.2);
+        filter: brightness(1.1);
       }
+    }
+
+    .add-friend {
+      background: #2d88ff33;
+      color: #2e89ff;
     }
   }
 }
@@ -836,6 +841,7 @@ button:active {
       background: #252526;
       margin: 8px;
       border-radius: 8px;
+      margin-bottom: 20px;
 
       .intro {
         padding: 0 16px;
@@ -911,6 +917,50 @@ button:active {
           }
           &:hover {
             filter: brightness(1.2);
+          }
+        }
+      }
+
+      .friend-contents {
+        padding: 16px;
+        box-sizing: border-box;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        .contact-item {
+          width: fit-content;
+          height: fit-content;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          a {
+            text-decoration: none;
+            cursor: pointer;
+            box-sizing: border-box;
+            width: 100px;
+            height: 130px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            color: #e4e6eb;
+            font-size: 13px;
+            margin-bottom: 10px;
+            img {
+              box-sizing: border-box;
+              height: 100px;
+              width: 100px;
+              object-fit: cover;
+              border-radius: 8px;
+              margin-bottom: 8px;
+              &:hover {
+                filter: brightness(1.1);
+              }
+            }
           }
         }
       }
@@ -1507,12 +1557,13 @@ button:active {
 }
 
 .spinner {
+  position: absolute;
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: transparent;
+  background: rgba(11, 11, 11, .8);
   color: #b0b3b8;
   i {
     background: transparent;
@@ -1534,3 +1585,4 @@ button:active {
 
 
 @import 'newsfeed';
+@import 'friends';

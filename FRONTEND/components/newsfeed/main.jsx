@@ -8,7 +8,7 @@ export default class Main extends React.Component {
     render() {
         const { posts, currentUser, createPostForm, deletePost, editPost } = this.props;
 
-        return !posts ? <Spinner /> : (
+        return (
             <div className="main-container">
                 <CreatePost createPostForm={createPostForm}  user={currentUser} />
 

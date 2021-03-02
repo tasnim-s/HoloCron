@@ -9,7 +9,7 @@ export default ({editProfile, currentUser, user, addFriendship, removeFriendship
         if(userFriends.includes(user.id)) {
             return <a onClick={() => removeFriendship(friendship)} className="edit-profile"><i className="fas fa-user-times"></i><span>Unfriend</span></a>
         } else  {
-            return <a onClick={() => addFriendship(friendship)} className="edit-profile"><i className="fas fa-user-plus"></i><span>Add Friend</span></a>
+            return <a onClick={() => addFriendship(friendship)} className="edit-profile add-friend"><i className="fas fa-user-plus"></i><span>Add Friend</span></a>
         }
     }
 

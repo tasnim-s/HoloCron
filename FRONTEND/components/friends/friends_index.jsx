@@ -9,7 +9,7 @@ export default ({users, currentUser}) => {
     const noFriends = <div className="no-friends">When you have friend requests or suggestions, you'll see them here.</div>
     
     return (
-        <div className="posts-index-container">
+        <div className="friends-index-container">
             {usersItems.length ? usersItems : noFriends}
         </div>
     )

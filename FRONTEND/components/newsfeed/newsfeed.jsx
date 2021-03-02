@@ -10,19 +10,27 @@ import Main from './main';
 import Contacts from './contacts';
 
 class Newsfeed extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {loading: true}
+    }
     componentDidMount(){
-        this.props.fetchAllUsers();
+        this.props.fetchAllUsers().then(() => this.setState({loading: false}));
+        this.setState({loading: true});
         window.scrollTo({top: 0, behavior: "auto"})
     }
     
     render() {
         const { currentUser, createPostForm, deletePost, editPost, users, fetchAllUsers} = this.props;
-        const friends = users.filter(user => currentUser.friendIds.includes(user.id));
-        const friendsPosts = friends.map(friend => friend.posts).flat();
-        const posts = [currentUser.posts, friendsPosts].flat();
-        return !users ? <Spinner /> : (
+        let friends, friendsPosts, posts;
+        if(!this.state.loading) {
+            friends = users.filter(user => currentUser.friendIds.includes(user.id));
+            friendsPosts = friends.map(friend => friend.posts).flat();
+            posts = [currentUser.posts, friendsPosts].flat();
+        }
+        return this.state.loading ? <Spinner /> : (
             <div className="newsfeed">
-                <Navigation currentUser={currentUser} />
+                <Navigation />
                 <Main fetchAllUsers={fetchAllUsers} currentUser={currentUser} posts={posts} createPostForm={createPostForm} deletePost={deletePost} editPost={editPost} />
                 <Contacts friends={friends} />
             </div>

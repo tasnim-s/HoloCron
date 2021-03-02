@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import About from './about';
+import Friends from './friends';
 import CoverPhoto from './cover_photo';
 import MenuBar from './menu_bar';
 import ProfilePic from './profile_pic';
@@ -13,13 +14,28 @@ import { addFriendship, fetchAllUsers, removeFriendship } from '../../actions/us
 import {clickPost} from '../../actions/filter_actions';
 
 class ProfilePage extends React.Component {
+    constructor(props) {
+        super(props);
+        if(this.props.users.length <= 1) {
+            this.state = {loading: true}
+        } else {
+            this.state = {loading: false}
+        }
+    }
     componentDidMount() {
-        this.props.fetchAllUsers();
+        if(this.props.users.length <= 1) {
+            this.props.fetchAllUsers().then(() => this.setState({loading: false}));
+            this.setState({loading: true});
+        }
     }
 
     render() {
-        const {user, editProfileForm, createPostForm, deletePost, currentUser, editPost, addFriendship, removeFriendship} = this.props;
-        return !user ? <Spinner /> : (
+        const {user, editProfileForm, createPostForm, deletePost, currentUser, editPost, addFriendship, removeFriendship, users} = this.props;
+        let friends;
+        if(!this.state.loading) {
+            friends = users.filter(u => user.friendIds.includes(u.id));
+        }
+        return this.state.loading ? <Spinner /> : (
             <div className="profile-page-container">
 
                 <div className="profile-page-top">
@@ -40,8 +56,10 @@ class ProfilePage extends React.Component {
                 <div className="profile-page-bot">
 
                     <div className="pp-content-container">
-
-                        <About editProfile={editProfileForm} user={user} currentUser={currentUser} />
+                        <div className="tab-contents">
+                            <About editProfile={editProfileForm} user={user} currentUser={currentUser} />
+                            <Friends friends={friends} />
+                        </div>
                         <UserPostsContainer editPost={editPost} deletePost={deletePost} createPostForm={createPostForm} user={user} currentUser={currentUser} />
 
                     </div>
@@ -58,6 +76,7 @@ class ProfilePage extends React.Component {
 const mstp = ({session, entities: {users}}, ownProps) => {
     const whosPage = users[ownProps.match.params.userId];
     return {
+        users: Object.values(users),
         currentUser: users[session.id],
         user: whosPage
     }
