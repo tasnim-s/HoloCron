@@ -448,8 +448,8 @@ button:active {
     justify-content: space-around;
     align-items: center;
     height: fit-content;
-    width: 336px;
-    .newsfeed-link-container, .friends-link-container, .github-link {
+    width: fit-content;
+    .newsfeed-link-container, .friends-link-container, .social-link {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -460,6 +460,7 @@ button:active {
       a {
         width: 100%;
         height: 53px;
+        width: 129px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -484,9 +485,10 @@ button:active {
         color: #2c88ff;
       }
     }
-    .github-link{
+    .social-link{
       padding-bottom: 3px;
       height: 51px;
+      width: 129px;
     }
 
     

@@ -24,7 +24,7 @@ class Newsfeed extends React.Component {
             <div className="newsfeed">
                 <Navigation currentUser={currentUser} />
                 <Main fetchAllUsers={fetchAllUsers} currentUser={currentUser} posts={posts} createPostForm={createPostForm} deletePost={deletePost} editPost={editPost} />
-                <Contacts currentUser={currentUser} />
+                <Contacts friends={friends} />
             </div>
         )
         

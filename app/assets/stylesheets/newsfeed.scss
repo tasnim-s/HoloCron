@@ -6,9 +6,9 @@
   align-items: flex-start;
   color: #e3e6ea;
   background-color: #18191a;
+  padding-top: 72px;
 
   .main-container {
-    margin-top: 72px;
     box-sizing: border-box;
     width: 744px;
     height: fit-content;
@@ -214,24 +214,90 @@
   }
 
   .navigation {
-    margin-top: 72px;
     box-sizing: border-box;
-    width: 744px;
+    width: 360px;
     height: fit-content;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+
+    .social-link {
+      box-sizing: border-box;
+      height: 52px;
+      width: 100%;
+      padding: 0 8px;
+      cursor: pointer;
+      border-radius: 8px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      color: #e4e6eb;
+      text-decoration: none;
+      &:hover {
+        background: #3a3b3b;
+      }
+      img, i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 37px;
+        width: 37px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 12px;
+        font-size: 35px;
+      }
+    }
   }
 
   .contacts-container {
-    margin-top: 72px;
     box-sizing: border-box;
-    width: 744px;
+    width: 360px;
     height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
+    
+
+    .contacts-header {
+      padding: 20px 0px 12px;
+      font-size: 17px;
+      font-weight: 900;
+      color: #b0b3b8;
+    }
+
+    .contact-item {
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: fit-content;
+      width: 100%;
+      a {
+        box-sizing: border-box;
+        height: 52px;
+        width: 100%;
+        padding: 0 8px;
+        cursor: pointer;
+        border-radius: 8px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: #e4e6eb;
+        text-decoration: none;
+        &:hover {
+          background: #3a3b3b;
+        }
+      }
+      img {
+        height: 36px;
+        width: 36px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 12px;
+      }
+    }
   }
 }
