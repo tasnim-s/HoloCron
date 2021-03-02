@@ -1256,7 +1256,7 @@ var Contacts = /*#__PURE__*/function (_React$Component) {
         className: "contacts-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "contacts-header"
-      }, "Contacts"), friendItems);
+      }, "Contacts"), friendItems, friendItems, friendItems);
     }
   }]);
 
@@ -1432,7 +1432,13 @@ var Navigation = /*#__PURE__*/function (_React$Component) {
         rel: "noopener noreferrer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
         className: "fab fa-angellist"
-      }), "Angel List"));
+      }), "Angel List"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "border"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "semi-footer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "blurb"
+      }, "Holocron is a clone of the popular social media site Facebook \u2022 Tasnim Saiduzzaman \xA9 2021")));
     }
   }]);
 

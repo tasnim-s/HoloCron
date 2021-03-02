@@ -1,21 +1,24 @@
 .newsfeed {
   width: 100%;
-  height: fit-content;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   color: #e3e6ea;
   background-color: #18191a;
-  padding-top: 72px;
-
   .main-container {
+    padding-top: 72px;
     box-sizing: border-box;
     width: 744px;
-    height: fit-content;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .create-post-container {
       box-sizing: border-box;
@@ -214,14 +217,14 @@
   }
 
   .navigation {
+    padding-top: 72px;
     box-sizing: border-box;
     width: 360px;
-    height: fit-content;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-
     .social-link {
       box-sizing: border-box;
       height: 52px;
@@ -249,17 +252,35 @@
         font-size: 35px;
       }
     }
+    .border {
+      box-sizing: border-box;
+      width: 100%;
+      border-bottom: 1px solid #3e4042;
+      margin-top: 16px;
+    }
+
+    .semi-footer {
+      color: #b0b3b8;
+      font-size: 13px;
+      box-sizing: border-box;
+      padding: 16px;
+      line-height: 1.2308;
+    }
   }
 
   .contacts-container {
+    padding-top: 72px;
     box-sizing: border-box;
     width: 360px;
-    height: fit-content;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .contacts-header {
       padding: 20px 0px 12px;
