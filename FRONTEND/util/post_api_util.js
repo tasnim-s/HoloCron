@@ -1,7 +1,7 @@
 export const requestAllPosts = () => (
     $.ajax({
         method: 'GET',
-        url: `/api/posts/`
+        url: `/api/posts`
     })
 );
 
@@ -15,7 +15,7 @@ export const requestPost = postId => (
 export const createPost = post => (
     $.ajax({
         method: 'POST',
-        url: `/api/users/${post.get("post[creatorId]")}/posts`,
+        url: `/api/posts`,
         data: post,
         contentType: false,
         processData: false
@@ -38,3 +38,9 @@ export const deletePost = postId => (
         url: `/api/posts/${postId}`
     })
 );
+
+export const likePost = (data) => (
+    $.ajax({
+        method: 'POST'
+    })
+)

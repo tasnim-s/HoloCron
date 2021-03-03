@@ -13,12 +13,12 @@ export default class PostItem extends React.Component {
             this.dropDownListener = e => {
                 if (!this.dropDown.contains(e.target)) this.setState({ hidden: true });
             }
-            document.addEventListener('click', this.dropDownListener, false);
+            document.addEventListener('mousedown', this.dropDownListener, false);
         }
     }
 
     componentWillUnmount() {
-        document.removeEventListener('click', this.dropDownListener);
+        document.removeEventListener('mousedown', this.dropDownListener);
     }
 
     handleDropDown(e) {

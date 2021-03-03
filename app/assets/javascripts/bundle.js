@@ -2771,13 +2771,13 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
           });
         };
 
-        document.addEventListener('click', this.dropDownListener, false);
+        document.addEventListener('mousedown', this.dropDownListener, false);
       }
     }
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      document.removeEventListener('click', this.dropDownListener);
+      document.removeEventListener('mousedown', this.dropDownListener);
     }
   }, {
     key: "handleDropDown",
@@ -4291,7 +4291,7 @@ __webpack_require__.r(__webpack_exports__);
 var requestAllComments = function requestAllComments() {
   return $.ajax({
     method: 'GET',
-    url: "/api/comments/"
+    url: "/api/comments"
   });
 };
 var requestComment = function requestComment(commentId) {
@@ -4303,7 +4303,7 @@ var requestComment = function requestComment(commentId) {
 var createComment = function createComment(comment) {
   return $.ajax({
     method: 'POST',
-    url: "/api/users/".concat(comment.commenterId, "/comments"),
+    url: "/api/comments",
     data: {
       comment: comment
     }
@@ -4340,12 +4340,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "requestPost": () => /* binding */ requestPost,
 /* harmony export */   "createPost": () => /* binding */ createPost,
 /* harmony export */   "updatePost": () => /* binding */ updatePost,
-/* harmony export */   "deletePost": () => /* binding */ deletePost
+/* harmony export */   "deletePost": () => /* binding */ deletePost,
+/* harmony export */   "likePost": () => /* binding */ likePost
 /* harmony export */ });
 var requestAllPosts = function requestAllPosts() {
   return $.ajax({
     method: 'GET',
-    url: "/api/posts/"
+    url: "/api/posts"
   });
 };
 var requestPost = function requestPost(postId) {
@@ -4357,7 +4358,7 @@ var requestPost = function requestPost(postId) {
 var createPost = function createPost(post) {
   return $.ajax({
     method: 'POST',
-    url: "/api/users/".concat(post.get("post[creatorId]"), "/posts"),
+    url: "/api/posts",
     data: post,
     contentType: false,
     processData: false
@@ -4376,6 +4377,11 @@ var deletePost = function deletePost(postId) {
   return $.ajax({
     method: 'DELETE',
     url: "/api/posts/".concat(postId)
+  });
+};
+var likePost = function likePost(data) {
+  return $.ajax({
+    method: 'POST'
   });
 };
 

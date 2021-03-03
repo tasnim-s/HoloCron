@@ -1,7 +1,7 @@
 export const requestAllComments = () => (
     $.ajax({
         method: 'GET',
-        url: `/api/comments/`
+        url: `/api/comments`
     })
 );
 
@@ -15,7 +15,7 @@ export const requestComment = commentId => (
 export const createComment = comment => (
     $.ajax({
         method: 'POST',
-        url: `/api/users/${comment.commenterId}/comments`,
+        url: `/api/comments`,
         data: { comment }
     })
 );
