@@ -18,7 +18,7 @@ user1 = User.create(first_name: "Kobe", last_name: "Bryant", email: "kobe@bryant
 
 10.times do
     name = Faker::Movies::StarWars.unique.character
-    first_name, last_name = name.split(" ")
+    first_name, last_name = name.split(" ")[0], name.split(" ")[-1]
     email = name.split(" ").join("@")
     bio = Faker::Movies::StarWars.specie
     workplace = Faker::Movies::HarryPotter.location
