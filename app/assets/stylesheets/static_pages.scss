@@ -528,10 +528,9 @@ button:active {
         margin-right: 10px;
         padding-left: 10px;
         padding-right: 10px;
-        background: #404041;
+        background: #ffffff1a;
         &:hover {
-          filter: brightness(1.5);
-          background: #3a3b3c;
+          background: #ffffff3a;
         }
       }
       
@@ -545,7 +544,7 @@ button:active {
         align-items: center;
         cursor: pointer;
         &:hover {
-          background: #ffffff2a;
+          background: #ffffff3a;
         }
         i {
           font-size: 20px;
@@ -565,7 +564,7 @@ button:active {
         align-items: center;
         cursor: pointer;
         &:hover {
-          background: #ffffff2a;
+          background: #ffffff3a;
         }
         .fa-caret-down{
           font-size: 20px;
@@ -949,12 +948,12 @@ button:active {
       }
 
       .friend-contents {
-        padding: 16px;
+        padding: 15px;
         box-sizing: border-box;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         align-content: center;
         .contact-item {
@@ -976,7 +975,7 @@ button:active {
             align-items: flex-start;
             color: #e4e6eb;
             font-size: 13px;
-            margin-bottom: 10px;
+            margin: 10px 5px;
             img {
               box-sizing: border-box;
               height: 100px;
@@ -1594,6 +1593,12 @@ button:active {
       padding-top: 10px;
       width: 100%;
       height: auto;
+    }
+
+    .like-comment-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

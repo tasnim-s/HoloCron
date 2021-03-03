@@ -5,7 +5,7 @@ export default ({friends}) => {
     const friendItems = friends.map(friend => <ContactItem key={friend.id} friend={friend} /> );
     let filtered;
     if (friendItems.length > 9) {
-        filtered = friendItems.slice(0,8);
+        filtered = friendItems.slice(0,9);
     } else {
         filtered = friendItems;
     }

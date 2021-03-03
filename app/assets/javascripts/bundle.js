@@ -2610,7 +2610,7 @@ __webpack_require__.r(__webpack_exports__);
   var filtered;
 
   if (friendItems.length > 9) {
-    filtered = friendItems.slice(0, 8);
+    filtered = friendItems.slice(0, 9);
   } else {
     filtered = friendItems;
   }
@@ -2856,7 +2856,17 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
       }, post.content), post.image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
         className: "post-item-image",
         src: post.image
-      }));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "like-comment-buttons"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "like"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+        className: "fas fa-thumbs-up"
+      }), "Like"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "comment"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+        className: "far fa-comment-alt"
+      }), "Comment")));
     }
   }]);
 

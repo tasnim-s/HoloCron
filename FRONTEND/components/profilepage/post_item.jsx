@@ -60,6 +60,15 @@ export default class PostItem extends React.Component {
                 </div>
                 <div className="content">{post.content}</div>
                 {post.image && <img className="post-item-image" src={post.image} />}
+
+                <div className="like-comment-buttons">
+                    <div className="like"><i className="fas fa-thumbs-up"></i>Like</div>
+                    <div className="comment"><i className="far fa-comment-alt"></i>Comment</div>
+                </div>
+
+                {/* <div className="comments">
+                    {post.comments.map(comment => <div key={comment.id} >{comment.content}</div>)}
+                </div> */}
             </div>
         )
 
