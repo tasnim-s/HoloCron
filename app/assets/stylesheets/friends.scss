@@ -105,5 +105,19 @@
         .profile-page-container {
             position: relative;
         }
+        .placeholder-preview {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #b0b3b8;
+            font-size: 20px;
+            i {
+                font-size: 112px;
+                margin-bottom: 20px;
+            }
+        }
     }
 }

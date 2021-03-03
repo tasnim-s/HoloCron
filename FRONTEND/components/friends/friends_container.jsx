@@ -6,6 +6,7 @@ import ProfilePage from '../profilepage/profile_page_container';
 import FriendsIndex from './friends_index';
 import { AuthRoute, ProtectedRoute } from '../../util/route_util';
 import {Route, Switch, Link, Redirect} from 'react-router-dom';
+import Placeholder from './placeholder';
 
 class FriendsContainer extends React.Component {
     constructor(props) {
@@ -30,8 +31,10 @@ class FriendsContainer extends React.Component {
                 <FriendsIndex currentUser={this.props.currentUser} users={this.props.users} addFriend={this.props.addFriend} />
                 {/* {this.state.profile ? < ProfilePage exact path="/friends/:userId" user={this.props.currentUser} /> : <div className="profile-preview">Select people's names to preview their profile</div>} */}
                 <div className="profile-preview">
-
-                    <ProtectedRoute exact path="/friends/:userId" component={ProfilePage} />
+                    <Switch >
+                        <ProtectedRoute exact path="/friends" component={Placeholder} />
+                        <ProtectedRoute exact path="/friends/:userId" component={ProfilePage} />
+                    </Switch>
                 </div>
                 
             </div>
