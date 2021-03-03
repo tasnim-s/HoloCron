@@ -77,9 +77,7 @@ class EditPost extends React.Component {
                         <label htmlFor="file-post"><i className="fas fa-image"></i><span>Photo</span></label>
                     </div>
                 </div>
-                <div onClick={this.handleSubmit} className="post-button">
-                    <span>Post</span>
-                </div>
+                {this.state.content ? <div onClick={this.handleSubmit} className="post-button"><span>Post</span></div> : <div className="disabled"><span>Post</span></div>}
             </div>
         )
     }

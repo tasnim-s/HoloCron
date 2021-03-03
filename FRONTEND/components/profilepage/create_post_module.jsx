@@ -67,16 +67,14 @@ class CreatePostModule extends React.Component {
                         <label htmlFor="file-post"><i className="fas fa-image"></i><span>Photo</span></label>
                     </div>
                 </div>
-                <div onClick={this.handleSubmit} className="post-button">
-                    <span>Post</span>
-                </div>
+                {this.state.content ? <div onClick={this.handleSubmit} className="post-button"><span>Post</span></div> : <div className="disabled"><span>Post</span></div>}
             </div>
         )
     }
 }
 
-const mstp = ({ entities: { users }, session }) => ({
-    user: users[session.id]
+const mstp = ({ entities: { users }, session}) => ({
+    user: users[session.id],
 });
 
 const mdtp = dispatch => ({

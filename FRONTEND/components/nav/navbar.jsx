@@ -64,10 +64,10 @@ class NavBar extends React.Component {
                             {currentUser.profilePic ? <img src={currentUser.profilePic} /> : <img src={window.defaultPropic} />}
                             <div className="display-name">{currentUser.firstName}</div>
                         </Link>
-                        <i onClick={createPostForm} className="fas fa-plus-circle"></i>
+                        <div onClick={createPostForm} className="plus-post"><i className="fas fa-plus"></i></div>
                     </div>
                     <div onClick={this.handleClick} ref={div => this.dropDown = div} className="settings-dropdown">
-                        <i  className="fas fa-caret-square-down"></i>
+                        <div className={this.state.hidden ? "caret-boundary" : "caret-boundary open"}><i className="fas fa-caret-down"></i></div>
                         {!this.state.hidden && <div className="dropdown-contents" onClick={e => e.stopPropagation()}>
                             <Link to={`/profile/${currentUser.id}`} >
                             <div className="see-your-profile">

@@ -495,9 +495,6 @@ button:active {
   }
 
   .settings-link {
-    i {
-      cursor: pointer;
-    }
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -533,25 +530,49 @@ button:active {
         padding-right: 10px;
         background: #404041;
         &:hover {
-          filter: brightness(1.2);
+          filter: brightness(1.5);
+          background: #3a3b3c;
         }
       }
       
-      .fa-plus-circle {
-        font-size: 36px;
+      .plus-post {
+        height: 40px;
+        width: 40px;
+        background: #ffffff1a;
         border-radius: 50%;
-        background: transparent;
-        width: 36px;
-        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+          background: #ffffff2a;
+        }
+        i {
+          font-size: 20px;
+        }
       }
     }
 
 
     .settings-dropdown{
-      .fa-caret-square-down{
-        font-size: 38px;
-        margin-right: 5px;
-        padding-bottom: 2px;
+      .caret-boundary {
+        height: 40px;
+        width: 40px;
+        background: #ffffff1a;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+          background: #ffffff2a;
+        }
+        .fa-caret-down{
+          font-size: 20px;
+        }
+      }
+      .open {
+        background: #2d88ff33;
       }
       .dropdown-contents {
         .see-your-profile:hover, .logout-button:hover {
@@ -1418,13 +1439,28 @@ button:active {
     margin-bottom: 12px;
     background: #2c88ff;
     color: white;
+    cursor: pointer;
     &:hover {
-      cursor: pointer;
       filter: brightness(1.1);
     }
     &:active {
       transform: scale(.98);
     }
+  }
+
+  .disabled {
+    box-sizing: border-box;
+    height: 36px;
+    width: 468px;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    background: #ffffff33;
+    color: #ffffff4d;
+    cursor: not-allowed;
   }
 }
 
