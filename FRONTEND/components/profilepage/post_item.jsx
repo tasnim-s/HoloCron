@@ -5,6 +5,7 @@ export default class PostItem extends React.Component {
         super(props);
         this.state = {hidden: true};
         this.handleDropDown = this.handleDropDown.bind(this);
+        this.handleLike = this.handleLike.bind(this);
         this.dropDown = React.createRef();
     }
 
@@ -26,8 +27,12 @@ export default class PostItem extends React.Component {
         e.stopPropagation();
     }
 
+    handleLike() {
+        
+    }
+
     render() {
-        const {user, post, deletePost, currentUser, editPost} = this.props;
+        const {user, post, deletePost, currentUser, editPost, addLike, removeLike} = this.props;
         post.creatorId = post.creator.id;
 
         const dateParser = (createdAt) => {
@@ -62,7 +67,7 @@ export default class PostItem extends React.Component {
                 {post.image && <img className="post-item-image" src={post.image} />}
 
                 <div className="like-comment-buttons">
-                    <div className="like"><i className="fas fa-thumbs-up"></i>Like</div>
+                    <div onClick={} className="like"><i className="fas fa-thumbs-up"></i>Like</div>
                     <div className="comment"><i className="far fa-comment-alt"></i>Comment</div>
                 </div>
 

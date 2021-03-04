@@ -1,4 +1,5 @@
 import * as UserUtil from '../util/user_api_util';
+import * as LikeUtil from '../util/like_api_util';
 
 export const RECEIVE_ALL_USERS = "RECEIVE_ALL_USERS";
 export const RECEIVE_USER = "RECEIVE_USER";
@@ -27,3 +28,6 @@ export const updateUser = (formData) => dispatch => UserUtil.updateUser(formData
 
 export const addFriendship = (friendship) => dispatch => UserUtil.createFriendship(friendship).then(() => dispatch(fetchAllUsers()));
 export const removeFriendship = (friendship) => dispatch => UserUtil.destroyFriendship(friendship).then(() => dispatch(fetchAllUsers()));
+
+export const addLike = (data) => dispatch => LikeUtil.like(data).then(() => dispatch(fetchAllUsers()));
+export const removeLike = (data) => dispatch => LikeUtil.unLike(data).then(() => dispatch(fetchAllUsers()));

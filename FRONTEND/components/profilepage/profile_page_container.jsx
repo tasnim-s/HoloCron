@@ -10,7 +10,7 @@ import Spinner from '../loading/spinner';
 import { openModal, closeModal } from '../../actions/modal_actions';
 import { clearErrors } from '../../actions/session_actions';
 import { deletePost, fetchAllPosts } from '../../actions/post_actions';
-import { addFriendship, fetchAllUsers, removeFriendship } from '../../actions/user_actions';
+import { addFriendship, addLike, fetchAllUsers, removeFriendship, removeLike } from '../../actions/user_actions';
 import {clickPost} from '../../actions/filter_actions';
 
 class ProfilePage extends React.Component {
@@ -31,7 +31,7 @@ class ProfilePage extends React.Component {
     }
 
     render() {
-        const {user, editProfileForm, createPostForm, deletePost, currentUser, editPost, addFriendship, removeFriendship, users} = this.props;
+        const {user, editProfileForm, createPostForm, deletePost, currentUser, editPost, addFriendship, removeFriendship, users, addLike, removeLike} = this.props;
         let friends;
         if(!this.state.loading) {
             friends = users.filter(u => user.friendIds.includes(u.id));
@@ -61,7 +61,7 @@ class ProfilePage extends React.Component {
                             <About editProfile={editProfileForm} user={user} currentUser={currentUser} />
                             <Friends friends={friends} />
                         </div>
-                        <UserPostsContainer editPost={editPost} deletePost={deletePost} createPostForm={createPostForm} user={user} currentUser={currentUser} />
+                        <UserPostsContainer editPost={editPost} deletePost={deletePost} createPostForm={createPostForm} user={user} currentUser={currentUser} addLike={addLike} removeLike={removeLike} />
 
                     </div>
 
@@ -98,7 +98,9 @@ const mdtp = dispatch => ({
         dispatch(openModal('editPost'));
     },
     addFriendship: (friendship) => dispatch(addFriendship(friendship)),
-    removeFriendship: (friendship) => dispatch(removeFriendship(friendship))
+    removeFriendship: (friendship) => dispatch(removeFriendship(friendship)),
+    addLike: data => dispatch(addLike(data)),
+    removeLike: data => dispatch(removeLike(data))
 });
 
 export default connect(mstp, mdtp)(ProfilePage);

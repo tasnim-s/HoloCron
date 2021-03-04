@@ -38,9 +38,3 @@ export const deletePost = postId => (
         url: `/api/posts/${postId}`
     })
 );
-
-export const likePost = (data) => (
-    $.ajax({
-        method: 'POST'
-    })
-)

@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
     before_action :ensure_logged_in, only:[:show]
 
     def index
-        @users = User.all.includes(:posts, :comments, :friends)
+        @users = User.all.includes(:posts, :comments, :friends, :likes)
         render :index
     end
     
@@ -18,7 +18,7 @@ class Api::UsersController < ApplicationController
     end
 
     def show
-        @user = User.includes({:posts => :creator}, :comments, :friends).find_by(id: params[:id])
+        @user = User.includes(:posts, :comments, :friends).find_by(id: params[:id])
         render :show
     end
 
