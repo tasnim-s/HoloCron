@@ -814,7 +814,7 @@ var FriendItem = /*#__PURE__*/function (_React$Component) {
       var addFriendButton = function addFriendButton() {
         if (!currentUser.friendIds.includes(user.id)) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            onClick: function onClick(e) {
+            onMouseDown: function onMouseDown(e) {
               addFriend(friendship);
               e.stopPropagation();
             },

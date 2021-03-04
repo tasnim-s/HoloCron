@@ -7,7 +7,7 @@ export default class FriendItem extends React.Component {
         const friendship = {user_id: currentUser.id, friend_id: user.id};
         const addFriendButton = () => {
             if(!currentUser.friendIds.includes(user.id)) {
-                return <div onClick={(e) => {
+                return <div onMouseDown={(e) => {
                     addFriend(friendship);
                     e.stopPropagation();
                 }} className="add-friend">Add Friend</div>
