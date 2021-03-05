@@ -21,7 +21,7 @@ class Newsfeed extends React.Component {
     }
     
     render() {
-        const { currentUser, createPostForm, deletePost, editPost, users, fetchAllUsers} = this.props;
+        const { currentUser, createPostForm, deletePost, editPost, users, fetchAllUsers, addLike, removeLike} = this.props;
         let friends, friendsPosts, posts;
         if(!this.state.loading) {
             friends = users.filter(user => currentUser.friendIds.includes(user.id));
@@ -31,7 +31,7 @@ class Newsfeed extends React.Component {
         return this.state.loading ? <Spinner /> : (
             <div className="newsfeed">
                 <Navigation />
-                <Main fetchAllUsers={fetchAllUsers} currentUser={currentUser} posts={posts} createPostForm={createPostForm} deletePost={deletePost} editPost={editPost} />
+                <Main fetchAllUsers={fetchAllUsers} currentUser={currentUser} posts={posts} createPostForm={createPostForm} deletePost={deletePost} editPost={editPost} addLike={addLike} removeLike={removeLike} />
                 <Contacts friends={friends} />
             </div>
         )
@@ -57,6 +57,8 @@ const mdtp = (dispatch) => {
             dispatch(clickPost(postId));
             dispatch(openModal('editPost'));
         },
+        addLike: (data, ownerId) => dispatch(addLike(data, ownerId)),
+        removeLike: (data, ownerId) => dispatch(removeLike(data, ownerId))
     }
 }
 

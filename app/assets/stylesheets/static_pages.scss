@@ -1630,12 +1630,14 @@ button:active {
       .like-comment-buttons {
         box-sizing: border-box;
         width: 100%;
-        height: 52px;
+        height: 44px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 6px 2px;
 
         .like-button, .comment-drawer-button {
+          box-sizing: border-box;
           display: flex;
           height: 100%;
           justify-content: center;
@@ -1643,8 +1645,9 @@ button:active {
           flex-grow: 1;
           cursor: pointer;
           border-radius: 4px;
+          
           &:hover {
-            filter: brightness();
+            background: #3a3b3c;
           }
           i {
             margin-right: 12px;

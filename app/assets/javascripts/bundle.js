@@ -1499,7 +1499,9 @@ var Main = /*#__PURE__*/function (_React$Component) {
           currentUser = _this$props.currentUser,
           createPostForm = _this$props.createPostForm,
           deletePost = _this$props.deletePost,
-          editPost = _this$props.editPost;
+          editPost = _this$props.editPost,
+          addLike = _this$props.addLike,
+          removeLike = _this$props.removeLike;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "main-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_profilepage_create_post__WEBPACK_IMPORTED_MODULE_1__.default, {
@@ -1509,7 +1511,9 @@ var Main = /*#__PURE__*/function (_React$Component) {
         currentUser: currentUser,
         deletePost: deletePost,
         posts: posts,
-        editPost: editPost
+        editPost: editPost,
+        addLike: addLike,
+        removeLike: removeLike
       }));
     }
   }]);
@@ -1717,7 +1721,9 @@ var Newsfeed = /*#__PURE__*/function (_React$Component) {
           deletePost = _this$props.deletePost,
           editPost = _this$props.editPost,
           users = _this$props.users,
-          fetchAllUsers = _this$props.fetchAllUsers;
+          fetchAllUsers = _this$props.fetchAllUsers,
+          addLike = _this$props.addLike,
+          removeLike = _this$props.removeLike;
       var friends, friendsPosts, posts;
 
       if (!this.state.loading) {
@@ -1738,7 +1744,9 @@ var Newsfeed = /*#__PURE__*/function (_React$Component) {
         posts: posts,
         createPostForm: createPostForm,
         deletePost: deletePost,
-        editPost: editPost
+        editPost: editPost,
+        addLike: addLike,
+        removeLike: removeLike
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_contacts__WEBPACK_IMPORTED_MODULE_9__.default, {
         friends: friends
       }));
@@ -1774,7 +1782,33 @@ var mdtp = function mdtp(dispatch) {
     editPost: function editPost(postId) {
       dispatch((0,_actions_filter_actions__WEBPACK_IMPORTED_MODULE_5__.clickPost)(postId));
       dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.openModal)('editPost'));
-    }
+    },
+    addLike: function (_addLike) {
+      function addLike(_x, _x2) {
+        return _addLike.apply(this, arguments);
+      }
+
+      addLike.toString = function () {
+        return _addLike.toString();
+      };
+
+      return addLike;
+    }(function (data, ownerId) {
+      return dispatch(addLike(data, ownerId));
+    }),
+    removeLike: function (_removeLike) {
+      function removeLike(_x3, _x4) {
+        return _removeLike.apply(this, arguments);
+      }
+
+      removeLike.toString = function () {
+        return _removeLike.toString();
+      };
+
+      return removeLike;
+    }(function (data, ownerId) {
+      return dispatch(removeLike(data, ownerId));
+    })
   };
 };
 
@@ -1801,7 +1835,9 @@ __webpack_require__.r(__webpack_exports__);
   var deletePost = _ref.deletePost,
       currentUser = _ref.currentUser,
       editPost = _ref.editPost,
-      posts = _ref.posts;
+      posts = _ref.posts,
+      addLike = _ref.addLike,
+      removeLike = _ref.removeLike;
   var allPosts = posts.sort(function (a, b) {
     return new Date(b.createdAt) - new Date(a.createdAt);
   }).map(function (post) {
@@ -1811,7 +1847,10 @@ __webpack_require__.r(__webpack_exports__);
       post: post,
       deletePost: deletePost,
       currentUser: currentUser,
-      editPost: editPost
+      editPost: editPost,
+      addLike: addLike,
+      removeLike: removeLike,
+      liked: post.likers.includes(currentUser.id)
     });
   });
   var noPosts = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
