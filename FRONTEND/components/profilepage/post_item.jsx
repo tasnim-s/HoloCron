@@ -37,7 +37,7 @@ export default class PostItem extends React.Component {
     }
 
     render() {
-        const {user, post, deletePost, currentUser, editPost} = this.props;
+        const {user, post, deletePost, currentUser, editPost, liked} = this.props;
         post.creatorId = post.creator.id;
 
         const dateParser = (createdAt) => {
@@ -57,13 +57,13 @@ export default class PostItem extends React.Component {
             } else if(this.props.liked) {
                 const leftover = numLikes - 1;
                 if (leftover) {
-                    return <div className="count"><i className="fas fa-thumbs-up"></i> You and {leftover} {leftover === 1 ? "other" : "others"}</div>
+                    return <div className="count"><img src={window.likeicon} /> You and {leftover} {leftover === 1 ? "other" : "others"}</div>
                 } else {
-                    return <div className="count"><i className="fas fa-thumbs-up"></i> {currentUser.firstName} {currentUser.lastName}</div>
+                    return <div className="count"><img src={window.likeicon} /> {currentUser.firstName} {currentUser.lastName}</div>
                 }
             }
             else {
-                return <div className="count"><i className="fas fa-thumbs-up"></i> {numLikes}</div>
+                return <div className="count"><img src={window.likeicon} /> {numLikes}</div>
             }
         }
 
@@ -92,7 +92,7 @@ export default class PostItem extends React.Component {
 
                     <div className="divider"></div>
                     <div className="like-comment-buttons">
-                        <div onClick={this.toggleLike} className="like-button"><i className={this.props.liked ? "fas fa-thumbs-up" : "far fa-thumbs-up"}></i>Like</div>
+                        <div onClick={this.toggleLike} className={liked ? "like-button liked" : "like-button"}><i className={liked ? "fas fa-thumbs-up" : "far fa-thumbs-up"}></i>Like</div>
                         <div className="comment-drawer-button"><i className="far fa-comment-alt"></i>Comment</div>
                     </div>
                     <div className="divider"></div>

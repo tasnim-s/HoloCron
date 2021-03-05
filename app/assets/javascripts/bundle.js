@@ -2831,7 +2831,8 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
           post = _this$props.post,
           deletePost = _this$props.deletePost,
           currentUser = _this$props.currentUser,
-          editPost = _this$props.editPost;
+          editPost = _this$props.editPost,
+          liked = _this$props.liked;
       post.creatorId = post.creator.id;
 
       var dateParser = function dateParser(createdAt) {
@@ -2856,21 +2857,21 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
           if (leftover) {
             return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
               className: "count"
-            }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-              className: "fas fa-thumbs-up"
+            }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+              src: window.likeicon
             }), " You and ", leftover, " ", leftover === 1 ? "other" : "others");
           } else {
             return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
               className: "count"
-            }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-              className: "fas fa-thumbs-up"
+            }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+              src: window.likeicon
             }), " ", currentUser.firstName, " ", currentUser.lastName);
           }
         } else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
             className: "count"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-            className: "fas fa-thumbs-up"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            src: window.likeicon
           }), " ", numLikes);
         }
       };
@@ -2928,9 +2929,9 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
         className: "like-comment-buttons"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: this.toggleLike,
-        className: "like-button"
+        className: liked ? "like-button liked" : "like-button"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-        className: this.props.liked ? "fas fa-thumbs-up" : "far fa-thumbs-up"
+        className: liked ? "fas fa-thumbs-up" : "far fa-thumbs-up"
       }), "Like"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "comment-drawer-button"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {

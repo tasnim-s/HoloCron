@@ -1604,7 +1604,7 @@ button:active {
       justify-content: center;
       align-items: flex-start;
       width: 100%;
-      padding: 0 16px;
+      padding: 10px 16px 0px;
 
       .divider {
         box-sizing: border-box;
@@ -1618,11 +1618,12 @@ button:active {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        padding: 10px 0px;
         font-size: 15px;
         color: #b0b3b8;
-        i {
-          margin-right: 5px;
+        img {
+          height: 18px;
+          width: 18px;
+          padding: 5px;
         }
       }
 
@@ -1641,13 +1642,19 @@ button:active {
           align-items: center;
           flex-grow: 1;
           cursor: pointer;
+          border-radius: 4px;
           &:hover {
-            
+            filter: brightness();
           }
           i {
             margin-right: 12px;
             font-size: 18px;
           }
+          
+        }
+
+        .liked {
+          color: #2078f4;
         }
       }
     }
