@@ -29,5 +29,5 @@ export const updateUser = (formData) => dispatch => UserUtil.updateUser(formData
 export const addFriendship = (friendship) => dispatch => UserUtil.createFriendship(friendship).then(() => dispatch(fetchAllUsers()));
 export const removeFriendship = (friendship) => dispatch => UserUtil.destroyFriendship(friendship).then(() => dispatch(fetchAllUsers()));
 
-export const addLike = (data) => dispatch => LikeUtil.like(data).then(() => dispatch(fetchAllUsers()));
-export const removeLike = (data) => dispatch => LikeUtil.unLike(data).then(() => dispatch(fetchAllUsers()));
+export const addLike = (data, ownerId) => dispatch => LikeUtil.like(data).then(() => dispatch(fetchUser(ownerId)));
+export const removeLike = (data, ownerId) => dispatch => LikeUtil.unLike(data).then(() => dispatch(fetchUser(ownerId)));

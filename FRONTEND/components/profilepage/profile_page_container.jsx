@@ -99,8 +99,8 @@ const mdtp = dispatch => ({
     },
     addFriendship: (friendship) => dispatch(addFriendship(friendship)),
     removeFriendship: (friendship) => dispatch(removeFriendship(friendship)),
-    addLike: data => dispatch(addLike(data)),
-    removeLike: data => dispatch(removeLike(data))
+    addLike: (data, ownerId) => dispatch(addLike(data, ownerId)),
+    removeLike: (data, ownerId) => dispatch(removeLike(data, ownerId))
 });
 
 export default connect(mstp, mdtp)(ProfilePage);

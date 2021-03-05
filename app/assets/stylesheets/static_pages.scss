@@ -1583,10 +1583,11 @@ button:active {
     }
 
     .content {
-      width: 468px;
+      box-sizing: border-box;
+      width: 100%;
       height: auto;
       font-size: 24px;
-      padding-top: 5px;
+      padding: 0px 16px;
       line-height: 28px;
     }
 
@@ -1596,10 +1597,59 @@ button:active {
       height: auto;
     }
 
-    .like-comment-buttons {
+    .count-buttons {
+      box-sizing: border-box;
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
+      width: 100%;
+      padding: 0 16px;
+
+      .divider {
+        box-sizing: border-box;
+        width: 100%;
+        border-bottom: 1px solid #3e4042;
+      }
+      .count {
+        box-sizing: border-box;
+        width: 100%;
+        height: 43px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px 0px;
+        font-size: 15px;
+        color: #b0b3b8;
+        i {
+          margin-right: 5px;
+        }
+      }
+
+      .like-comment-buttons {
+        box-sizing: border-box;
+        width: 100%;
+        height: 52px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .like-button, .comment-drawer-button {
+          display: flex;
+          height: 100%;
+          justify-content: center;
+          align-items: center;
+          flex-grow: 1;
+          cursor: pointer;
+          &:hover {
+            
+          }
+          i {
+            margin-right: 12px;
+            font-size: 18px;
+          }
+        }
+      }
     }
   }
 }

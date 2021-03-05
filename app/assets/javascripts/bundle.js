@@ -494,17 +494,17 @@ var removeFriendship = function removeFriendship(friendship) {
     });
   };
 };
-var addLike = function addLike(data) {
+var addLike = function addLike(data, ownerId) {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_1__.like(data).then(function () {
-      return dispatch(fetchAllUsers());
+      return dispatch(fetchUser(ownerId));
     });
   };
 };
-var removeLike = function removeLike(data) {
+var removeLike = function removeLike(data, ownerId) {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_1__.unLike(data).then(function () {
-      return dispatch(fetchAllUsers());
+      return dispatch(fetchUser(ownerId));
     });
   };
 };
@@ -2726,9 +2726,225 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./FRONTEND/components/profilepage/post_item.jsx ***!
   \*******************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/FRONTEND/components/profilepage/post_item.jsx: JSX attributes must only be assigned a non-empty expression (65:33)\n\n\u001b[0m \u001b[90m 63 | \u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 64 | \u001b[39m                \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"like-comment-buttons\"\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 65 | \u001b[39m                    \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m onClick\u001b[33m=\u001b[39m{} className\u001b[33m=\u001b[39m\u001b[32m\"like\"\u001b[39m\u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33mi\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"fas fa-thumbs-up\"\u001b[39m\u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mi\u001b[39m\u001b[33m>\u001b[39m\u001b[33mLike\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 66 | \u001b[39m                    \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"comment\"\u001b[39m\u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33mi\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"far fa-comment-alt\"\u001b[39m\u001b[33m>\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mi\u001b[39m\u001b[33m>\u001b[39m\u001b[33mComment\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 67 | \u001b[39m                \u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 68 | \u001b[39m\u001b[0m\n    at Object._raise (/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/node_modules/@babel/parser/lib/index.js:748:17)\n    at Object.raiseWithData (/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/node_modules/@babel/parser/lib/index.js:741:17)\n    at Object.raise (/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/node_modules/@babel/parser/lib/index.js:735:17)\n    at Object.jsxParseAttributeValue (/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/node_modules/@babel/parser/lib/index.js:4583:16)\n    at Object.jsxParseAttribute (/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/node_modules/@babel/parser/lib/index.js:4632:44)\n    at Object.jsxParseOpeningElementAfterName (/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/node_modules/@babel/parser/lib/index.js:4652:28)\n    at Object.jsxParseOpeningElementAt (/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/node_modules/@babel/parser/lib/index.js:4645:17)\n    at Object.jsxParseElementAt (/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/node_modules/@babel/parser/lib/index.js:4677:33)\n    at Object.jsxParseElementAt (/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/node_modules/@babel/parser/lib/index.js:4693:32)\n    at Object.jsxParseElementAt (/Users/tasnimsaiduzzaman/Downloads/App_Academy_Material_TAS/Final Project/HoloCron/node_modules/@babel/parser/lib/index.js:4693:32)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ PostItem
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var PostItem = /*#__PURE__*/function (_React$Component) {
+  _inherits(PostItem, _React$Component);
+
+  var _super = _createSuper(PostItem);
+
+  function PostItem(props) {
+    var _this;
+
+    _classCallCheck(this, PostItem);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      hidden: true
+    };
+    _this.handleDropDown = _this.handleDropDown.bind(_assertThisInitialized(_this));
+    _this.toggleLike = _this.toggleLike.bind(_assertThisInitialized(_this));
+    _this.dropDown = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
+    return _this;
+  }
+
+  _createClass(PostItem, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.currentUser.id === this.props.user.id) {
+        this.dropDownListener = function (e) {
+          if (!_this2.dropDown.contains(e.target)) _this2.setState({
+            hidden: true
+          });
+        };
+
+        document.addEventListener('mousedown', this.dropDownListener, false);
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('mousedown', this.dropDownListener);
+    }
+  }, {
+    key: "handleDropDown",
+    value: function handleDropDown(e) {
+      this.setState({
+        hidden: !this.state.hidden
+      });
+      e.stopPropagation();
+    }
+  }, {
+    key: "toggleLike",
+    value: function toggleLike() {
+      var data = {
+        likeableId: this.props.post.id,
+        likeableType: "Post",
+        likerId: this.props.currentUser.id
+      };
+
+      if (this.props.liked) {
+        this.props.removeLike(data, this.props.post.creator.id);
+      } else {
+        this.props.addLike(data, this.props.post.creator.id);
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      var _this$props = this.props,
+          user = _this$props.user,
+          post = _this$props.post,
+          deletePost = _this$props.deletePost,
+          currentUser = _this$props.currentUser,
+          editPost = _this$props.editPost;
+      post.creatorId = post.creator.id;
+
+      var dateParser = function dateParser(createdAt) {
+        var date = new Date(createdAt);
+        var today = Date.now();
+
+        if (today - date > 43200000) {
+          return date.toDateString() + " at " + date.toLocaleTimeString();
+        } else {
+          return "Today at " + date.toLocaleTimeString();
+        }
+      };
+
+      var displayCount = function displayCount() {
+        var numLikes = post.likers.length;
+
+        if (!numLikes) {
+          return null;
+        } else if (_this3.props.liked) {
+          var leftover = numLikes - 1;
+
+          if (leftover) {
+            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+              className: "count"
+            }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+              className: "fas fa-thumbs-up"
+            }), " You and ", leftover, " ", leftover === 1 ? "other" : "others");
+          } else {
+            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+              className: "count"
+            }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+              className: "fas fa-thumbs-up"
+            }), " ", currentUser.firstName, " ", currentUser.lastName);
+          }
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "count"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+            className: "fas fa-thumbs-up"
+          }), " ", numLikes);
+        }
+      };
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "posts-item"
+      }, currentUser.id === user.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "item-edit-dropdown",
+        onClick: this.handleDropDown,
+        ref: function ref(div) {
+          return _this3.dropDown = div;
+        }
+      }, "\u2022\u2022\u2022", !this.state.hidden && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "edit-options"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        onClick: function onClick() {
+          return editPost(post);
+        },
+        className: "edit-post-button"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+        className: "fas fa-pen"
+      }), "Edit post"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        onClick: function onClick() {
+          return deletePost(post.id);
+        },
+        className: "delete-button"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+        className: "fas fa-trash-alt"
+      }), "Move to trash"))) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "pp-time-bar"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "pp"
+      }, user.profilePic ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        className: "pp",
+        src: user.profilePic
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        className: "pp",
+        src: window.defaultPropic
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "time-name"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "name"
+      }, user.firstName, " ", user.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "time"
+      }, dateParser(post.createdAt)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "content"
+      }, post.content), post.image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        className: "post-item-image",
+        src: post.image
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "count-buttons"
+      }, displayCount(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "divider"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "like-comment-buttons"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        onClick: this.toggleLike,
+        className: "like-button"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+        className: this.props.liked ? "fas fa-thumbs-up" : "far fa-thumbs-up"
+      }), "Like"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "comment-drawer-button"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+        className: "far fa-comment-alt"
+      }), "Comment")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "divider"
+      })));
+    }
+  }]);
+
+  return PostItem;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
 
 /***/ }),
 
@@ -2764,6 +2980,7 @@ __webpack_require__.r(__webpack_exports__);
       deletePost: deletePost,
       currentUser: currentUser,
       editPost: editPost,
+      liked: post.likers.includes(currentUser.id),
       addLike: addLike,
       removeLike: removeLike
     });
@@ -3004,11 +3221,11 @@ var mdtp = function mdtp(dispatch) {
     removeFriendship: function removeFriendship(friendship) {
       return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.removeFriendship)(friendship));
     },
-    addLike: function addLike(data) {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.addLike)(data));
+    addLike: function addLike(data, ownerId) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.addLike)(data, ownerId));
     },
-    removeLike: function removeLike(data) {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.removeLike)(data));
+    removeLike: function removeLike(data, ownerId) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.removeLike)(data, ownerId));
     }
   };
 };
@@ -4217,7 +4434,7 @@ var like = function like(data) {
     method: 'POST',
     url: "/api/likes",
     data: {
-      data: data
+      like: data
     }
   });
 };
@@ -4226,7 +4443,7 @@ var unLike = function unLike(data) {
     method: 'DELETE',
     url: "/api/likes/0",
     data: {
-      data: data
+      like: data
     }
   });
 };

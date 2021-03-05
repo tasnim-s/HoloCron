@@ -1,12 +1,9 @@
 json.key_format! camelize: :lower
-json.extract! post, :id, :content, :created_at, :likes
+json.extract! post, :id, :content, :created_at
 json.image url_for(post.image) if post.image.attached?
 
 
-json.likes post.likes.each do |like|
-    json.key_format! camelize: :lower
-    json.extract! like, :liker_id
-end
+json.likers post.likes.pluck(:liker_id)
 
 json.creator do
     user = post.creator
