@@ -1904,6 +1904,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ CommentItem
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1928,24 +1929,145 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var CommentItem = /*#__PURE__*/function (_React$Component) {
   _inherits(CommentItem, _React$Component);
 
   var _super = _createSuper(CommentItem);
 
-  function CommentItem() {
+  function CommentItem(props) {
+    var _this;
+
     _classCallCheck(this, CommentItem);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      hidden: true,
+      showReplies: false,
+      editing: false
+    };
+    _this.handleDropDown = _this.handleDropDown.bind(_assertThisInitialized(_this));
+    _this.dropDown = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
+    _this.toggleLike = _this.toggleLike.bind(_assertThisInitialized(_this)); // this.repliesDrawer = this.repliesDrawer.bind(this);
+
+    return _this;
   }
 
   _createClass(CommentItem, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.currentUser.id === this.props.comment.commenter.id) {
+        this.dropDownListener = function (e) {
+          if (!_this2.dropDown.contains(e.target)) _this2.setState({
+            hidden: true
+          });
+        };
+
+        document.addEventListener('mousedown', this.dropDownListener, false);
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('mousedown', this.dropDownListener);
+    }
+  }, {
+    key: "handleDropDown",
+    value: function handleDropDown(e) {
+      this.setState({
+        hidden: !this.state.hidden
+      });
+      e.stopPropagation();
+    }
+  }, {
+    key: "toggleLike",
+    value: function toggleLike() {
+      var data = {
+        likeableId: this.props.comment.id,
+        likeableType: "Comment",
+        likerId: this.props.currentUser.id
+      };
+
+      if (this.props.liked) {
+        this.props.removeLike(data);
+      } else {
+        this.props.addLike(data);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      var content = this.props.comment.content;
+      var _this3 = this;
+
+      var _this$props = this.props,
+          currentUser = _this$props.currentUser,
+          liked = _this$props.liked,
+          _this$props$comment = _this$props.comment,
+          content = _this$props$comment.content,
+          commenter = _this$props$comment.commenter,
+          id = _this$props$comment.id,
+          editComment = _this$props.editComment,
+          deleteComment = _this$props.deleteComment;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "comment-item"
-      }, content);
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "pp"
+      }, commenter.profilePic ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        className: "pp",
+        src: commenter.profilePic
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        className: "pp",
+        src: window.defaultPropic
+      })), this.state.editing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: "text",
+        value: content,
+        onChange: this.handleChange
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "namecomment-likereply"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "name-comment"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+        className: "name",
+        to: "/profile/".concat(commenter.id)
+      }, commenter.firstName, " ", commenter.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "comment-content"
+      }, content)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "like-reply"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        onClick: this.toggleLike,
+        className: liked ? "like-button liked" : "like-button"
+      }, "Like"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "separater"
+      }, "\u2022"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        onClick: function onClick() {
+          return _this3.setState({
+            showReplies: true
+          });
+        },
+        className: "replies-drawer"
+      }, "Reply"))), currentUser.id === commenter.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "item-edit-dropdown",
+        onClick: this.handleDropDown,
+        ref: function ref(div) {
+          return _this3.dropDown = div;
+        }
+      }, "\u2022\u2022\u2022", !this.state.hidden && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "edit-options"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        onClick: function onClick() {
+          return _this3.setState({
+            editing: true
+          });
+        },
+        className: "edit-comment-button"
+      }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        onClick: function onClick() {
+          return deleteComment(id);
+        },
+        className: "delete-button"
+      }, "Delete"))) : null);
     }
   }]);
 
@@ -1972,13 +2094,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (_ref) {
-  var post = _ref.post;
+  var post = _ref.post,
+      currentUser = _ref.currentUser,
+      addLike = _ref.addLike,
+      removeLike = _ref.removeLike,
+      editComment = _ref.editComment,
+      deleteComment = _ref.deleteComment;
   var sortedComments = post.comments.sort(function (a, b) {
     return new Date(a.createdAt) - new Date(b.createdAt);
   }).map(function (comment) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_comment_item__WEBPACK_IMPORTED_MODULE_1__.default, {
       key: comment.id,
-      comment: comment
+      comment: comment,
+      currentUser: currentUser,
+      liked: comment.likers.includes(currentUser.id),
+      addLike: addLike,
+      removeLike: removeLike,
+      editComment: editComment,
+      deleteComment: deleteComment
     });
   });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -2862,6 +2995,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _comments_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./comments_index */ "./FRONTEND/components/profilepage/comments_index.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2883,6 +3017,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -2953,7 +3088,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
       };
       this.props.createComment(comment).then(function () {
         return _this3.setState({
-          comment: ""
+          content: ""
         });
       });
     }
@@ -3005,7 +3140,11 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
           deletePost = _this$props.deletePost,
           currentUser = _this$props.currentUser,
           editPost = _this$props.editPost,
-          liked = _this$props.liked;
+          liked = _this$props.liked,
+          addLike = _this$props.addLike,
+          removeLike = _this$props.removeLike,
+          editComment = _this$props.editComment,
+          deleteComment = _this$props.deleteComment;
       post.creatorId = post.creator.id;
 
       var dateParser = function dateParser(createdAt) {
@@ -3098,7 +3237,8 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
         src: window.defaultPropic
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "time-name"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+        to: "/profile/".concat(user.id),
         className: "name"
       }, user.firstName, " ", user.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "time"
@@ -3134,7 +3274,12 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "divider"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_comments_index__WEBPACK_IMPORTED_MODULE_1__.default, {
-        post: post
+        post: post,
+        currentUser: currentUser,
+        addLike: addLike,
+        removeLike: removeLike,
+        editComment: editComment,
+        deleteComment: deleteComment
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "make-comment"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
