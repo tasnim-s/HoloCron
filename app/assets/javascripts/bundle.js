@@ -1944,11 +1944,15 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       hidden: true,
       showReplies: false,
-      editing: false
+      editing: false,
+      content: _this.props.comment.content
     };
     _this.handleDropDown = _this.handleDropDown.bind(_assertThisInitialized(_this));
     _this.dropDown = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
-    _this.toggleLike = _this.toggleLike.bind(_assertThisInitialized(_this)); // this.repliesDrawer = this.repliesDrawer.bind(this);
+    _this.toggleLike = _this.toggleLike.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleKeyPress = _this.handleKeyPress.bind(_assertThisInitialized(_this)); // this.repliesDrawer = this.repliesDrawer.bind(this);
 
     return _this;
   }
@@ -1958,7 +1962,7 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      if (this.props.currentUser.id === this.props.comment.commenter.id) {
+      if (this.props.currentUser.id === this.props.comment.commenter.id && !this.state.editing) {
         this.dropDownListener = function (e) {
           if (!_this2.dropDown.contains(e.target)) _this2.setState({
             hidden: true
@@ -1972,6 +1976,35 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       document.removeEventListener('mousedown', this.dropDownListener);
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState({
+        content: e.currentTarget.value
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      var comment = this.props.comment;
+      comment.content = this.state.content;
+      this.props.editComment(comment).then(function () {
+        _this3.setState({
+          content: "",
+          editing: false
+        });
+      });
+    }
+  }, {
+    key: "handleKeyPress",
+    value: function handleKeyPress(e) {
+      if (e.code === "Enter") {
+        this.handleSubmit(e);
+      }
     }
   }, {
     key: "handleDropDown",
@@ -1999,7 +2032,7 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var _this$props = this.props,
           currentUser = _this$props.currentUser,
@@ -2008,8 +2041,23 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
           content = _this$props$comment.content,
           commenter = _this$props$comment.commenter,
           id = _this$props$comment.id,
+          likers = _this$props$comment.likers,
           editComment = _this$props.editComment,
           deleteComment = _this$props.deleteComment;
+      var numLikes = likers.length;
+
+      var displayLikes = function displayLikes() {
+        if (!numLikes) {
+          return null;
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "like-count"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+            src: window.likeicon
+          }), numLikes);
+        }
+      };
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "comment-item"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -2022,7 +2070,8 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
         src: window.defaultPropic
       })), this.state.editing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
-        value: content,
+        value: this.state.content,
+        onKeyPress: this.handleKeyPress,
         onChange: this.handleChange
       }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "namecomment-likereply"
@@ -2033,7 +2082,7 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
         to: "/profile/".concat(commenter.id)
       }, commenter.firstName, " ", commenter.lastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "comment-content"
-      }, content)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, content), displayLikes()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "like-reply"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: this.toggleLike,
@@ -2042,26 +2091,26 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
         className: "separater"
       }, "\u2022"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: function onClick() {
-          return _this3.setState({
+          return _this4.setState({
             showReplies: true
           });
         },
         className: "replies-drawer"
       }, "Reply"))), currentUser.id === commenter.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "item-edit-dropdown",
+        className: this.state.editing ? "hidden" : "edit-comment-dropdown",
         onClick: this.handleDropDown,
         ref: function ref(div) {
-          return _this3.dropDown = div;
+          return _this4.dropDown = div;
         }
       }, "\u2022\u2022\u2022", !this.state.hidden && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "edit-options"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: function onClick() {
-          return _this3.setState({
+          return _this4.setState({
             editing: true
           });
         },
-        className: "edit-comment-button"
+        className: "edit-button"
       }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: function onClick() {
           return deleteComment(id);
