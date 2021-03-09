@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchAllUsers } from '../../actions/user_actions';
+import { fetchAllUsers, addLike, removeLike } from '../../actions/user_actions';
 import { fetchAllPosts, deletePost } from '../../actions/post_actions';
 import { openModal } from '../../actions/modal_actions';
 import {clickPost} from '../../actions/filter_actions';

@@ -1,16 +1,15 @@
 import React from 'react';
-import PostItem from './post_item';
+import CommentItem from './comment_item';
 
 
-export default ({user, deletePost, currentUser, editPost}) => {
+export default ({post}) => {
 
-    const userPosts = user.posts.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).map(post => <PostItem key={post.id} user={post.creator} post={post} deletePost={deletePost} currentUser={currentUser} editPost={editPost} />);
+    const sortedComments = post.comments.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)).map(comment => <CommentItem key={comment.id} comment={comment} />);
 
-    const noPosts = <div className="no-posts">No posts available</div>
     
     return (
-        <div className="posts-index-container">
-            {userPosts.length ? userPosts : noPosts}
+        <div className="comments-index-container">
+            {sortedComments}
         </div>
     )
 }

@@ -8,7 +8,8 @@ class Api::CommentsController < ApplicationController
     def create
         @comment = Comment.new(comment_params)
         if @comment.save
-            render :show
+            find_user
+            render "api/users/show"
         else
             render json: @comment.errors.full_messages, status: 422
         end
@@ -17,7 +18,8 @@ class Api::CommentsController < ApplicationController
     def update
         @comment = Comment.includes(:likes).find_by(id: params[:id])
         if @comment && @comment.update(comment_params)
-            render :show
+            find_user
+            render "api/users/show"
         else
             render json: @comment.errors.full_messages, status: 422
         end
@@ -32,8 +34,8 @@ class Api::CommentsController < ApplicationController
         @comment = Comment.find_by(id: params[:id])
         if @comment
             @comment.destroy
-            @comments = Comment.all
-            render :index
+            find_user
+            render "api/users/show"
         else
             render ['comment does not exist']
         end
@@ -41,6 +43,11 @@ class Api::CommentsController < ApplicationController
 
     private
     def comment_params 
-        params.require(:comment).transform_keys(&:underscore).permit(:content, :commenter_id, :post_id)
+        params.require(:comment).transform_keys(&:underscore).permit(:content, :commenter_id, :post_id, :parent_id)
+    end
+
+    def find_user
+        post = Post.find_by(id: @comment.post_id)
+        @user = User.includes(:posts, :friends).find_by(id: post.creator_id)
     end
 end

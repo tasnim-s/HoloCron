@@ -53,7 +53,6 @@ class EditProfileForm extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         const { closeModal, user } = this.props;
         const previewPP = () => {
             if(this.state.ppUrl) {

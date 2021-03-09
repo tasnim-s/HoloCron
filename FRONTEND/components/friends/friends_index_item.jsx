@@ -18,7 +18,7 @@ export default class FriendItem extends React.Component {
         return (
             <div className="friend-item">
                 <Link className="friend-item-link" to={`/friends/${user.id}`}>
-                    {user.profilePic ? <img src={user.profilePic} /> : <img src={window.defaultPropic} />}
+                    {user.profilePic ? <img src={user.profilePic} /> : <img src={window.defaultPropic} style={{backgroundColor: "red"}}/>}
                     <div className="name-add">
                         <div className="name">{user.firstName} {user.lastName}</div>
                         {addFriendButton()}

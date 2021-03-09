@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
     before_action :ensure_logged_in, only:[:show]
 
     def index
-        @users = User.all.includes(:posts, :comments, :friends, :likes)
+        @users = User.all.includes(:posts, :friends)
         render :index
     end
     
@@ -18,12 +18,12 @@ class Api::UsersController < ApplicationController
     end
 
     def show
-        @user = User.includes(:posts, :comments, :friends).find_by(id: params[:id])
+        find_user
         render :show
     end
 
     def update
-        @user = User.find_by(id: params[:id])
+        find_user
         if @user.update(user_params)
             render :show
         else
@@ -36,6 +36,10 @@ class Api::UsersController < ApplicationController
 
     def user_params
         params.require(:user).transform_keys(&:underscore).permit(:email, :password, :first_name, :last_name, :birthday, :gender, :bio, :workplace, :school, :current_city, :profile_pic, :cover_photo)
+    end
+
+    def find_user
+        @user = User.includes(:posts, :friends).find_by(id: params[:id])
     end
     
 end

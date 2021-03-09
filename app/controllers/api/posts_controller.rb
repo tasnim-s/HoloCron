@@ -1,7 +1,7 @@
 class Api::PostsController < ApplicationController
 
     def index
-        @posts = Post.all
+        @posts = Post.all.includes(:comments, :likes, :creator)
         render :index
     end
     
@@ -13,7 +13,7 @@ class Api::PostsController < ApplicationController
     def create
         @post = Post.new(post_params)
         if @post.save
-            @user = User.includes(:posts, :comments, :friends).find_by(id: @post.creator_id)
+            find_user
             render "api/users/show"
         else
             render json: @post.errors.full_messages, status: 422
@@ -23,7 +23,7 @@ class Api::PostsController < ApplicationController
     def update
         @post = Post.find_by(id: params[:id])
         if @post && @post.update(post_params)
-            @user = User.includes(:posts, :comments, :friends).find_by(id: @post.creator.id)
+            find_user
             render "api/users/show"
         else
             render json: @post.errors.full_messages, status: 422
@@ -35,7 +35,7 @@ class Api::PostsController < ApplicationController
         @post = Post.find_by(id: params[:id])
         if @post
             @post.destroy
-            @user = User.includes(:posts, :comments, :friends).find_by(id: @post.creator.id)
+            find_user
             render "api/users/show"
         else
             render ['Post does not exist']
@@ -45,5 +45,9 @@ class Api::PostsController < ApplicationController
     private
     def post_params 
         params.require(:post).transform_keys(&:underscore).permit(:content, :creator_id, :image, :creator)
+    end
+
+    def find_user
+        @user = User.includes(:posts, :friends).find_by(id: @post.creator_id)
     end
 end

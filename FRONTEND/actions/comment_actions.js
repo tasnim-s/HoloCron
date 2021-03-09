@@ -1,4 +1,5 @@
 import * as CommentUtil from '../util/comment_api_util';
+import {receiveUser, receiveUserErrors} from './user_actions';
 
 export const RECEIVE_ALL_COMMENTS = "RECEIVE_ALL_COMMENTS";
 export const RECEIVE_COMMENT = "RECEIVE_COMMENT";
@@ -23,8 +24,8 @@ export const fetchAllComments = () => dispatch => CommentUtil.requestAllComments
 
 export const fetchComment = (commentId) => dispatch => CommentUtil.requestComment(commentId).then(comment => dispatch(receiveComment(comment)), err => dispatch(receiveCommentErrors(err.responseJSON)));
 
-export const createComment = (comment) => dispatch => CommentUtil.createComment(comment).then(comment => dispatch(receiveComment(comment)), err => dispatch(receiveCommentErrors(err.responseJSON)));
+export const createComment = (comment) => dispatch => CommentUtil.createComment(comment).then(user => dispatch(receiveUser(user)), err => dispatch(receiveUserErrors(err.responseJSON)));
 
-export const updateComment = (comment) => dispatch => CommentUtil.updateComment(comment).then(comment => dispatch(receiveComment(comment)), err => dispatch(receiveCommentErrors(err.responseJSON)));
+export const updateComment = (comment) => dispatch => CommentUtil.updateComment(comment).then(user => dispatch(receiveUser(user)), err => dispatch(receiveUserErrors(err.responseJSON)));
 
-export const deleteComment = (commentId) => dispatch => CommentUtil.deleteComment(commentId).then((comments) => dispatch(receiveAllComments(comments)), err => dispatch(receiveCommentErrors(err.responseJSON)));
+export const deleteComment = (commentId) => dispatch => CommentUtil.deleteComment(commentId).then(user => dispatch(receiveUser(user)), err => dispatch(receiveUserErrors(err.responseJSON)));

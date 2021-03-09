@@ -10,7 +10,3 @@ json.coverPhoto url_for(user.cover_photo) if user.cover_photo.attached?
 json.posts user.posts.each do |post|
     json.partial! "/api/posts/post.json", post: post
 end
-
-json.comments user.comments.each do |comment|
-    json.partial! '/api/comments/comment.json', comment: comment
-end

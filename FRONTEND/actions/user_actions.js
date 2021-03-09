@@ -26,8 +26,8 @@ export const fetchUser = (userId) => dispatch => UserUtil.requestUser(userId).th
 
 export const updateUser = (formData) => dispatch => UserUtil.updateUser(formData).then(user => dispatch(receiveUser(user)), err => dispatch(receiveUserErrors(err.responseJSON)));
 
-export const addFriendship = (friendship) => dispatch => UserUtil.createFriendship(friendship).then(() => dispatch(fetchAllUsers()));
-export const removeFriendship = (friendship) => dispatch => UserUtil.destroyFriendship(friendship).then(() => dispatch(fetchAllUsers()));
+export const addFriendship = (friendship) => dispatch => UserUtil.createFriendship(friendship).then(users => dispatch(receiveAllUsers(users)), err => dispatch(receiveUserErrors(err.responseJSON)));
+export const removeFriendship = (friendship) => dispatch => UserUtil.destroyFriendship(friendship).then(users => dispatch(receiveAllUsers(users)), err => dispatch(receiveUserErrors(err.responseJSON)));
 
-export const addLike = (data, ownerId) => dispatch => LikeUtil.like(data).then(() => dispatch(fetchUser(ownerId)));
-export const removeLike = (data, ownerId) => dispatch => LikeUtil.unLike(data).then(() => dispatch(fetchUser(ownerId)));
+export const addLike = (data, ownerId) => dispatch => LikeUtil.like(data).then(user => dispatch(receiveUser(user)), err => dispatch(receiveUserErrors(err.responseJSON)));
+export const removeLike = (data, ownerId) => dispatch => LikeUtil.unLike(data).then(user => dispatch(receiveUser(user)), err => dispatch(receiveUserErrors(err.responseJSON)));

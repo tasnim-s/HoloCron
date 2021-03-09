@@ -22,7 +22,7 @@ export const receivePostErrors = errors => ({
 
 export const fetchAllPosts = () => dispatch => PostUtil.requestAllPosts().then(posts => dispatch(receiveAllPosts(posts)), err => dispatch(receivePostErrors(err.responseJSON)));
 
-export const fetchPost = (postId) => dispatch => PostUtil.requestPost(postId).then(user => dispatch(receiveUser(user)), err => dispatch(receiveUserErrors(err.responseJSON)));
+export const fetchPost = (postId) => dispatch => PostUtil.requestPost(postId).then(post => dispatch(receivePost(post)), err => dispatch(receivePostErrors(err.responseJSON)));
 
 export const createPost = (post) => dispatch => PostUtil.createPost(post).then(user => dispatch(receiveUser(user)), err => dispatch(receiveUserErrors(err.responseJSON)));
 
