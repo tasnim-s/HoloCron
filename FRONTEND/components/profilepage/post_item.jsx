@@ -65,7 +65,9 @@ export default class PostItem extends React.Component {
     }
 
     commentsDrawer() {
-        this.setState({showComments: !this.state.showComments})
+        this.setState({showComments: !this.state.showComments}, () => {
+            if(this.state.showComments) this.inputField.focus();
+        });
     }
 
     render() {
@@ -138,7 +140,7 @@ export default class PostItem extends React.Component {
                     <div className="like-comment-buttons">
                         <div onClick={this.toggleLike} className={liked ? "like-button liked" : "like-button"}><i className={liked ? "fas fa-thumbs-up" : "far fa-thumbs-up"}></i>Like</div>
                         <div onClick={() => {
-                            this.setState({showComments: true});
+                            this.setState({showComments: true},() => this.inputField.focus());
                             }} className="comment-drawer-button"><i className="far fa-comment-alt"></i>Comment</div>
                     </div>
                 </div>
@@ -149,7 +151,7 @@ export default class PostItem extends React.Component {
                     <CommentsIndex post={post} currentUser={currentUser} addLike={addLike} removeLike={removeLike} editComment={editComment} deleteComment={deleteComment} />
                     <div className="make-comment">
                         <div className="pp">{currentUser.profilePic ? <img className="pp" src={currentUser.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>
-                        <input type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} value={this.state.content} placeholder="Write a comment..." />
+                        <input ref={input => this.inputField = input} type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} value={this.state.content} placeholder="Write a comment..." />
                     </div>
                 </div>}
 

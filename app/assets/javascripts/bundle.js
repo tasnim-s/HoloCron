@@ -3209,14 +3209,18 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "commentsDrawer",
     value: function commentsDrawer() {
+      var _this4 = this;
+
       this.setState({
         showComments: !this.state.showComments
+      }, function () {
+        if (_this4.state.showComments) _this4.inputField.focus();
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       var _this$props = this.props,
           user = _this$props.user,
@@ -3249,7 +3253,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
             className: "count-likes"
           });
-        } else if (_this4.props.liked) {
+        } else if (_this5.props.liked) {
           var leftover = numLikes - 1;
 
           if (leftover) {
@@ -3279,7 +3283,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
       var displayCommentCount = function displayCommentCount() {
         if (!numComments) return null;else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            onClick: _this4.commentsDrawer,
+            onClick: _this5.commentsDrawer,
             className: "count-comments"
           }, numComments, " ", numComments === 1 ? "Comment" : "Comments");
         }
@@ -3291,7 +3295,7 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
         className: "item-edit-dropdown",
         onClick: this.handleDropDown,
         ref: function ref(div) {
-          return _this4.dropDown = div;
+          return _this5.dropDown = div;
         }
       }, "\u2022\u2022\u2022", !this.state.hidden && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "edit-options"
@@ -3346,8 +3350,10 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
         className: liked ? "fas fa-thumbs-up" : "far fa-thumbs-up"
       }), "Like"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: function onClick() {
-          _this4.setState({
+          _this5.setState({
             showComments: true
+          }, function () {
+            return _this5.inputField.focus();
           });
         },
         className: "comment-drawer-button"
@@ -3375,6 +3381,9 @@ var PostItem = /*#__PURE__*/function (_React$Component) {
         className: "pp",
         src: window.defaultPropic
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        ref: function ref(input) {
+          return _this5.inputField = input;
+        },
         type: "text",
         onKeyPress: this.handleKeyPress,
         onChange: this.handleChange,
