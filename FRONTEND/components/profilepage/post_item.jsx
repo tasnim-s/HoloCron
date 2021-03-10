@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom';
 export default class PostItem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {hidden: true, showComments: false, content: ""};
+        this.state = {hidden: true, content: ""};
+        if (this.props.post.comments) {
+            this.state.showComments = true;
+        } else {
+            this.state.showComments = false;
+        }
         this.handleDropDown = this.handleDropDown.bind(this);
         this.toggleLike = this.toggleLike.bind(this);
         this.commentsDrawer = this.commentsDrawer.bind(this);
@@ -132,7 +137,9 @@ export default class PostItem extends React.Component {
                     <div className="divider"></div>
                     <div className="like-comment-buttons">
                         <div onClick={this.toggleLike} className={liked ? "like-button liked" : "like-button"}><i className={liked ? "fas fa-thumbs-up" : "far fa-thumbs-up"}></i>Like</div>
-                        <div onClick={() => this.setState({showComments: true})} className="comment-drawer-button"><i className="far fa-comment-alt"></i>Comment</div>
+                        <div onClick={() => {
+                            this.setState({showComments: true});
+                            }} className="comment-drawer-button"><i className="far fa-comment-alt"></i>Comment</div>
                     </div>
                 </div>
                 
@@ -141,8 +148,8 @@ export default class PostItem extends React.Component {
                     <div className="divider"></div>
                     <CommentsIndex post={post} currentUser={currentUser} addLike={addLike} removeLike={removeLike} editComment={editComment} deleteComment={deleteComment} />
                     <div className="make-comment">
-                        <div className="pp">{user.profilePic ? <img className="pp" src={user.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>
-                        <input autoFocus type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} value={this.state.content} placeholder="Write a comment..." />
+                        <div className="pp">{currentUser.profilePic ? <img className="pp" src={currentUser.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>
+                        <input type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} value={this.state.content} placeholder="Write a comment..." />
                     </div>
                 </div>}
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAllUsers, addLike, removeLike } from '../../actions/user_actions';
 import { fetchAllPosts, deletePost } from '../../actions/post_actions';
+import { createComment, deleteComment, updateComment } from '../../actions/comment_actions';
 import { openModal } from '../../actions/modal_actions';
 import {clickPost} from '../../actions/filter_actions';
 import Spinner from '../loading/spinner';
@@ -21,7 +22,7 @@ class Newsfeed extends React.Component {
     }
     
     render() {
-        const { currentUser, createPostForm, deletePost, editPost, users, fetchAllUsers, addLike, removeLike} = this.props;
+        const { currentUser, createPostForm, deletePost, editPost, users, fetchAllUsers, addLike, removeLike, createComment, editComment, deleteComment } = this.props;
         let friends, friendsPosts, posts;
         if(!this.state.loading) {
             friends = users.filter(user => currentUser.friendIds.includes(user.id));
@@ -31,7 +32,7 @@ class Newsfeed extends React.Component {
         return this.state.loading ? <Spinner /> : (
             <div className="newsfeed">
                 <Navigation />
-                <Main fetchAllUsers={fetchAllUsers} currentUser={currentUser} posts={posts} createPostForm={createPostForm} deletePost={deletePost} editPost={editPost} addLike={addLike} removeLike={removeLike} />
+                <Main fetchAllUsers={fetchAllUsers} currentUser={currentUser} posts={posts} createPostForm={createPostForm} deletePost={deletePost} editPost={editPost} addLike={addLike} removeLike={removeLike} createComment={createComment} editComment={editComment} deleteComment={deleteComment} />
                 <Contacts friends={friends} />
             </div>
         )
@@ -58,7 +59,10 @@ const mdtp = (dispatch) => {
             dispatch(openModal('editPost'));
         },
         addLike: (data, ownerId) => dispatch(addLike(data, ownerId)),
-        removeLike: (data, ownerId) => dispatch(removeLike(data, ownerId))
+        removeLike: (data, ownerId) => dispatch(removeLike(data, ownerId)),
+        createComment: (comment) => dispatch(createComment(comment)),
+        editComment: (comment) => dispatch(updateComment(comment)),
+        deleteComment: (commentId) => dispatch(deleteComment(commentId))
     }
 }
 
