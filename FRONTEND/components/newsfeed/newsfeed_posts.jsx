@@ -1,5 +1,5 @@
 import React from 'react';
-import PostItem from '../profilepage/post_item';
+import PostItem from '../posts/post_item';
 
 
 export default ({deletePost, currentUser, editPost, posts, addLike, removeLike, createComment, editComment, deleteComment}) => {

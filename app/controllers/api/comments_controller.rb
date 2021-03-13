@@ -16,7 +16,7 @@ class Api::CommentsController < ApplicationController
     end
 
     def update
-        @comment = Comment.includes(:likes).find_by(id: params[:id])
+        @comment = Comment.find_by(id: params[:id])
         if @comment && @comment.update(comment_params)
             find_user
             render "api/users/show"

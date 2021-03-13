@@ -1,5 +1,5 @@
 import React from 'react';
-import CommentsIndex from './comments_index';
+import CommentsIndex from '../comments/comments_index';
 import { Link } from 'react-router-dom';
 
 export default class PostItem extends React.Component {
@@ -71,7 +71,7 @@ export default class PostItem extends React.Component {
     }
 
     render() {
-        const {user, post, deletePost, currentUser, editPost, liked, addLike, removeLike, editComment, deleteComment} = this.props;
+        const {user, post, deletePost, currentUser, editPost, liked, addLike, removeLike, createComment, editComment, deleteComment} = this.props;
         post.creatorId = post.creator.id;
 
         const dateParser = (createdAt) => {
@@ -148,7 +148,7 @@ export default class PostItem extends React.Component {
 
                 {this.state.showComments && <div className="comments">
                     <div className="divider"></div>
-                    <CommentsIndex post={post} currentUser={currentUser} addLike={addLike} removeLike={removeLike} editComment={editComment} deleteComment={deleteComment} />
+                    <CommentsIndex post={post} currentUser={currentUser} addLike={addLike} removeLike={removeLike} createComment={createComment} editComment={editComment} deleteComment={deleteComment} />
                     <div className="make-comment">
                         <div className="pp">{currentUser.profilePic ? <img className="pp" src={currentUser.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>
                         <input ref={input => this.inputField = input} type="text" onKeyPress={this.handleKeyPress} onChange={this.handleChange} value={this.state.content} placeholder="Write a comment..." />

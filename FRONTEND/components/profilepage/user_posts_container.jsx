@@ -1,6 +1,6 @@
 import React from 'react';
 import CreatePost from './create_post';
-import PostsIndex from './posts_index';
+import PostsIndex from '../posts/posts_index';
 
 export default ({user, currentUser, createPostForm, deletePost, editPost, addLike, removeLike, createComment, editComment, deleteComment}) => {
     return (

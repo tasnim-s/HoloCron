@@ -13,5 +13,7 @@ json.creator do
 end
 
 json.comments post.comments.each do |comment|
-    json.partial! 'api/comments/comment.json', comment: comment
+    if (!comment.parent_id)
+        json.partial! 'api/comments/comment.json', comment: comment
+    end
 end

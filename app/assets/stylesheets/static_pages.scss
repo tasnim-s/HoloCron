@@ -1718,14 +1718,60 @@ button:active {
         justify-content: flex-start;
         align-items: center;
 
-        .comment-item {
+        .comment-item, .subcomment-item {
+          box-sizing: border-box;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+          padding-top: 4px;
+
+          .subcomment-index-container {
+            box-sizing: border-box;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-left: 38px;
+
+            .pp {
+              height: 24px;
+              width: 24px;
+              margin-top: 3px;
+            }
+
+            .showMore {
+              margin-top: 5px;
+              color: #b0b3b8;
+              cursor: pointer;
+              &:hover {
+                text-decoration: underline;
+              }
+
+              i {
+                transform: rotate(180deg);
+                margin-right: 5px;
+              }
+            }
+          }
+
+          .make-comment {
+            padding-left: 38px;
+            .pp {
+              height: 24px;
+              width: 24px;
+            }
+          }
+        }
+        .parent, .subcomment {
           box-sizing: border-box;
           width: 100%;
           display: flex;
           justify-content: flex-start;
           align-items: flex-start;
-          padding-top: 4px;
-
+          
           &:hover {
             .edit-comment-dropdown {
               display: flex;

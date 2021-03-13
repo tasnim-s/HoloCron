@@ -7,7 +7,7 @@ class Comment < ApplicationRecord
 
     belongs_to :post, foreign_key: :post_id, class_name: :Post
 
-    # belongs_to :parent_comment, foreign_key: :parent_id, class_name: :Comment
+    belongs_to :parent_comment, foreign_key: :parent_id, class_name: :Comment, optional: true
 
-    # has_many :sub_comments, foreign_key: :parent_id, class_name: :Comment
+    has_many :sub_comments, foreign_key: :parent_id, class_name: :Comment, dependent: :destroy
 end
