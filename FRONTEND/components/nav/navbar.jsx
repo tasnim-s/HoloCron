@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { openModal } from '../../actions/modal_actions';
 import { logout } from '../../actions/session_actions';
 import Spinner from '../loading/spinner';
+import Searchbar from './searchbar';
 
 
 class NavBar extends React.Component {
@@ -31,7 +32,7 @@ class NavBar extends React.Component {
 
 
     render() {
-        const {currentUser, logout, createPostForm, page} = this.props;
+        const {currentUser, logout, createPostForm, page, users} = this.props;
         const selected = (klass) => {
             if(klass.includes("home")) {
                 return page.includes('newsfeed') ? klass + " selected" : klass;
@@ -43,7 +44,7 @@ class NavBar extends React.Component {
             <div className="nav-bar">
                 <div className="logo-and-search">
                     <Link className="logo-icon" to="/"><img src={this.logo} alt=""/></Link>
-                    <input className="search-field" type="text" placeholder="Search Holocron" />
+                    <Searchbar users={users}/>
                 </div>
 
                 <div className="newsfeed-friends-links">
@@ -98,7 +99,8 @@ class NavBar extends React.Component {
 const mstp = ({ session , entities: {users}}, ownProps) => {
     return {
         currentUser: users[session.id],
-        page: ownProps.location.pathname
+        page: ownProps.location.pathname,
+        users: users
     }
 };
 
