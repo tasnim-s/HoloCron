@@ -766,7 +766,8 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
           deleteComment = _this$props.deleteComment,
           addLike = _this$props.addLike,
           removeLike = _this$props.removeLike,
-          editComment = _this$props.editComment;
+          editComment = _this$props.editComment,
+          post = _this$props.post;
       var numLikes = likers.length;
 
       var displayLikes = function displayLikes() {
@@ -817,7 +818,7 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
       }, "\u2022"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: this.showReplies,
         className: "replies-drawer"
-      }, "Reply"))), currentUser.id === commenter.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "Reply"))), currentUser.id === commenter.id || currentUser.id === post.creator.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: this.state.editing ? "hidden" : "edit-comment-dropdown",
         onClick: this.handleDropDown,
         ref: function ref(div) {
@@ -825,7 +826,7 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
         }
       }, "\u2022\u2022\u2022", !this.state.hidden && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "edit-options"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, currentUser.id === commenter.id && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: function onClick() {
           return _this6.setState({
             editing: true
@@ -844,7 +845,8 @@ var CommentItem = /*#__PURE__*/function (_React$Component) {
         editComment: editComment,
         deleteComment: deleteComment,
         comment: this.props.comment,
-        showReplies: this.showReplies
+        showReplies: this.showReplies,
+        post: post
       }), this.state.showReplies && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "make-comment"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -910,7 +912,8 @@ __webpack_require__.r(__webpack_exports__);
       removeLike: removeLike,
       createComment: createComment,
       editComment: editComment,
-      deleteComment: deleteComment
+      deleteComment: deleteComment,
+      post: post
     });
   });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -954,7 +957,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       editComment = _ref.editComment,
       deleteComment = _ref.deleteComment,
       comment = _ref.comment,
-      showReplies = _ref.showReplies;
+      showReplies = _ref.showReplies,
+      post = _ref.post;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -974,7 +978,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       editComment: editComment,
       deleteComment: deleteComment,
       comment: subComment,
-      showReplies: showReplies
+      showReplies: showReplies,
+      post: post
     });
   });
   var firstOne = sortedSubComments.shift();
@@ -1145,7 +1150,8 @@ var SubCommentItem = /*#__PURE__*/function (_React$Component) {
           commenter = _this$props$comment.commenter,
           id = _this$props$comment.id,
           likers = _this$props$comment.likers,
-          deleteComment = _this$props.deleteComment;
+          deleteComment = _this$props.deleteComment,
+          post = _this$props.post;
       var numLikes = likers.length;
 
       var displayLikes = function displayLikes() {
@@ -1196,7 +1202,7 @@ var SubCommentItem = /*#__PURE__*/function (_React$Component) {
       }, "\u2022"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: this.props.showReplies,
         className: "replies-drawer"
-      }, "Reply"))), currentUser.id === commenter.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "Reply"))), currentUser.id === commenter.id || currentUser.id === post.creator.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: this.state.editing ? "hidden" : "edit-comment-dropdown",
         onClick: this.handleDropDown,
         ref: function ref(div) {

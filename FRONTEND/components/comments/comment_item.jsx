@@ -72,8 +72,7 @@ export default class CommentItem extends React.Component {
     }
 
     render() {
-        const { currentUser, liked, comment: { content, commenter, id, likers}, deleteComment, addLike, removeLike, editComment } = this.props;
-
+        const { currentUser, liked, comment: { content, commenter, id, likers}, deleteComment, addLike, removeLike, editComment, post } = this.props;
         const numLikes = likers.length;
         const displayLikes = () => {
             if(!numLikes) {
@@ -82,6 +81,7 @@ export default class CommentItem extends React.Component {
                 return <div className="like-count"><img src={window.likeicon} />{numLikes}</div>
             }
         }
+
 
         return (
             <div className="comment-item">
@@ -104,16 +104,16 @@ export default class CommentItem extends React.Component {
                         </div>
                     </div>}
 
-                    {currentUser.id === commenter.id ? 
+                    {(currentUser.id === commenter.id || currentUser.id === post.creator.id) ? 
                     <div className={this.state.editing ? "hidden" : "edit-comment-dropdown"} onClick={this.handleDropDown} ref={div => this.dropDown = div} >•••
                         {!this.state.hidden && <div className="edit-options">
-                            <div onClick={() => this.setState({editing: true})} className="edit-button">Edit</div>
+                            {currentUser.id === commenter.id && <div onClick={() => this.setState({editing: true})} className="edit-button">Edit</div>}
                             <div onClick={() => deleteComment(id)} className="delete-button">Delete</div>
                         </div>}
                     </div> : null}
                 </div>
 
-                <SubCommentIndex currentUser={currentUser} addLike={addLike} removeLike={removeLike} editComment={editComment} deleteComment={deleteComment} comment={this.props.comment} showReplies={this.showReplies} />
+                <SubCommentIndex currentUser={currentUser} addLike={addLike} removeLike={removeLike} editComment={editComment} deleteComment={deleteComment} comment={this.props.comment} showReplies={this.showReplies} post={post} />
                 
                 {this.state.showReplies && <div className="make-comment">
                     <div className="pp">{currentUser.profilePic ? <img className="pp" src={currentUser.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>

@@ -60,7 +60,7 @@ export default class SubCommentItem extends React.Component {
     }
 
     render() {
-        const { currentUser, liked, comment: { content, commenter, id, likers}, deleteComment } = this.props;
+        const { currentUser, liked, comment: { content, commenter, id, likers}, deleteComment, post } = this.props;
 
         const numLikes = likers.length;
         const displayLikes = () => {
@@ -91,7 +91,7 @@ export default class SubCommentItem extends React.Component {
                         </div>
                     </div>}
 
-                    {currentUser.id === commenter.id ? 
+                    {(currentUser.id === commenter.id || currentUser.id === post.creator.id)? 
                     <div className={this.state.editing ? "hidden" : "edit-comment-dropdown"} onClick={this.handleDropDown} ref={div => this.dropDown = div} >•••
                         {!this.state.hidden && <div className="edit-options">
                             <div onClick={() => this.setState({editing: true})} className="edit-button">Edit</div>

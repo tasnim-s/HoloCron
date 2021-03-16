@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import SubCommentItem from './subcomments_item';
 
-export default ({currentUser, addLike, removeLike, editComment, deleteComment, comment, showReplies}) => {
+export default ({currentUser, addLike, removeLike, editComment, deleteComment, comment, showReplies, post}) => {
     const [showAll, setshowAll] = useState(false);
 
-    const sortedSubComments = comment.subComments.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)).map(subComment => <SubCommentItem key={subComment.id} parent={comment} currentUser={currentUser} liked={subComment.likers.includes(currentUser.id)} addLike={addLike} removeLike={removeLike} editComment={editComment} deleteComment={deleteComment} comment={subComment} showReplies={showReplies} />);
+    const sortedSubComments = comment.subComments.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)).map(subComment => <SubCommentItem key={subComment.id} parent={comment} currentUser={currentUser} liked={subComment.likers.includes(currentUser.id)} addLike={addLike} removeLike={removeLike} editComment={editComment} deleteComment={deleteComment} comment={subComment} showReplies={showReplies} post={post} />);
 
     const firstOne = sortedSubComments.shift();
 
