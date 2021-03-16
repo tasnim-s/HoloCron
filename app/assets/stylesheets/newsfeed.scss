@@ -306,6 +306,9 @@
 
                 .liked {
                   color: #2078f4;
+                  i{
+                    animation: 1s moving-thumb;
+                  }
                 }
               }
               
@@ -685,5 +688,17 @@
         margin-right: 12px;
       }
     }
+  }
+}
+
+@keyframes moving-thumb {
+  0% {
+    transform: rotate(0deg) scale(1.0);
+  }
+  50% {
+    transform: rotate(-30deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(0deg) scale(1.0);
   }
 }
