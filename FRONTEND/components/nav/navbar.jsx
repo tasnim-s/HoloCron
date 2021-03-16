@@ -100,7 +100,7 @@ const mstp = ({ session , entities: {users}}, ownProps) => {
     return {
         currentUser: users[session.id],
         page: ownProps.location.pathname,
-        users: users
+        users: Object.values(users)
     }
 };
 

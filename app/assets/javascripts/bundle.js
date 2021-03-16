@@ -1926,7 +1926,7 @@ var mstp = function mstp(_ref, ownProps) {
   return {
     currentUser: users[session.id],
     page: ownProps.location.pathname,
-    users: users
+    users: Object.values(users)
   };
 };
 
@@ -1957,6 +1957,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ Searchbar
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1981,6 +1982,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Searchbar = /*#__PURE__*/function (_React$Component) {
   _inherits(Searchbar, _React$Component);
 
@@ -1996,47 +1998,107 @@ var Searchbar = /*#__PURE__*/function (_React$Component) {
       focused: false,
       search: ""
     };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    _this.dropDown = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
     return _this;
   }
 
   _createClass(Searchbar, [{
-    key: "render",
-    value: function render() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var _this2 = this;
 
+      this.dropDownListener = function (e) {
+        if (!_this2.block.contains(e.target)) _this2.setState({
+          focused: false,
+          search: ""
+        });
+      };
+
+      document.addEventListener('mousedown', this.dropDownListener, false);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('mousedown', this.dropDownListener);
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState({
+        search: e.currentTarget.value
+      });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(e) {
+      this.setState({
+        search: "",
+        focused: false
+      });
+      e.stopPropagation();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
       var users = this.props.users;
+      var filteredUsers = users.filter(function (user) {
+        var fullName = user.firstName + " " + user.lastName;
+        return fullName.toLowerCase().includes(_this3.state.search.toLowerCase());
+      }).sort().map(function (user) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          onClick: _this3.handleClick,
+          className: "search-item",
+          key: user.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+          to: "/profile/".concat(user.id)
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "pp"
+        }, user.profilePic ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          className: "pp",
+          src: user.profilePic
+        }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+          className: "pp",
+          src: window.defaultPropic
+        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "name"
+        }, user.firstName, " ", user.lastName)));
+      });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "searchbar"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        onClick: function onClick() {
-          return _this2.setState({
-            focused: true
-          });
-        },
-        className: "search-field"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-        className: "fas fa-search"
-      }), "Search Holocron"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        onClick: function onClick() {
-          return _this2.setState({
-            focused: false
-          });
-        },
-        className: "searchblock"
+        className: this.state.focused ? "searchblock" : "searchblock unfocused",
+        ref: function ref(div) {
+          return _this3.block = div;
+        }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "input-bar"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, this.state.focused && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        onClick: this.handleClick,
         className: "close-search"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
         className: "fas fa-arrow-left"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        ref: function ref(input) {
+          return _this3.inputField = input;
+        },
+        onFocus: function onFocus() {
+          return _this3.setState({
+            focused: true
+          });
+        },
         type: "search",
+        className: "search-field",
         placeholder: "Search Holocron",
-        value: this.state.search
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        value: this.state.search,
+        onChange: this.handleChange
+      })), this.state.focused && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "search-index"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "no-results"
+      }, this.state.search ? filteredUsers : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "search-item"
       }, "No results found"))));
     }
   }]);
