@@ -11,13 +11,11 @@ class Api::RequestsController < ApplicationController
 
   def update
     request = Request.find_by(requester_id: request_params[:requester_id], requestee_id: request_params[:requestee_id])
-    if (request_params[:status] == "accepted")
-      Friendship.create_link(request.requester_id, request.requestee_id)
-      request.destroy
-    elsif (request_params[:status] == "declined")
-      request.destroy
+    if (request_params[:status] == "confirmed")
+      Friendship.create_link(request_params[:requester_id], request_params[:requestee_id])
     end
-
+    
+    request.destroy
     all_users
     render "api/users/index"
   end

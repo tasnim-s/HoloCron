@@ -8,9 +8,11 @@
 require 'faker'
 
 User.destroy_all
+Request.destroy_all
 Post.destroy_all
-Comment.destroy_all
 Like.destroy_all
+Friendship.destroy_all
+Comment.destroy_all
 
 demo = User.create(first_name: "Grogu", last_name: "Yoda", email: "player1", password: 'player1', birthday: 'Apr 1, 2020', gender: 'Male', bio: 'May the force be with you.', workplace: 'Jedi Temple', school: 'Jedi Academy', current_city: 'Coruscant')
 

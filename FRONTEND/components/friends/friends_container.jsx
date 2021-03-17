@@ -11,7 +11,6 @@ import Placeholder from './placeholder';
 class FriendsContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {profile: null}
         if(this.props.users.length <= 1) {
             this.state = {loading: true}
         } else {
@@ -29,7 +28,6 @@ class FriendsContainer extends React.Component {
         return this.state.loading ? <Spinner /> : (
             <div className="friends-page">
                 <FriendsIndex currentUser={this.props.currentUser} users={this.props.users} sendRequest={this.props.sendRequest} respondRequest={this.props.respondRequest}/>
-                {/* {this.state.profile ? < ProfilePage exact path="/friends/:userId" user={this.props.currentUser} /> : <div className="profile-preview">Select people's names to preview their profile</div>} */}
                 <div className="profile-preview">
                     <Switch >
                         <ProtectedRoute exact path="/friends" component={Placeholder} />

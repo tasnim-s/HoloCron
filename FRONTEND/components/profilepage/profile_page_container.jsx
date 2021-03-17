@@ -37,6 +37,31 @@ class ProfilePage extends React.Component {
         if(!this.state.loading) {
             friends = users.filter(u => user.friendIds.includes(u.id));
         }
+
+        const alert = () => {
+            let response = {requesteeId: currentUser.id, requesterId: user.id};
+            if (currentUser.receivedRequests.includes(user.id)) {
+                return (
+                    <div className="alert">
+                        <div className="sent-you-request">{user.firstName} sent you a friend request</div>
+                        <div className="responses">
+                                <div className="confirm" onMouseDown={(e) => {
+                                    response.status = "confirmed";
+                                    respondRequest(response);
+                                    e.stopPropagation();
+                                }}>Confirm Request</div>
+                                <div className="decline" onMouseDown={(e) => {
+                                    response.status = "declined";
+                                    respondRequest(response);
+                                    e.stopPropagation();
+                                }}>Delete Request</div>
+                            </div>
+                    </div>
+                )
+            } else {
+                return null
+            }
+        }
         return this.state.loading ? <Spinner /> : (
             <div className="profile-page-container">
 
@@ -56,6 +81,7 @@ class ProfilePage extends React.Component {
                 </div>
                 
                 <div className="profile-page-bot">
+                    {alert()}
 
                     <div className="pp-content-container">
                         <div className="tab-contents">

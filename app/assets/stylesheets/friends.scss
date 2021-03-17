@@ -4,6 +4,7 @@
     background: #191a1b;
     box-sizing: border-box;
     display: flex;
+
     
     .friends-index-container {
         z-index: 8;
@@ -16,7 +17,16 @@
         color: #e4e6eb;
         box-shadow: 0 12px 28px 0 rgba(0,0,0,0.2),0 2px 4px 0 rgba(0, 0, 0, .1),inset 0 0 0 1px rgba(255,255,255,0.05);
 
-        .title {
+        .scrollable {
+            overflow: auto;
+            overflow: auto;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+        
+
+        .title, .subtitle {
             box-sizing: border-box;
             width: 360px;
             display: flex;
@@ -27,11 +37,22 @@
             padding: 0 16px 12px;
         }
 
+        .subtitle {
+            font-size: 17px;
+        }
+
         .friends-index-items {
-            overflow: auto;
-            &::-webkit-scrollbar {
-                display: none;
+
+            .no-friends {
+                padding: 0px 32px 8px;
+                font-size: 13px;
+                color: #b0b3b8;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
             }
+            
             .friend-item {
                 width: 360px;
                 box-sizing: border-box;
@@ -84,6 +105,47 @@
                             cursor: pointer;
                             &:hover {
                                 filter: brightness(1.1);
+                            }
+                        }
+                    }
+
+                    .name-responses {
+                        box-sizing: border-box;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: flex-start;
+                        width: 100%;
+                        height: 100%;
+                        padding-left: 12px;
+
+                        .responses {
+                            box-sizing: border-box;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            width: 100%;
+
+                            div {
+                                margin-top: 10px;
+                                box-sizing: border-box;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                width: 124px;
+                                height: 36px;
+                                font-size: 15px;
+                                font-weight: 900px;
+                                border-radius: 6px;
+                                color: #fff;
+                                background: rgba(255, 255, 255, .1);
+                                cursor: pointer;
+                                &:hover {
+                                    filter: brightness(1.1);
+                                }
+                            }
+                            .confirm {
+                                background: #2d88ff;
                             }
                         }
                     }
