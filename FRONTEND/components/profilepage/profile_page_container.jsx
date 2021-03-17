@@ -10,7 +10,7 @@ import Spinner from '../loading/spinner';
 import { openModal, closeModal } from '../../actions/modal_actions';
 import { clearErrors } from '../../actions/session_actions';
 import { deletePost, fetchAllPosts } from '../../actions/post_actions';
-import { addFriendship, addLike, fetchAllUsers, removeFriendship, removeLike } from '../../actions/user_actions';
+import { addLike, fetchAllUsers, removeFriendship, removeLike, sendRequest, respondRequest } from '../../actions/user_actions';
 import {clickPost} from '../../actions/filter_actions';
 import { createComment, deleteComment, updateComment } from '../../actions/comment_actions';
 
@@ -32,7 +32,7 @@ class ProfilePage extends React.Component {
     }
 
     render() {
-        const {user, editProfileForm, createPostForm, deletePost, currentUser, editPost, addFriendship, removeFriendship, users, addLike, removeLike, createComment, editComment, deleteComment} = this.props;
+        const {user, editProfileForm, createPostForm, deletePost, currentUser, editPost, sendRequest, respondRequest, removeFriendship, users, addLike, removeLike, createComment, editComment, deleteComment} = this.props;
         let friends;
         if(!this.state.loading) {
             friends = users.filter(u => user.friendIds.includes(u.id));
@@ -51,7 +51,7 @@ class ProfilePage extends React.Component {
                     </div>
 
                     <div className="divider"></div>
-                    <MenuBar removeFriendship={removeFriendship} addFriendship={addFriendship} user={user} currentUser={currentUser} editProfile={editProfileForm}/>
+                    <MenuBar removeFriendship={removeFriendship} sendRequest={sendRequest} respondRequest={respondRequest} user={user} currentUser={currentUser} editProfile={editProfileForm}/>
 
                 </div>
                 
@@ -98,7 +98,8 @@ const mdtp = dispatch => ({
         dispatch(clickPost(postId));
         dispatch(openModal('editPost'));
     },
-    addFriendship: (friendship) => dispatch(addFriendship(friendship)),
+    sendRequest: (request) => dispatch(sendRequest(request)),
+    respondRequest: (request) => dispatch(respondRequest(request)),
     removeFriendship: (friendship) => dispatch(removeFriendship(friendship)),
     addLike: (data) => dispatch(addLike(data)),
     removeLike: (data) => dispatch(removeLike(data)),

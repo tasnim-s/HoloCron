@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [:create, :show, :update, :index]
     
-    resources :friendships, only: [:create, :destroy]
+    resources :friendships, only: [:destroy]
 
     resource :session, only: [:create, :destroy]
 
@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:destroy, :update, :show, :index, :create]
     
     resources :likes, only: [:create, :destroy]
+
+    resources :requests, only: [:create, :update]
     
   end
 

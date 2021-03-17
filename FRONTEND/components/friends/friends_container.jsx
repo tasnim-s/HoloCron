@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addFriendship, fetchAllUsers } from '../../actions/user_actions';
+import { sendRequest, respondRequest, fetchAllUsers } from '../../actions/user_actions';
 import Spinner from '../loading/spinner';
 import ProfilePage from '../profilepage/profile_page_container';
 import FriendsIndex from './friends_index';
@@ -28,7 +28,7 @@ class FriendsContainer extends React.Component {
     render() {
         return this.state.loading ? <Spinner /> : (
             <div className="friends-page">
-                <FriendsIndex currentUser={this.props.currentUser} users={this.props.users} addFriend={this.props.addFriend} />
+                <FriendsIndex currentUser={this.props.currentUser} users={this.props.users} sendRequest={this.props.sendRequest} respondRequest={this.props.respondRequest}/>
                 {/* {this.state.profile ? < ProfilePage exact path="/friends/:userId" user={this.props.currentUser} /> : <div className="profile-preview">Select people's names to preview their profile</div>} */}
                 <div className="profile-preview">
                     <Switch >
@@ -53,7 +53,8 @@ const mstp = ({session, entities: {users}}, ownProps) => {
 const mdtp = (dispatch) => {
     return {
         fetchAllUsers: () => dispatch(fetchAllUsers()),
-        addFriend: (friendship) => dispatch(addFriendship(friendship))
+        sendRequest: (request) => dispatch(sendRequest(request)),
+        respondRequest: (request) => dispatch(respondRequest(request)),
     }
 }
 

@@ -22,18 +22,26 @@ export const updateUser = formData => (
     })
 );
 
-export const createFriendship = (friendship) => (
+export const sendRequest = (request) => (
     $.ajax({
         method: 'POST',
-        url: `/api/friendships`,
-        data: {friendship}
+        url: `/api/requests`,
+        data: {request}
+    })
+);
+
+export const respondRequest = (request) => (
+    $.ajax({
+        method: 'PATCH',
+        url: `/api/requests/0`,
+        data: {request}
     })
 );
 
 export const destroyFriendship = (friendship) => (
     $.ajax({
         method: 'DELETE',
-        url: `/api/friendships/1`,
+        url: `/api/friendships/0`,
         data: {friendship}
     })
 );

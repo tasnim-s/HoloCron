@@ -425,7 +425,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fetchAllUsers": () => /* binding */ fetchAllUsers,
 /* harmony export */   "fetchUser": () => /* binding */ fetchUser,
 /* harmony export */   "updateUser": () => /* binding */ updateUser,
-/* harmony export */   "addFriendship": () => /* binding */ addFriendship,
+/* harmony export */   "sendRequest": () => /* binding */ sendRequest,
+/* harmony export */   "respondRequest": () => /* binding */ respondRequest,
 /* harmony export */   "removeFriendship": () => /* binding */ removeFriendship,
 /* harmony export */   "addLike": () => /* binding */ addLike,
 /* harmony export */   "removeLike": () => /* binding */ removeLike
@@ -482,9 +483,18 @@ var updateUser = function updateUser(formData) {
     });
   };
 };
-var addFriendship = function addFriendship(friendship) {
+var sendRequest = function sendRequest(request) {
   return function (dispatch) {
-    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.createFriendship(friendship).then(function (users) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.sendRequest(request).then(function (users) {
+      return dispatch(receiveAllUsers(users));
+    }, function (err) {
+      return dispatch(receiveUserErrors(err.responseJSON));
+    });
+  };
+};
+var respondRequest = function respondRequest(request) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.respondRequest(request).then(function (users) {
       return dispatch(receiveAllUsers(users));
     }, function (err) {
       return dispatch(receiveUserErrors(err.responseJSON));
@@ -500,7 +510,7 @@ var removeFriendship = function removeFriendship(friendship) {
     });
   };
 };
-var addLike = function addLike(data, ownerId) {
+var addLike = function addLike(data) {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_1__.like(data).then(function (user) {
       return dispatch(receiveUser(user));
@@ -509,7 +519,7 @@ var addLike = function addLike(data, ownerId) {
     });
   };
 };
-var removeLike = function removeLike(data, ownerId) {
+var removeLike = function removeLike(data) {
   return function (dispatch) {
     return _util_like_api_util__WEBPACK_IMPORTED_MODULE_1__.unLike(data).then(function (user) {
       return dispatch(receiveUser(user));
@@ -1342,7 +1352,8 @@ var FriendsContainer = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_friends_index__WEBPACK_IMPORTED_MODULE_5__.default, {
         currentUser: this.props.currentUser,
         users: this.props.users,
-        addFriend: this.props.addFriend
+        sendRequest: this.props.sendRequest,
+        respondRequest: this.props.respondRequest
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "profile-preview"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__.ProtectedRoute, {
@@ -1374,8 +1385,11 @@ var mdtp = function mdtp(dispatch) {
     fetchAllUsers: function fetchAllUsers() {
       return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.fetchAllUsers)());
     },
-    addFriend: function addFriend(friendship) {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.addFriendship)(friendship));
+    sendRequest: function sendRequest(request) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.sendRequest)(request));
+    },
+    respondRequest: function respondRequest(request) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.respondRequest)(request));
     }
   };
 };
@@ -3947,17 +3961,27 @@ __webpack_require__.r(__webpack_exports__);
   var editProfile = _ref.editProfile,
       currentUser = _ref.currentUser,
       user = _ref.user,
-      addFriendship = _ref.addFriendship,
+      sendRequest = _ref.sendRequest,
+      respondRequest = _ref.respondRequest,
       removeFriendship = _ref.removeFriendship;
   var friendship = {
     user_id: currentUser.id,
     friend_id: user.id
   };
+  var userFriends = currentUser.friendIds;
+  var requested = currentUser.sendRequests.includes(user.id);
 
   var addFriend = function addFriend() {
-    var userFriends = currentUser.friendIds;
-
     if (userFriends.includes(user.id)) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+        onClick: function onClick() {
+          return removeFriendship(friendship);
+        },
+        className: "edit-profile"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+        className: "fas fa-user-times"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Unfriend"));
+    } else if (requested) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
         onClick: function onClick() {
           return removeFriendship(friendship);
@@ -3969,7 +3993,7 @@ __webpack_require__.r(__webpack_exports__);
     } else {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
         onClick: function onClick() {
-          return addFriendship(friendship);
+          return sendRequest(friendship);
         },
         className: "edit-profile add-friend"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
@@ -4116,7 +4140,8 @@ var ProfilePage = /*#__PURE__*/function (_React$Component) {
           deletePost = _this$props.deletePost,
           currentUser = _this$props.currentUser,
           editPost = _this$props.editPost,
-          addFriendship = _this$props.addFriendship,
+          sendRequest = _this$props.sendRequest,
+          respondRequest = _this$props.respondRequest,
           removeFriendship = _this$props.removeFriendship,
           users = _this$props.users,
           addLike = _this$props.addLike,
@@ -4150,7 +4175,8 @@ var ProfilePage = /*#__PURE__*/function (_React$Component) {
         className: "divider"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_menu_bar__WEBPACK_IMPORTED_MODULE_5__.default, {
         removeFriendship: removeFriendship,
-        addFriendship: addFriendship,
+        sendRequest: sendRequest,
+        respondRequest: respondRequest,
         user: user,
         currentUser: currentUser,
         editProfile: editProfileForm
@@ -4224,8 +4250,11 @@ var mdtp = function mdtp(dispatch) {
       dispatch((0,_actions_filter_actions__WEBPACK_IMPORTED_MODULE_13__.clickPost)(postId));
       dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_9__.openModal)('editPost'));
     },
-    addFriendship: function addFriendship(friendship) {
-      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.addFriendship)(friendship));
+    sendRequest: function sendRequest(request) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.sendRequest)(request));
+    },
+    respondRequest: function respondRequest(request) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.respondRequest)(request));
     },
     removeFriendship: function removeFriendship(friendship) {
       return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_12__.removeFriendship)(friendship));
@@ -5643,7 +5672,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "requestAllUsers": () => /* binding */ requestAllUsers,
 /* harmony export */   "requestUser": () => /* binding */ requestUser,
 /* harmony export */   "updateUser": () => /* binding */ updateUser,
-/* harmony export */   "createFriendship": () => /* binding */ createFriendship,
+/* harmony export */   "sendRequest": () => /* binding */ sendRequest,
+/* harmony export */   "respondRequest": () => /* binding */ respondRequest,
 /* harmony export */   "destroyFriendship": () => /* binding */ destroyFriendship
 /* harmony export */ });
 var requestAllUsers = function requestAllUsers() {
@@ -5667,19 +5697,28 @@ var updateUser = function updateUser(formData) {
     processData: false
   });
 };
-var createFriendship = function createFriendship(friendship) {
+var sendRequest = function sendRequest(request) {
   return $.ajax({
     method: 'POST',
-    url: "/api/friendships",
+    url: "/api/requests",
     data: {
-      friendship: friendship
+      request: request
+    }
+  });
+};
+var respondRequest = function respondRequest(request) {
+  return $.ajax({
+    method: 'PATCH',
+    url: "/api/requests/0",
+    data: {
+      request: request
     }
   });
 };
 var destroyFriendship = function destroyFriendship(friendship) {
   return $.ajax({
     method: 'DELETE',
-    url: "/api/friendships/1",
+    url: "/api/friendships/0",
     data: {
       friendship: friendship
     }
