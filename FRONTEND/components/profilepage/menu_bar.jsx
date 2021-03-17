@@ -8,12 +8,10 @@ export default class MenuBar extends React.Component {
     }
 
     componentDidMount() {
-        if (this.dropDown && this.props.currentUser.receivedRequests.includes(this.props.user.id)) {
-            this.dropDownListener = e => {
-                if (!this.dropDown.contains(e.target)) this.setState({ hidden: true});
-            }
-            document.addEventListener('mousedown', this.dropDownListener, false);
+        this.dropDownListener = e => {
+            if (this.dropDown && !this.dropDown.contains(e.target)) this.setState({ hidden: true});
         }
+        document.addEventListener('mousedown', this.dropDownListener, false);
     }
 
     componentWillUnmount() {

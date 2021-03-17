@@ -4139,15 +4139,13 @@ var MenuBar = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      if (this.dropDown && this.props.currentUser.receivedRequests.includes(this.props.user.id)) {
-        this.dropDownListener = function (e) {
-          if (!_this2.dropDown.contains(e.target)) _this2.setState({
-            hidden: true
-          });
-        };
+      this.dropDownListener = function (e) {
+        if (_this2.dropDown && !_this2.dropDown.contains(e.target)) _this2.setState({
+          hidden: true
+        });
+      };
 
-        document.addEventListener('mousedown', this.dropDownListener, false);
-      }
+      document.addEventListener('mousedown', this.dropDownListener, false);
     }
   }, {
     key: "componentWillUnmount",
