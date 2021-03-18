@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { clearErrors} from '../../actions/session_actions';
 import { closeModal } from '../../actions/modal_actions';
 import {updatePost} from '../../actions/post_actions';
-import { closeEdit } from '../../actions/filter_actions';
+import { closeEdit, closeWall } from '../../actions/filter_actions';
 import Spinner from '../loading/spinner';
 
 class EditPost extends React.Component {
@@ -35,8 +35,9 @@ class EditPost extends React.Component {
         e.preventDefault();
         const formData = new FormData();
         formData.append('post[content]', this.state.content);
-        formData.append('post[creatorId]', this.state.creatorId);
+        formData.append('post[creatorId]', this.state.creator.id);
         formData.append('post[id]', this.state.id);
+        formData.append('post[wallId]', this.state.wallId);
         if(this.state.imageURL) {
             formData.append('post[image]', this.state.image);
         }
@@ -45,7 +46,7 @@ class EditPost extends React.Component {
     }
 
     render() {
-        const {closeModal, user} = this.props;
+        const {closeModal, currentUser} = this.props;
         const preview = () => {
             if (this.state.imageURL) {
                 return <img className="image-preview" src={this.state.imageURL} />;
@@ -63,8 +64,8 @@ class EditPost extends React.Component {
                     </div>
                     <div className="closemodal" onClick={closeModal}>✕</div>
                     <div className="pp-name">
-                        <div className="pp">{user.profilePic ? <img className="pp" src={user.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>
-                        <div className="name">{user.firstName} {user.lastName}</div>
+                        <div className="pp">{currentUser.profilePic ? <img className="pp" src={currentUser.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>
+                        <div className="name">{currentUser.firstName} {currentUser.lastName}</div>
                     </div>
                     
                 </div>
@@ -83,8 +84,8 @@ class EditPost extends React.Component {
     }
 }
 
-const mstp = ({ entities: { users}, session, ui: {filter} }) => ({
-    user: users[session.id],
+const mstp = ({ entities: { users }, session, ui: {filter} }) => ({
+    currentUser: users[session.id],
     post: filter.post
 });
 
@@ -93,6 +94,7 @@ const mdtp = dispatch => ({
     closeModal: () => {
         dispatch(closeModal());
         dispatch(closeEdit());
+        dispatch(closeWall());
     },
     clearErrors: () => dispatch(clearErrors())
 });

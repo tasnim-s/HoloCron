@@ -1,14 +1,14 @@
 import React from 'react';
 
 
-export default ({user, createPostForm}) => {
+export default ({user, createPostForm, currentUser}) => {
     return (
         <div className="create-post-container">
             <div className="propic-and-button">
                 <div className="propic">
-                    {user.profilePic ? <img src={user.profilePic} /> : <img src={window.defaultPropic} />}
+                    {currentUser.profilePic ? <img src={currentUser.profilePic} /> : <img src={window.defaultPropic} />}
                 </div>
-                <div onClick={createPostForm} className="post-button">What's on your mind?</div>
+                <div onClick={() => createPostForm(user.id)} className="post-button">{currentUser.id === user.id ? "What's on your mind?" : `Write something to ${user.firstName}`}</div>
             </div>
             <div className="addphoto"></div>
         </div>

@@ -48,6 +48,6 @@ class Api::CommentsController < ApplicationController
 
     def find_user
         post = Post.find_by(id: @comment.post_id)
-        @user = User.includes(:posts, :friends).find_by(id: post.creator_id)
+        @user = User.includes(:posts, :friends).find_by(id: post.wall_id)
     end
 end

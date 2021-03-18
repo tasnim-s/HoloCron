@@ -4,8 +4,8 @@ import { sendRequest, respondRequest, fetchAllUsers } from '../../actions/user_a
 import Spinner from '../loading/spinner';
 import ProfilePage from '../profilepage/profile_page_container';
 import FriendsIndex from './friends_index';
-import { AuthRoute, ProtectedRoute } from '../../util/route_util';
-import {Route, Switch, Link, Redirect} from 'react-router-dom';
+import { ProtectedRoute } from '../../util/route_util';
+import {Switch} from 'react-router-dom';
 import Placeholder from './placeholder';
 
 class FriendsContainer extends React.Component {

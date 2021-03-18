@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { openModal } from '../../actions/modal_actions';
 import { logout } from '../../actions/session_actions';
+import { whichWall } from '../../actions/filter_actions';
 import Spinner from '../loading/spinner';
 import Searchbar from './searchbar';
 
@@ -65,7 +66,7 @@ class NavBar extends React.Component {
                             {currentUser.profilePic ? <img src={currentUser.profilePic} /> : <img src={window.defaultPropic} />}
                             <div className="display-name">{currentUser.firstName}</div>
                         </Link>
-                        <div onClick={createPostForm} className="plus-post"><i className="fas fa-plus"></i></div>
+                        <div onClick={() => createPostForm(currentUser.id)} className="plus-post"><i className="fas fa-plus"></i></div>
                     </div>
                     <div onClick={this.handleClick} ref={div => this.dropDown = div} className="settings-dropdown">
                         <div className={this.state.hidden ? "caret-boundary" : "caret-boundary open"}><i className="fas fa-caret-down"></i></div>
@@ -106,7 +107,10 @@ const mstp = ({ session , entities: {users}}, ownProps) => {
 
 const mdtp = dispatch => ({
     logout: () => dispatch(logout()),
-    createPostForm: () => dispatch(openModal('createPost')),
+    createPostForm: (wallId) => {
+        dispatch(whichWall(wallId));
+        dispatch(openModal('createPost'));
+    },
 });
 
 export default connect(mstp, mdtp)(NavBar);

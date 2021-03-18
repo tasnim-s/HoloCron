@@ -1,5 +1,5 @@
 json.key_format! camelize: :lower
-json.extract! post, :id, :content, :created_at
+json.extract! post, :id, :content, :created_at, :wall_id
 json.image url_for(post.image) if post.image.attached?
 
 

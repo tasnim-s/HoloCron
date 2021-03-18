@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_17_051352) do
+ActiveRecord::Schema.define(version: 2021_03_18_020344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,7 +70,9 @@ ActiveRecord::Schema.define(version: 2021_03_17_051352) do
     t.integer "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "wall_id", null: false
     t.index ["creator_id"], name: "index_posts_on_creator_id"
+    t.index ["wall_id"], name: "index_posts_on_wall_id"
   end
 
   create_table "requests", force: :cascade do |t|

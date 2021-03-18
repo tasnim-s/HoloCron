@@ -33,6 +33,6 @@ class Api::LikesController < ApplicationController
 
     def find_user
         post = find_post(@like)
-        @user = User.includes(:posts, :comments, :friends).find_by(id: post.creator_id)
+        @user = User.includes(:posts, :comments, :friends).find_by(id: post.wall_id)
     end
 end

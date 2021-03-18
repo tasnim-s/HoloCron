@@ -21,7 +21,7 @@ export default class PostItem extends React.Component {
     }
 
     componentDidMount() {
-        if(this.props.currentUser.id === this.props.user.id) {
+        if(this.props.currentUser.id === this.props.creator.id) {
             this.dropDownListener = e => {
                 if (!this.dropDown.contains(e.target)) this.setState({ hidden: true});
             }
@@ -71,8 +71,7 @@ export default class PostItem extends React.Component {
     }
 
     render() {
-        const {user, post, deletePost, currentUser, editPost, liked, addLike, removeLike, createComment, editComment, deleteComment} = this.props;
-        post.creatorId = post.creator.id;
+        const {creator, post, deletePost, currentUser, editPost, liked, addLike, removeLike, createComment, editComment, deleteComment, wall} = this.props;
 
         const dateParser = (createdAt) => {
             const date = new Date(createdAt);
@@ -114,18 +113,27 @@ export default class PostItem extends React.Component {
         return (
             <div className="posts-item">
                 
-                {currentUser.id === user.id ? 
+                {currentUser.id === creator.id || currentUser.id === wall.id ? 
                 <div className="item-edit-dropdown" onClick={this.handleDropDown} ref={div => this.dropDown = div} >•••
                     {!this.state.hidden && <div className="edit-options">
-                        <div onClick={() => editPost(post)} className="edit-post-button"><i className="fas fa-pen"></i>Edit post</div>
+                        {currentUser.id === creator.id && <div onClick={() => editPost(post)} className="edit-post-button"><i className="fas fa-pen"></i>Edit post</div>}
                         <div onClick={() => deletePost(post.id)} className="delete-button"><i className="fas fa-trash-alt"></i>Move to trash</div>
                     </div>}
                 </div> : null}
 
                 <div className="pp-time-bar">
-                    <div className="pp">{user.profilePic ? <img className="pp" src={user.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>
+                    <div className="pp">{creator.profilePic ? <img className="pp" src={creator.profilePic} /> : <img className="pp" src={window.defaultPropic} />}</div>
                     <div className="time-name">
-                        <Link to={`/profile/${user.id}`} className="name">{user.firstName} {user.lastName}</Link>
+                        <div className="names">
+                            <Link to={`/profile/${creator.id}`} className="name">{creator.firstName} {creator.lastName}</Link>
+                            {post.creator.id === post.wallId ? null :
+                            <div className="extension">
+                                <i className="fas fa-caret-right"></i>
+                                <Link to={`/profile/${wall.id}`} className="name">{wall.firstName} {wall.lastName}</Link>
+                            </div>
+                            }
+                        </div>
+                        
                         <div className="time">{dateParser(post.createdAt)}</div>
                     </div>
                 </div>

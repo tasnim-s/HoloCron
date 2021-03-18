@@ -11,7 +11,7 @@ import { openModal, closeModal } from '../../actions/modal_actions';
 import { clearErrors } from '../../actions/session_actions';
 import { deletePost, fetchAllPosts } from '../../actions/post_actions';
 import { addLike, fetchAllUsers, removeFriendship, removeLike, sendRequest, respondRequest } from '../../actions/user_actions';
-import {clickPost} from '../../actions/filter_actions';
+import { clickPost, whichWall } from '../../actions/filter_actions';
 import { createComment, deleteComment, updateComment } from '../../actions/comment_actions';
 
 class ProfilePage extends React.Component {
@@ -115,13 +115,16 @@ const mdtp = dispatch => ({
         dispatch(openModal('editprofile'));
         dispatch(clearErrors());
     }}><i className="fas fa-pen"></i><span>Edit Profile</span></a>),
-    createPostForm: () => dispatch(openModal('createPost')),
+    createPostForm: (wallId) => {
+        dispatch(whichWall(wallId));
+        dispatch(openModal('createPost'));
+    },
     closeModal: () => dispatch(closeModal()),
     deletePost: postId => dispatch(deletePost(postId)),
     fetchAllPosts: () => dispatch(fetchAllPosts()),
     fetchAllUsers: () => dispatch(fetchAllUsers()),
-    editPost: (postId) => {
-        dispatch(clickPost(postId));
+    editPost: (post) => {
+        dispatch(clickPost(post));
         dispatch(openModal('editPost'));
     },
     sendRequest: (request) => dispatch(sendRequest(request)),

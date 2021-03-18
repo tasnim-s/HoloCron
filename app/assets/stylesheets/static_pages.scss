@@ -1770,6 +1770,24 @@ button:active {
         flex-direction: column;
         padding-left: 10px;
 
+        .names {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+        }
+
+        .extension {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          i {
+            font-size: 16px;
+            color: #b0b3b8;
+            margin: 0 8px;
+          }
+        }
+
         .name {
           width: fit-content;
           font-size: 15px;

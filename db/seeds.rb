@@ -36,7 +36,7 @@ users.each do |user|
     Friendship.create_link(demo.id, user.id) unless demo.id == user.id
     3.times do
         content = Faker::Movies::StarWars.unique.quote
-        Post.create(content: content, creator_id: user.id)
+        Post.create(content: content, creator_id: user.id, wall_id: user.id)
     end
 end
 

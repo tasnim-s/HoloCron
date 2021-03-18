@@ -5,7 +5,7 @@ import PostsIndex from '../posts/posts_index';
 export default ({user, currentUser, createPostForm, deletePost, editPost, addLike, removeLike, createComment, editComment, deleteComment}) => {
     return (
         <div className="user-posts-container">
-            {currentUser === user ? <CreatePost createPostForm={createPostForm}  user={user} /> : null}
+            {currentUser === user || currentUser.friendIds.includes(user.id) ? <CreatePost createPostForm={createPostForm}  user={user} currentUser={currentUser} /> : null}
             
             <div className="posts-index-title">
                 <div className="title-post">Posts</div>
