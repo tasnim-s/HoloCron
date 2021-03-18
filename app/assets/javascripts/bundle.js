@@ -3036,7 +3036,7 @@ var CreatePostModule = /*#__PURE__*/function (_React$Component) {
         type: "text",
         onChange: this.handleChange,
         value: this.state.content,
-        placeholder: currentUser.id === user.id ? "What's on your mind?" : "Write something to ".concat(user.firstName)
+        placeholder: currentUser.id === user.id ? "What's on your mind?" : "Write something to ".concat(user.firstName, "...")
       }), preview, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "media"
       }, "Add to Your Post", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
@@ -3806,7 +3806,7 @@ __webpack_require__.r(__webpack_exports__);
       return createPostForm(user.id);
     },
     className: "post-button"
-  }, currentUser.id === user.id ? "What's on your mind?" : "Write something to ".concat(user.firstName))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, currentUser.id === user.id ? "What's on your mind?" : "Write something to ".concat(user.firstName, "..."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "addphoto"
   }));
 });

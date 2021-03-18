@@ -62,7 +62,7 @@ class CreatePostModule extends React.Component {
                 </div>
                 
                 <div className="content">
-                    <input autoFocus type="text" onChange={this.handleChange} value={this.state.content} placeholder={currentUser.id === user.id ? "What's on your mind?" : `Write something to ${user.firstName}`} />
+                    <input autoFocus type="text" onChange={this.handleChange} value={this.state.content} placeholder={currentUser.id === user.id ? "What's on your mind?" : `Write something to ${user.firstName}...`} />
                     {preview}
                     <div className="media">Add to Your Post
                         <input type="file" onChange={this.handleFile} id="file-post" hidden/>

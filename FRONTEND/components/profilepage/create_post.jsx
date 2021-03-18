@@ -8,7 +8,7 @@ export default ({user, createPostForm, currentUser}) => {
                 <div className="propic">
                     {currentUser.profilePic ? <img src={currentUser.profilePic} /> : <img src={window.defaultPropic} />}
                 </div>
-                <div onClick={() => createPostForm(user.id)} className="post-button">{currentUser.id === user.id ? "What's on your mind?" : `Write something to ${user.firstName}`}</div>
+                <div onClick={() => createPostForm(user.id)} className="post-button">{currentUser.id === user.id ? "What's on your mind?" : `Write something to ${user.firstName}...`}</div>
             </div>
             <div className="addphoto"></div>
         </div>

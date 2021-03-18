@@ -16,7 +16,7 @@ Comment.destroy_all
 
 demo = User.create(first_name: "Grogu", last_name: "Yoda", email: "player1", password: 'player1', birthday: 'Apr 1, 2020', gender: 'Male', bio: 'May the force be with you.', workplace: 'Jedi Temple', school: 'Jedi Academy', current_city: 'Coruscant')
 
-user1 = User.create(first_name: "Kobe", last_name: "Bryant", email: "kobe@bryant", password: 'password', birthday: 'Jan 26, 2020', gender: 'Male', bio: 'Laker Legend', workplace: 'Lakers', school: 'Lower Merion HS', current_city: 'Los Angelos')
+user1 = User.create(first_name: "Kobe", last_name: "Bryant", email: "kobe", password: 'password', birthday: 'Jan 26, 2020', gender: 'Male', bio: 'Laker Legend', workplace: 'Lakers', school: 'Lower Merion HS', current_city: 'Los Angelos')
 
 10.times do
     name = Faker::Movies::StarWars.unique.character
