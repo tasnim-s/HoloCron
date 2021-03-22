@@ -26,6 +26,6 @@ class Api::RequestsController < ApplicationController
     end
 
     def all_users
-      @users = User.all.includes(:posts, :friends, :likes)
+      @users = User.includes(:posts, :friends, :likes).find(request_params[:requester_id], request_params[:requestee_id])
     end
 end

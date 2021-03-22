@@ -434,9 +434,11 @@ var logout = function logout() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "RECEIVE_ALL_USERS": () => /* binding */ RECEIVE_ALL_USERS,
+/* harmony export */   "RECEIVE_CONNECTED_USERS": () => /* binding */ RECEIVE_CONNECTED_USERS,
 /* harmony export */   "RECEIVE_USER": () => /* binding */ RECEIVE_USER,
 /* harmony export */   "RECEIVE_USER_ERRORS": () => /* binding */ RECEIVE_USER_ERRORS,
 /* harmony export */   "receiveAllUsers": () => /* binding */ receiveAllUsers,
+/* harmony export */   "receiveConnectedUsers": () => /* binding */ receiveConnectedUsers,
 /* harmony export */   "receiveUser": () => /* binding */ receiveUser,
 /* harmony export */   "receiveUserErrors": () => /* binding */ receiveUserErrors,
 /* harmony export */   "fetchAllUsers": () => /* binding */ fetchAllUsers,
@@ -453,11 +455,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var RECEIVE_ALL_USERS = "RECEIVE_ALL_USERS";
+var RECEIVE_CONNECTED_USERS = "RECEIVE_CONNECTED_USERS";
 var RECEIVE_USER = "RECEIVE_USER";
 var RECEIVE_USER_ERRORS = "RECEIVE_USER_ERRORS";
 var receiveAllUsers = function receiveAllUsers(users) {
   return {
     type: RECEIVE_ALL_USERS,
+    users: users
+  };
+};
+var receiveConnectedUsers = function receiveConnectedUsers(users) {
+  return {
+    type: RECEIVE_CONNECTED_USERS,
     users: users
   };
 };
@@ -503,7 +512,7 @@ var updateUser = function updateUser(formData) {
 var sendRequest = function sendRequest(request) {
   return function (dispatch) {
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.sendRequest(request).then(function (users) {
-      return dispatch(receiveAllUsers(users));
+      return dispatch(receiveConnectedUsers(users));
     }, function (err) {
       return dispatch(receiveUserErrors(err.responseJSON));
     });
@@ -512,7 +521,7 @@ var sendRequest = function sendRequest(request) {
 var respondRequest = function respondRequest(request) {
   return function (dispatch) {
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.respondRequest(request).then(function (users) {
-      return dispatch(receiveAllUsers(users));
+      return dispatch(receiveConnectedUsers(users));
     }, function (err) {
       return dispatch(receiveUserErrors(err.responseJSON));
     });
@@ -521,7 +530,7 @@ var respondRequest = function respondRequest(request) {
 var removeFriendship = function removeFriendship(friendship) {
   return function (dispatch) {
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.destroyFriendship(friendship).then(function (users) {
-      return dispatch(receiveAllUsers(users));
+      return dispatch(receiveConnectedUsers(users));
     }, function (err) {
       return dispatch(receiveUserErrors(err.responseJSON));
     });
@@ -5387,6 +5396,9 @@ __webpack_require__.r(__webpack_exports__);
   switch (action.type) {
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_ALL_USERS:
       return action.users;
+
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CONNECTED_USERS:
+      return Object.assign(newState, action.users);
 
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_USER:
       newState[action.user.id] = action.user;

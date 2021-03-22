@@ -12,6 +12,6 @@ class Api::FriendshipsController < ApplicationController
     end
 
     def all_users
-        @users = User.all.includes(:posts, :friends, :likes)
+        @users = User.includes(:posts, :friends, :likes).find(friendship_params[:user_id], friendship_params[:friend_id])
     end
 end
