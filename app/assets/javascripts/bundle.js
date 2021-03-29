@@ -2043,7 +2043,7 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "nav-right"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
-          className: "name-pic",
+          className: page === "/profile/".concat(currentUser.id) ? "name-pic mypage" : "name-pic",
           to: "/profile/".concat(currentUser.id)
         }, currentUser.profilePic ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
           src: currentUser.profilePic

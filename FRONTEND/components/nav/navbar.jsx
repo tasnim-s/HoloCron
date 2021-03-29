@@ -62,7 +62,7 @@ class NavBar extends React.Component {
 
                 <div className="settings-link">
                     <div className="nav-right">
-                        <Link className='name-pic' to={`/profile/${currentUser.id}`}>
+                        <Link className={page === `/profile/${currentUser.id}` ? "name-pic mypage" : "name-pic"} to={`/profile/${currentUser.id}`}>
                             {currentUser.profilePic ? <img src={currentUser.profilePic} /> : <img src={window.defaultPropic} />}
                             <div className="display-name">{currentUser.firstName}</div>
                         </Link>
