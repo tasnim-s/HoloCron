@@ -9,6 +9,7 @@ import LoginFooter from './session_forms/login_footer';
 import Newsfeed from './newsfeed/newsfeed';
 import FriendsContainer from './friends/friends_container';
 
+
 export default () => (
     <div className="App">
         <Modal />
